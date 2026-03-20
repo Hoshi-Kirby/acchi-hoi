@@ -2,7 +2,7 @@
 import "./Pages.css";
 // import { useNavigate } from "react-router-dom";
 
-const Setup: React.FC = () => {
+export const Setup: React.FC = () => {
   const clickBack = () => {};
   return (
     <div className="game-container">

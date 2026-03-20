@@ -2,7 +2,7 @@
 import "./Pages.css";
 // import { useNavigate } from "react-router-dom";
 
-const Play: React.FC = () => {
+export const Play: React.FC = () => {
   return <></>;
 };
 
