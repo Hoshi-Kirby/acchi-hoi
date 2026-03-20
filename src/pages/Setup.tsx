@@ -23,8 +23,12 @@ const Setup: React.FC = () => {
   // 画面遷移処理
 
   const navigate = useNavigate();
-  const clickBack = () => { navigate("/") };
-  const clickStart = () => { navigate("/Play") };
+  const clickBack = () => {
+    navigate("/");
+  };
+  const clickStart = () => {
+    navigate(showingCharacter ? "/SetChara" : "/Play");
+  };
 
   // 変数の変動処理
   const decreaseNumber = () => {

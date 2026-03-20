@@ -14,7 +14,7 @@ export type GamePhase =
 export interface GameState {
   //設定
   showingCharacter: boolean; //キャラ表示か
-  isMaleCharacter: boolean; //男性キャラか
+  isMaleCharacter: boolean[]; //男性キャラか
   playerCount: number; //人数
   isPointSystem: boolean; //ポイント制か
 

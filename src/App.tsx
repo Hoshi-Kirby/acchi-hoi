@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Title from "./pages/Title";
 import Setup from "./pages/Setup";
+import SetChara from "./pages/SetChara";
 import Play from "./pages/Play";
 import Result from "./pages/Result";
 // import { useState } from "react";
@@ -17,6 +18,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<Title />} />
         <Route path="/Setup" element={<Setup />} />
+        <Route path="/SetChara" element={<SetChara />} />
         <Route path="/Play" element={<Play />} />
         <Route path="/Result" element={<Result />} />
         {/* 404ページ（どのパスにも一致しない場合） */}

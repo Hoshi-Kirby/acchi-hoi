@@ -118,6 +118,28 @@ body,
   background-color: #636363; /* 押した瞬間の色 */
 }
 
+/* SetChara */
+.set-chara-text {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  color: black;
+}
+.chara-content {
+  position: absolute;
+  gap: 100px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+}
+.chara-packet {
+  gap: 50px;
+  display: flex;
+  color: black;
+}
 /* Play */
 /* Result */
 .result-text {
