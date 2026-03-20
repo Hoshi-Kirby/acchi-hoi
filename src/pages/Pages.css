@@ -23,7 +23,9 @@ body,
   background-position: center;
   background-repeat: no-repeat;
 }
+
 /* Title */
+
 .title-title {
   position: absolute;
   top: 30%;
@@ -43,29 +45,108 @@ body,
   padding: 10px 80px;
   color: rgb(255, 255, 255); /* 文字の色 */
 }
-button:hover {
+.title-start-button:hover {
   background-color: #252525;
 }
-button:active {
+.title-start-button:active {
   background-color: #636363; /* 押した瞬間の色 */
 }
 
 /* Setup */
-.setup-text1 {
+
+.setup1 {
   position: absolute;
+  gap: 80px;
+  display: flex;
   top: 20%;
-  left: 30%;
+  left: 50%;
   transform: translate(-50%, -50%);
   font-size: 48px;
   color: black;
 }
-.setup-text2 {
+.setup2 {
   position: absolute;
-  top: 50%;
-  left: 30%;
+  gap: 20px;
+  display: flex;
+  top: 40%;
+  left: 50%;
   transform: translate(-50%, -50%);
   font-size: 48px;
   color: black;
 }
+.setup3 {
+  position: absolute;
+  gap: 20px;
+  display: flex;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  color: black;
+}
+.back-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgb(255, 255, 255); /* ボタンの色 */
+  border: 2px solid #aaaaaa; /* 縁の色 */
+  font-size: 25px;
+  padding: 2px 10px;
+  color: rgb(0, 0, 0); /* 文字の色 */
+}
+.back-button:hover {
+  background-color: #dbdbdb;
+}
+.back-button:active {
+  background-color: #a6a6a6; /* 押した瞬間の色 */
+}
+.setup-start-button {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  background-color: rgb(0, 0, 0); /* ボタンの色 */
+  border: 2px solid #ffffff; /* 縁の色 */
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  padding: 10px 80px;
+  color: rgb(255, 255, 255); /* 文字の色 */
+}
+.setup-start-button:hover {
+  background-color: #252525;
+}
+.setup-start-button:active {
+  background-color: #636363; /* 押した瞬間の色 */
+}
+
 /* Play */
 /* Result */
+.result-text {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  color: black;
+}
+.result-buttons {
+  position: absolute;
+  gap: 100px;
+  display: flex;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.result-button {
+  background-color: rgb(55, 155, 191); /* ボタンの色 */
+  border: 2px solid #ffffff; /* 縁の色 */
+  font-size: 20px;
+  padding: 10px 20px;
+  color: rgb(255, 255, 255); /* 文字の色 */
+}
+
+.result-button:hover {
+  background-color: #7ed6e5;
+}
+.result-button:active {
+  background-color: #ffffff; /* 押した瞬間の色 */
+}
