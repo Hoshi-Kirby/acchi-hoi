@@ -20,6 +20,7 @@ const Setup: React.FC = () => {
   const setIsPointSystem = useGameStore((state) => state.setIsPointSystem);
 
   // 画面遷移処理
+
   const clickBack = () => {};
   const clickStart = () => {};
 
