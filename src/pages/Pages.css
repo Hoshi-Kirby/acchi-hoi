@@ -1,6 +1,7 @@
 /* all */
 html,
-body {
+body,
+#root {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -24,8 +25,47 @@ body {
 }
 /* Title */
 .title-title {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
   color: black;
 }
+.title-start-button {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  background-color: rgb(0, 0, 0); /* ボタンの色 */
+  border: 2px solid #ffffff; /* 縁の色 */
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  padding: 10px 80px;
+  color: rgb(255, 255, 255); /* 文字の色 */
+}
+button:hover {
+  background-color: #252525;
+}
+button:active {
+  background-color: #636363; /* 押した瞬間の色 */
+}
+
 /* Setup */
+.setup-text1 {
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  color: black;
+}
+.setup-text2 {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  color: black;
+}
 /* Play */
 /* Result */

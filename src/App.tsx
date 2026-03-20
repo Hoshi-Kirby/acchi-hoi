@@ -4,12 +4,13 @@
 // import heroImg from "./assets/hero.png";
 import "./App.css";
 import Title from "./pages/Title.tsx";
+import Setup from "./pages/Setup.tsx";
 
 function App() {
   return (
     <>
       <div>
-        <Title />
+        <Setup />
       </div>
 
       {/* <section id="center">
