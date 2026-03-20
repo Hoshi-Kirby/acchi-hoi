@@ -129,16 +129,33 @@ body,
 }
 .chara-content {
   position: absolute;
-  gap: 100px;
+  gap: 80px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
 }
-.chara-packet {
+.chara-packet-content {
   gap: 50px;
   display: flex;
+  flex-direction: column;
   color: black;
+}
+.iplayer {
+  font-size: 30px;
+}
+.chara-packet {
+  gap: 50px;
+  align-items: center;
+  display: flex;
+  color: black;
+}
+.triangle {
+  font-size: 48px;
+}
+.image {
+  width: 50px;
+  height: auto;
 }
 /* Play */
 /* Result */

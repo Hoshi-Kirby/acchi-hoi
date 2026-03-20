@@ -4,6 +4,7 @@ type gameState = {
   playerCount: number;
   showingCharacter: boolean;
   isPointSystem: boolean;
+  isMaleCharacter: boolean[];
   scores: number[]; //ポイント
   lives: number[]; //残機
   increasePlayerCount: () => void;
@@ -11,6 +12,7 @@ type gameState = {
   setPlayerCount: (c: number) => void;
   setShowingCharacter: (c: boolean) => void;
   setIsPointSystem: (c: boolean) => void;
+  setIsMaleCharacter: (index: number, value: boolean) => void;
   increaseScore: (index: number) => void;
   decreaseScore: (index: number) => void;
   setScore: (index: number, value: number) => void;
@@ -35,6 +37,15 @@ export const useGameStore = create<gameState>((set) => ({
   // ポイント制か否か
   isPointSystem: true,
   setIsPointSystem: (c: boolean) => set({ isPointSystem: c }),
+
+  // 性別
+  isMaleCharacter: [true, true, true, true],
+  setIsMaleCharacter: (index: number, value: boolean) =>
+    set((state) => ({
+      isMaleCharacter: state.isMaleCharacter.map((s, i) =>
+        i === index ? value : s,
+      ),
+    })),
 
   //  スコア
   scores: [0, 0, 0, 0],

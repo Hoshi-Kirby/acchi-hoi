@@ -3,11 +3,22 @@ import "./Pages.css";
 // import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../zustand";
 import { useNavigate } from "react-router-dom";
+import p1w from "../assets/p1wN.png";
+import p1m from "../assets/p1mN.png";
+import p2w from "../assets/p1wN.png";
+import p2m from "../assets/p1mN.png";
+import p3w from "../assets/p1wN.png";
+import p3m from "../assets/p1mN.png";
+import p4w from "../assets/p1wN.png";
+import p4m from "../assets/p1mN.png";
+const pnw = [p1w, p2w, p3w, p4w];
+const pnm = [p1m, p2m, p3m, p4m];
 
 const SetChara: React.FC = () => {
   // グローバル変数
   const playerCount = useGameStore((state) => state.playerCount);
-
+  const isMaleCharacter = useGameStore((state) => state.isMaleCharacter);
+  const setIsMaleCharacter = useGameStore((state) => state.setIsMaleCharacter);
   // 画面遷移処理
 
   const navigate = useNavigate();
@@ -20,10 +31,10 @@ const SetChara: React.FC = () => {
 
   // 変数の変動処理
   const clickLeft = (n: number) => {
-    n;
+    setIsMaleCharacter(n - 1, true);
   };
   const clickRight = (n: number) => {
-    n;
+    setIsMaleCharacter(n - 1, false);
   };
   return (
     <div className="game-container">
@@ -31,9 +42,20 @@ const SetChara: React.FC = () => {
       <div className="set-chara-text">キャラ選択</div>
       <div className="chara-content">
         {Array.from({ length: playerCount }).map((_, i) => (
-          <div className="chara-packet">
-            <div onClick={() => clickLeft(i + 1)}>◀</div>
-            <div onClick={() => clickRight(i + 1)}>▶</div>
+          <div className="chara-packet-content" key={i}>
+            <div className="chara-packet">
+              <div className="triangle" onClick={() => clickLeft(i + 1)}>
+                ◀
+              </div>
+              <img
+                src={isMaleCharacter[i] ? pnw[i] : pnm[i]}
+                className="image"
+              />
+              <div className="triangle" onClick={() => clickRight(i + 1)}>
+                ▶
+              </div>
+            </div>
+            <div className="iplayer">{i + 1}p</div>
           </div>
         ))}
       </div>
