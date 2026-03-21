@@ -281,6 +281,17 @@ body,
   font-size: 48px;
   color: black;
 }
+.result-table {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  font-size: 48px;
+  color: black;
+}
+.result-packet {
+  padding: 15px;
+}
 .result-buttons {
   position: absolute;
   gap: 126px;
@@ -288,12 +299,13 @@ body,
   top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: auto;
 }
 .result-button {
   background-color: rgb(55, 155, 191); /* ボタンの色 */
   border: 2px solid #ffffff; /* 縁の色 */
   font-size: 20px;
-  padding: 10px 20px;
+  padding: 10px 10px;
   color: rgb(255, 255, 255); /* 文字の色 */
 }
 
