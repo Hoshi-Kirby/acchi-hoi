@@ -154,10 +154,124 @@ body,
   font-size: 48px;
 }
 .image {
-  width: 50px;
+  image-rendering: pixelated;
+  width: 63px;
   height: auto;
 }
 /* Play */
+.menu-button {
+  position: absolute;
+  image-rendering: pixelated;
+  top: 20px;
+  left: 20px;
+  width: 60px;
+  height: auto;
+}
+
+/* 背景オーバーレイ */
+.overlay {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 と同じ */
+  background: rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  justify-content: center; /* 横方向中央 */
+  align-items: center; /* 縦方向中央 */
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 画像＋ボタンのラッパー */
+.menuWrapper {
+  position: relative;
+  transform: scale(0.8);
+  opacity: 0;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* 開いたら中央で拡大 */
+.overlay.open .menuWrapper {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* 画像サイズ */
+.menuImage {
+  width: 80vw; /* 画面幅の90% */
+  max-width: none; /* max-width制限を解除 */
+  height: auto;
+}
+
+.menu-text {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 96px;
+  color: rgb(255, 255, 255);
+}
+
+/* 画像上のボタン */
+.menuButton {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.menuButton {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.button-inmenu {
+  background-color: rgb(0, 0, 0); /* ボタンの色 */
+  border: 2px solid #ffffff; /* 縁の色 */
+  font-size: 20px;
+  padding: 10px 50px;
+  color: rgb(255, 255, 255); /* 文字の色 */
+}
+
+.button-inmenu:hover {
+  background-color: #202020;
+}
+.button-inmenu:active {
+  background-color: #858585; /* 押した瞬間の色 */
+}
+
+.play-chara-content {
+  position: absolute;
+  gap: 120px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+}
+.play-chara-packet-content {
+  gap: 50px;
+  display: flex;
+  flex-direction: column;
+  color: black;
+}
+.play-image {
+  image-rendering: pixelated;
+  width: 100px;
+  height: auto;
+}
+
 /* Result */
 .result-text {
   position: absolute;
@@ -169,7 +283,7 @@ body,
 }
 .result-buttons {
   position: absolute;
-  gap: 100px;
+  gap: 126px;
   display: flex;
   top: 80%;
   left: 50%;
