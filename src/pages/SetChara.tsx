@@ -5,12 +5,12 @@ import { useGameStore } from "../zustand";
 import { useNavigate } from "react-router-dom";
 import p1w from "../assets/p1wN.png";
 import p1m from "../assets/p1mN.png";
-import p2w from "../assets/p1wN.png";
-import p2m from "../assets/p1mN.png";
-import p3w from "../assets/p1wN.png";
-import p3m from "../assets/p1mN.png";
-import p4w from "../assets/p1wN.png";
-import p4m from "../assets/p1mN.png";
+import p2w from "../assets/p2wN.png";
+import p2m from "../assets/p2mN.png";
+import p3w from "../assets/p3wN.png";
+import p3m from "../assets/p3mN.png";
+import p4w from "../assets/p4wN.png";
+import p4m from "../assets/p4mN.png";
 const pnw = [p1w, p2w, p3w, p4w];
 const pnm = [p1m, p2m, p3m, p4m];
 
