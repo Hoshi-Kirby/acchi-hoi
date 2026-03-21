@@ -18,7 +18,11 @@ const pnm = [p1m, p2m, p3m, p4m];
 const Play: React.FC = () => {
   const playerCount = useGameStore((state) => state.playerCount);
   const isMaleCharacter = useGameStore((state) => state.isMaleCharacter);
-
+  const [round, setround] = useState<number>(1); //ゲームのラウンド
+  const [isarrow, setisarrow] = useState<boolean>(false); //矢印の表示
+  const [timer, settimer] = useState<number>(3); //カウント
+  const [istimer, setistimer] = useState<boolean>(true); //カウントの表示
+  const [count_speed, setcount_speed] = useState<number>(1000); //カウントの時間間隔
   const [isMenu, setIsMenu] = useState<boolean>(false);
 
   const clickMenu = () => {
@@ -38,6 +42,32 @@ const Play: React.FC = () => {
   const GotoTitle = () => {
     navigate("/");
   };
+  //時間関連の処理を隔離
+  setcount_speed(round < 20 ? 900 - round * 40 : count_speed);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      //timerが有効な間は3,2,1,0の順で変化する
+      settimer(timer - 1); //timerが0になったら、timerを停止して4に戻す
+      if (timer === 0 && istimer) {
+        settimer(3);
+        //矢印表示
+        setisarrow(true);
+        setistimer(false);
+      }
+      if (timer === 0 && !istimer && isarrow) {
+        settimer(1);
+        //判定開始
+        setisarrow(false);
+      }
+      if (timer === 0 && !istimer && !isarrow) {
+        settimer(3);
+        setround(round + 1);
+        clearInterval(intervalId);
+      }
+      return () => clearInterval(intervalId);
+    }, count_speed);
+  }, [count_speed]);
 
   return (
     <div className="game-container">
