@@ -4,6 +4,7 @@ export type Direction = "up" | "down" | "left" | "right" | "center" | null;
 
 type gameState = {
   playerCount: number;
+  round: number; //ラウンド
   showingCharacter: boolean;
   isPointSystem: boolean;
   isMaleCharacter: boolean[];
@@ -14,6 +15,9 @@ type gameState = {
   increasePlayerCount: () => void;
   decreasePlayerCount: () => void;
   setPlayerCount: (c: number) => void;
+  increaseRound: () => void;
+  decreaseRound: () => void;
+  setRound: (c: number) => void;
   setShowingCharacter: (c: boolean) => void;
   setIsPointSystem: (c: boolean) => void;
   setIsMaleCharacter: (index: number, value: boolean) => void;
@@ -35,6 +39,12 @@ export const useGameStore = create<gameState>((set) => ({
   decreasePlayerCount: () =>
     set((state) => ({ playerCount: state.playerCount - 1 })), //変数に-1
   setPlayerCount: (c: number) => set({ playerCount: c }), //変数に代入
+
+  // プレイヤー人数
+  round: 1,
+  increaseRound: () => set((state) => ({ round: state.round + 1 })), //変数に+1
+  decreaseRound: () => set((state) => ({ round: state.round - 1 })), //変数に-1
+  setRound: (c: number) => set({ round: c }), //変数に代入
 
   // キャラクターを画面に表示するか否か
   showingCharacter: true,
