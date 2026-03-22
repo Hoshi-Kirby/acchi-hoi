@@ -88,7 +88,7 @@ const Play = () => {
         {Array.from({ length: playerCount }).map((_, i) => (
           <div className="play-chara-packet-content" key={i}>
             <img
-              src={isMaleCharacter[i] ? pnw[i] : pnm[i]}
+              src={isMaleCharacter[i] ? pnm[i] : pnw[i]}
               className="play-image"
             />
           </div>
