@@ -48,7 +48,7 @@ const SetChara: React.FC = () => {
                 ◀
               </div>
               <img
-                src={isMaleCharacter[i] ? pnw[i] : pnm[i]}
+                src={isMaleCharacter[i] ? pnm[i] : pnw[i]}
                 className="image"
               />
               <div className="triangle" onClick={() => clickRight(i + 1)}>
