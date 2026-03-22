@@ -303,3 +303,72 @@ body,
 .result-button:active {
   background-color: #ffffff; /* 押した瞬間の色 */
 }
+
+/* 判定表示エリアのスタイル */
+.judge-display-area {
+  position: absolute; /*親要素(game-container)に対して絶対位置 */
+  bottom: 50px; /*画面の下から50pxの位置 */
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center; /* 横方向の中央寄せ */
+  z-index: 10; /*キャラクターより手前に表示*/
+  pointer-events: none; /* 下の要素のクリックを邪魔したくない場合 */
+}
+.count {
+  position: absolute; /*親要素(game-container)に対して絶対位置 */
+  bottom: 50px; /*画面の下から50pxの位置 */
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center; /* 横方向の中央寄せ */
+  z-index: 10; /*キャラクターより手前に表示*/
+  pointer-events: none; /* 下の要素のクリックを邪魔したくない場合 */
+}
+
+.arrow_up {
+  position: absolute; /*親要素(game-container)に対して絶対位置 */
+  top: 50px; /*画面の下から50pxの位置 */
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center; /* 横方向の中央寄せ */
+  z-index: 10; /*キャラクターより手前に表示*/
+  pointer-events: none; /* 下の要素のクリックを邪魔したくない場合 */
+}
+.arrow_down {
+  position: absolute; /*親要素(game-container)に対して絶対位置 */
+  bottom: 50px; /*画面の下から50pxの位置 */
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center; /* 横方向の中央寄せ */
+  z-index: 10; /*キャラクターより手前に表示*/
+  pointer-events: none; /* 下の要素のクリックを邪魔したくない場合 */
+}
+.arrow_right {
+  position: absolute; /* 親要素(game-container)に対して絶対位置 */
+  top: 50%; /* 画面の上下中央に配置したい場合 */
+  transform: translateY(-50%); /* 上下中央寄せの補正 */
+
+  right: 20px; /* 画面の右端から20pxの位置に固定 */
+
+  /* display: flex は中身の画像を並べるなら残してOK */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 10;
+  pointer-events: none;
+}
+.arrow_left {
+  position: absolute; /*親要素(game-container)に対して絶対位置 */
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+
+  display: flex;
+  align-items: center; /* 横方向の中央寄せ */
+  z-index: 10; /*キャラクターより手前に表示*/
+  pointer-events: none; /* 下の要素のクリックを邪魔したくない場合 */
+}

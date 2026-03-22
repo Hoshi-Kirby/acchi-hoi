@@ -31,7 +31,7 @@ export const Judge: React.FC = () => {
     console.log(scores);
   }, []);
 
-  return <></>;
+  return <h1>hello</h1>;
 };
 
 export default Judge;

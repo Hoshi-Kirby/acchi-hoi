@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Pages.css";
 import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../zustand";
+import Judge from "../features/game/utils/judge";
 import p1w from "../assets/p1wN.png";
 import p1m from "../assets/p1mN.png";
 import p2w from "../assets/p2wN.png";
@@ -10,18 +11,21 @@ import p3w from "../assets/p3wN.png";
 import p3m from "../assets/p3mN.png";
 import p4w from "../assets/p4wN.png";
 import p4m from "../assets/p4mN.png";
-import menuButton from "../assets/menuButton.png";
-import menuFrame from "../assets/menuFrame.png";
+import menuButton from "../assets/hero.png"; //応急処置
+import menuFrame from "../assets/hero.png";
+// import useGameLoop from "../features/game/hooks/useGameLoop";
 const pnw = [p1w, p2w, p3w, p4w];
 const pnm = [p1m, p2m, p3m, p4m];
 
-const Play: React.FC = () => {
+const Play = () => {
+  const currentDirections = useGameStore((state) => state.currentDirections);
   const playerCount = useGameStore((state) => state.playerCount);
   const isMaleCharacter = useGameStore((state) => state.isMaleCharacter);
   const [round, setround] = useState<number>(1); //ゲームのラウンド
-  const [isarrow, setisarrow] = useState<boolean>(false); //矢印の表示
-  const [timer, settimer] = useState<number>(3); //カウント
-  const [istimer, setistimer] = useState<boolean>(true); //カウントの表示
+  const [timer, settimer] = useState<number>(0); //カウント
+  const [gamePhase, setgamePhase] = useState<"waiting" | "arrow" | "judging">(
+    "waiting",
+  );
   const [count_speed, setcount_speed] = useState<number>(1000); //カウントの時間間隔
   const [isMenu, setIsMenu] = useState<boolean>(false);
 
@@ -42,32 +46,39 @@ const Play: React.FC = () => {
   const GotoTitle = () => {
     navigate("/");
   };
+
+  // useGameLoop(round); //ここで矢印の方向を作る関数を呼び出す
+
   //時間関連の処理を隔離
-  setcount_speed(round < 20 ? 900 - round * 40 : count_speed);
 
   useEffect(() => {
+    setcount_speed(100 - round * 0); //テスト中
+    if (timer === 4) {
+      setgamePhase("arrow");
+      console.log("arrow");
+    }
+    if (timer === 8) {
+      setgamePhase("judging");
+      console.log("judging");
+    }
+    if (timer === 10) {
+      setgamePhase("waiting");
+      console.log("waiting");
+      settimer(0);
+      setround((round) => round + 1);
+      setcount_speed(round < 20 ? 900 - round * 40 : 100);
+    }
+  }, [timer, gamePhase, round]);
+
+  useEffect(() => {
+    //メニューを開いたとき以外はタイマーを動かし続ける
     const intervalId = setInterval(() => {
-      //timerが有効な間は3,2,1,0の順で変化する
-      settimer(timer - 1); //timerが0になったら、timerを停止して4に戻す
-      if (timer === 0 && istimer) {
-        settimer(3);
-        //矢印表示
-        setisarrow(true);
-        setistimer(false);
+      if (!isMenu) {
+        settimer((prev) => prev + 1);
       }
-      if (timer === 0 && !istimer && isarrow) {
-        settimer(1);
-        //判定開始
-        setisarrow(false);
-      }
-      if (timer === 0 && !istimer && !isarrow) {
-        settimer(3);
-        setround(round + 1);
-        clearInterval(intervalId);
-      }
-      return () => clearInterval(intervalId);
     }, count_speed);
-  }, [count_speed]);
+    return () => clearInterval(intervalId);
+  }, [count_speed, isMenu]);
 
   return (
     <div className="game-container">
@@ -82,6 +93,32 @@ const Play: React.FC = () => {
             />
           </div>
         ))}
+      </div>
+      <div className="judge-display-area">
+        {gamePhase === "judging" && <Judge />}
+      </div>
+      <div className="arrow_up">
+        {gamePhase === "arrow" && (
+          <img src={currentDirections[0] + "_arrow"} alt="うえ" />
+        )}
+      </div>
+      <div className="arrow_right">
+        {gamePhase === "arrow" && (
+          <img src={currentDirections[1] + "_arrow"} alt="みぎ" />
+        )}
+      </div>
+      <div className="arrow_down">
+        {gamePhase === "arrow" && (
+          <img src={currentDirections[2] + "_arrow"} alt="した" />
+        )}
+      </div>
+      <div className="arrow_left">
+        {gamePhase === "arrow" && (
+          <img src={currentDirections[3] + "_arrow"} alt="ひだり" />
+        )}
+      </div>
+      <div className="count">
+        {gamePhase === "waiting" && timer !== 4 && <>{3 - timer}</>}
       </div>
       <div className={`overlay ${isMenu ? "open" : ""}`}>
         <div className="menuWrapper">
