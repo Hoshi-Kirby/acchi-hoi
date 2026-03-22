@@ -11,8 +11,8 @@ import p3w from "../assets/p3wN.png";
 import p3m from "../assets/p3mN.png";
 import p4w from "../assets/p4wN.png";
 import p4m from "../assets/p4mN.png";
-import menuButton from "../assets/hero.png"; //応急処置
-import menuFrame from "../assets/hero.png";
+import menuButton from "../assets/menuButton.png"; //応急処置
+import menuFrame from "../assets/menuFrame.png";
 // import useGameLoop from "../features/game/hooks/useGameLoop";
 const pnw = [p1w, p2w, p3w, p4w];
 const pnm = [p1m, p2m, p3m, p4m];
