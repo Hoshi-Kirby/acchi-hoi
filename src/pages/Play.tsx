@@ -52,7 +52,7 @@ const Play = () => {
   //時間関連の処理を隔離
 
   useEffect(() => {
-    setcount_speed(100 - round * 0); //テスト中
+    setcount_speed(750 - round * 30); //テスト中
     if (timer === 4) {
       setgamePhase("arrow");
       console.log("arrow");
@@ -66,7 +66,7 @@ const Play = () => {
       console.log("waiting");
       settimer(0);
       setround((round) => round + 1);
-      setcount_speed(round < 20 ? 900 - round * 40 : 100);
+      setcount_speed(round < 20 ? 600 - round * 30 : 100);
     }
   }, [timer, gamePhase, round]);
 
