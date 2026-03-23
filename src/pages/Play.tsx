@@ -50,16 +50,21 @@ const Play = () => {
 
   const navigate = useNavigate();
   const clickContinue = () => {
+    settimer(10);
     setIsMenu(false);
   };
   const clickStart = () => {
+    setgamePhase("waiting");
+    settimer(0);
     setRound(0);
     setIsMenu(false);
   };
   const GotoSetting = () => {
+    settimer(0);
     navigate("/Setup");
   };
   const GotoTitle = () => {
+    settimer(0);
     navigate("/");
   };
 
