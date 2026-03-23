@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Pages.css";
 import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../zustand";
@@ -11,11 +11,24 @@ import p3w from "../assets/p3wN.png";
 import p3m from "../assets/p3mN.png";
 import p4w from "../assets/p4wN.png";
 import p4m from "../assets/p4mN.png";
+import up_arrow from "../assets/up_arrow.png";
+import down_arrow from "../assets/down_arrow.png";
+import left_arrow from "../assets/left_arrow.png";
+import right_arrow from "../assets/right_arrow.png";
 import menuButton from "../assets/menuButton.png";
 import menuFrame from "../assets/menuFrame.png";
+import kaSound from "../assets/ka.mp3";
+import kanSound from "../assets/kan.mp3";
 import { useGameLoop } from "../features/game/hooks/useGameLoop";
 const pnw = [p1w, p2w, p3w, p4w];
 const pnm = [p1m, p2m, p3m, p4m];
+const arrowImages = {
+  up: up_arrow,
+  down: down_arrow,
+  left: left_arrow,
+  right: right_arrow,
+  center: p1w,
+};
 
 const Play = () => {
   const currentDirections = useGameStore((state) => state.currentDirections);
@@ -51,8 +64,40 @@ const Play = () => {
   useGameLoop(); //ここで矢印の方向を作る関数を呼び出す
 
   //時間関連の処理を隔離
+  const audioRefKa = useRef<HTMLAudioElement | null>(null);
+  const audioRefKan = useRef<HTMLAudioElement | null>(null);
+
+  const playSoundKa = () => {
+    if (!audioRefKa.current) {
+      audioRefKa.current = new Audio(kaSound);
+    }
+    audioRefKa.current.currentTime = 0;
+    audioRefKa.current.playbackRate = 1.0;
+    audioRefKa.current.play();
+  };
+  const playSoundKan = () => {
+    if (!audioRefKan.current) {
+      audioRefKan.current = new Audio(kanSound);
+    }
+    audioRefKan.current.currentTime = 0;
+    audioRefKan.current.play();
+  };
 
   useEffect(() => {
+    setcount_speed(750 - round * 30);
+    if (
+      timer === 0 ||
+      timer === 1 ||
+      timer === 2 ||
+      timer === 4 ||
+      timer === 5 ||
+      timer === 6
+    ) {
+      playSoundKa();
+    }
+    if (timer === 3 || timer === 7) {
+      playSoundKan();
+    }
     if (timer === 4) {
       setgamePhase("arrow");
       console.log("arrow");
@@ -98,23 +143,23 @@ const Play = () => {
         {gamePhase === "judging" && <Judge />}
       </div>
       <div className="arrow_up">
-        {gamePhase === "arrow" && (
-          <img src={currentDirections[0] + "_arrow"} alt="うえ" />
+        {gamePhase === "arrow" && currentDirections[0] !== null && (
+          <img src={arrowImages[currentDirections[0]]} alt="うえ" />
         )}
       </div>
       <div className="arrow_right">
-        {gamePhase === "arrow" && (
-          <img src={currentDirections[1] + "_arrow"} alt="みぎ" />
+        {gamePhase === "arrow" && currentDirections[1] !== null && (
+          <img src={arrowImages[currentDirections[1]]} alt="みぎ" />
         )}
       </div>
       <div className="arrow_down">
-        {gamePhase === "arrow" && (
-          <img src={currentDirections[2] + "_arrow"} alt="した" />
+        {gamePhase === "arrow" && currentDirections[2] !== null && (
+          <img src={arrowImages[currentDirections[2]]} alt="した" />
         )}
       </div>
       <div className="arrow_left">
-        {gamePhase === "arrow" && (
-          <img src={currentDirections[3] + "_arrow"} alt="ひだり" />
+        {gamePhase === "arrow" && currentDirections[3] !== null && (
+          <img src={arrowImages[currentDirections[3]]} alt="ひだり" />
         )}
       </div>
       <div className="count">

@@ -6,7 +6,9 @@ import { useGameStore } from "../../../zustand";
 
 export const useGameLoop = () => {
   const round = useGameStore((state) => state.round);
-  const currentDirections = useGameStore((state) => state.currentDirections);
+  const setCurrentDirections = useGameStore(
+    (state) => state.setCurrentDirections,
+  );
   // const increaseRound = useGameStore((state) => state.increaseRound);
   // const decreaseRound = useGameStore((state) => state.decreaseRound);
   // const setRound = useGameStore((state) => state.setRound);
@@ -44,6 +46,10 @@ export const useGameLoop = () => {
     const combined = [...selectedDirections, ...nulls];
 
     const currentDirections = shuffle(combined);
+    // setCurrentDirections(0, currentDirections[0]);
+    // setCurrentDirections(1, currentDirections[1]);
+    // setCurrentDirections(2, currentDirections[2]);
+    // setCurrentDirections(3, currentDirections[3]);
 
     console.log("currentDirections", currentDirections);
   }, []);
