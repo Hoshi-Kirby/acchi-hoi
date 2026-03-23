@@ -168,6 +168,10 @@ body,
   width: 60px;
   height: auto;
 }
+.arroww {
+  image-rendering: pixelated;
+  width: 100px;
+}
 
 /* 背景オーバーレイ */
 .overlay {

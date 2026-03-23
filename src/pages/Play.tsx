@@ -36,6 +36,7 @@ const Play = () => {
   const isMaleCharacter = useGameStore((state) => state.isMaleCharacter);
   const round: number = useGameStore((state) => state.round); //ゲームのラウンド
   const increaseRound = useGameStore((state) => state.increaseRound);
+  const setRound = useGameStore((state) => state.setRound);
   const [timer, settimer] = useState<number>(0); //カウント
   const [gamePhase, setgamePhase] = useState<"waiting" | "arrow" | "judging">(
     "waiting",
@@ -52,6 +53,7 @@ const Play = () => {
     setIsMenu(false);
   };
   const clickStart = () => {
+    setRound(0);
     setIsMenu(false);
   };
   const GotoSetting = () => {
@@ -84,7 +86,6 @@ const Play = () => {
   };
 
   useEffect(() => {
-    setcount_speed(750 - round * 30);
     if (
       timer === 0 ||
       timer === 1 ||
@@ -144,22 +145,38 @@ const Play = () => {
       </div>
       <div className="arrow_up">
         {gamePhase === "arrow" && currentDirections[0] !== null && (
-          <img src={arrowImages[currentDirections[0]]} alt="うえ" />
+          <img
+            className="arroww"
+            src={arrowImages[currentDirections[0]]}
+            alt="うえ"
+          />
         )}
       </div>
       <div className="arrow_right">
         {gamePhase === "arrow" && currentDirections[1] !== null && (
-          <img src={arrowImages[currentDirections[1]]} alt="みぎ" />
+          <img
+            className="arroww"
+            src={arrowImages[currentDirections[1]]}
+            alt="みぎ"
+          />
         )}
       </div>
       <div className="arrow_down">
         {gamePhase === "arrow" && currentDirections[2] !== null && (
-          <img src={arrowImages[currentDirections[2]]} alt="した" />
+          <img
+            className="arroww"
+            src={arrowImages[currentDirections[2]]}
+            alt="した"
+          />
         )}
       </div>
       <div className="arrow_left">
         {gamePhase === "arrow" && currentDirections[3] !== null && (
-          <img src={arrowImages[currentDirections[3]]} alt="ひだり" />
+          <img
+            className="arroww"
+            src={arrowImages[currentDirections[3]]}
+            alt="ひだり"
+          />
         )}
       </div>
       <div className="count">

@@ -46,11 +46,11 @@ export const useGameLoop = () => {
     const combined = [...selectedDirections, ...nulls];
 
     const currentDirections = shuffle(combined);
-    // setCurrentDirections(0, currentDirections[0]);
-    // setCurrentDirections(1, currentDirections[1]);
-    // setCurrentDirections(2, currentDirections[2]);
-    // setCurrentDirections(3, currentDirections[3]);
+    setCurrentDirections(0, currentDirections[0]);
+    setCurrentDirections(1, currentDirections[1]);
+    setCurrentDirections(2, currentDirections[2]);
+    setCurrentDirections(3, currentDirections[3]);
 
     console.log("currentDirections", currentDirections);
-  }, []);
+  }, [round]);
 };
