@@ -86,6 +86,7 @@ const Play = () => {
   };
 
   useEffect(() => {
+    setcount_speed(Math.max(600 - round * 30, 375));
     if (
       timer === 0 ||
       timer === 1 ||
@@ -112,7 +113,6 @@ const Play = () => {
       console.log("waiting");
       settimer(0);
       increaseRound();
-      setcount_speed(Math.max(600 - round * 30, 375));
     }
   }, [timer, gamePhase, round]);
 
@@ -143,42 +143,87 @@ const Play = () => {
       <div className="judge-display-area">
         {gamePhase === "judging" && <Judge />}
       </div>
-      <div className="arrow_up">
-        {gamePhase === "arrow" && currentDirections[0] !== null && (
-          <img
-            className="arroww"
-            src={arrowImages[currentDirections[0]]}
-            alt="うえ"
-          />
-        )}
-      </div>
-      <div className="arrow_right">
-        {gamePhase === "arrow" && currentDirections[1] !== null && (
-          <img
-            className="arroww"
-            src={arrowImages[currentDirections[1]]}
-            alt="みぎ"
-          />
-        )}
-      </div>
-      <div className="arrow_down">
-        {gamePhase === "arrow" && currentDirections[2] !== null && (
-          <img
-            className="arroww"
-            src={arrowImages[currentDirections[2]]}
-            alt="した"
-          />
-        )}
-      </div>
-      <div className="arrow_left">
-        {gamePhase === "arrow" && currentDirections[3] !== null && (
-          <img
-            className="arroww"
-            src={arrowImages[currentDirections[3]]}
-            alt="ひだり"
-          />
-        )}
-      </div>
+      {gamePhase === "arrow" && !isMenu && (
+        <>
+          <div className="arrow_up">
+            {currentDirections[0] !== null && (
+              <img
+                className="arroww"
+                src={arrowImages[currentDirections[0]]}
+                alt="うえ"
+              />
+            )}
+          </div>
+          <div className="arrow_right">
+            {currentDirections[1] !== null && (
+              <img
+                className="arroww"
+                src={arrowImages[currentDirections[1]]}
+                alt="みぎ"
+              />
+            )}
+          </div>
+          <div className="arrow_down">
+            {currentDirections[2] !== null && (
+              <img
+                className="arroww"
+                src={arrowImages[currentDirections[2]]}
+                alt="した"
+              />
+            )}
+          </div>
+          <div className="arrow_left">
+            {currentDirections[3] !== null && (
+              <img
+                className="arroww"
+                src={arrowImages[currentDirections[3]]}
+                alt="ひだり"
+              />
+            )}
+          </div>
+          {round > 12 && (
+            <>
+              <div className="arrow_upleft">
+                {currentDirections[4] !== null && (
+                  <img
+                    className="arroww"
+                    src={arrowImages[currentDirections[4]]}
+                    alt="うえ"
+                  />
+                )}
+              </div>
+              <div className="arrow_upright">
+                {currentDirections[5] !== null && (
+                  <img
+                    className="arroww"
+                    src={arrowImages[currentDirections[5]]}
+                    alt="みぎ"
+                  />
+                )}
+              </div>
+              <div className="arrow_downleft">
+                {currentDirections[6] !== null && (
+                  <img
+                    className="arroww"
+                    src={arrowImages[currentDirections[6]]}
+                    alt="した"
+                  />
+                )}
+              </div>
+              <div className="arrow_downright">
+                {currentDirections[7] !== null && (
+                  <img
+                    className="arroww"
+                    src={arrowImages[currentDirections[7]]}
+                    alt="ひだり"
+                  />
+                )}
+              </div>
+            </>
+          )}
+        </>
+      )}
+
       <div className="count">
         {gamePhase === "waiting" && timer !== 4 && <>{3 - timer}</>}
       </div>

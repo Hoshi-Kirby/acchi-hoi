@@ -93,7 +93,16 @@ export const useGameStore = create<gameState>((set) => ({
       lives: state.lives.map((l, i) => (i === index ? value : l)),
     })),
 
-  currentDirections: ["center", "center", "center", "center"],
+  currentDirections: [
+    "center",
+    "center",
+    "center",
+    "center",
+    "center",
+    "center",
+    "center",
+    "center",
+  ],
   setCurrentDirections: (index: number, value: Direction) =>
     set((state) => ({
       currentDirections: state.currentDirections.map((l, i) =>

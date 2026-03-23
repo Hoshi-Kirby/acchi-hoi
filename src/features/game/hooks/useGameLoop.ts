@@ -24,7 +24,6 @@ export const useGameLoop = () => {
     } else if (round <= 6) {
       numberOfArrows = 2;
     } else {
-      //round>=7はすべて3
       numberOfArrows = 3;
     }
 
@@ -43,13 +42,39 @@ export const useGameLoop = () => {
     //
     const nulls = Array(4 - numberOfArrows).fill(null);
 
-    const combined = [...selectedDirections, ...nulls];
+    let combined = [...selectedDirections, ...nulls];
+
+    if (10 < round && round <= 12) {
+      combined = [...selectedDirections, selectedDirections[0]];
+    }
+    if (12 < round && round <= 14) {
+      combined = [
+        ...selectedDirections,
+        selectedDirections[0],
+        selectedDirections[1],
+        ...nulls,
+        ...nulls,
+        ...nulls,
+      ];
+    }
+    if (14 < round) {
+      combined = [
+        ...selectedDirections,
+        selectedDirections[0],
+        ...selectedDirections,
+        selectedDirections[1],
+      ];
+    }
 
     const currentDirections = shuffle(combined);
     setCurrentDirections(0, currentDirections[0]);
     setCurrentDirections(1, currentDirections[1]);
     setCurrentDirections(2, currentDirections[2]);
     setCurrentDirections(3, currentDirections[3]);
+    setCurrentDirections(4, currentDirections[4]);
+    setCurrentDirections(5, currentDirections[5]);
+    setCurrentDirections(6, currentDirections[6]);
+    setCurrentDirections(7, currentDirections[7]);
 
     console.log("currentDirections", currentDirections);
   }, [round]);

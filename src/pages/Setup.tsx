@@ -19,6 +19,7 @@ const Setup: React.FC = () => {
   );
   const isPointSystem = useGameStore((state) => state.isPointSystem);
   const setIsPointSystem = useGameStore((state) => state.setIsPointSystem);
+  const setRound = useGameStore((state) => state.setRound);
 
   // 画面遷移処理
 
@@ -27,6 +28,7 @@ const Setup: React.FC = () => {
     navigate("/");
   };
   const clickStart = () => {
+    setRound(0);
     navigate(showingCharacter ? "/SetChara" : "/Play");
   };
 
