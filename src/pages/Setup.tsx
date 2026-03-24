@@ -3,6 +3,10 @@ import "./Pages.css";
 // import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../zustand";
 import { useNavigate } from "react-router-dom";
+import left_arrow from "../assets/left_arrow.png";
+import right_arrow from "../assets/right_arrow.png";
+import left_C from "../assets/left_C.png";
+import right_C from "../assets/right_C.png";
 
 const Setup: React.FC = () => {
   // グローバル変数
@@ -28,7 +32,7 @@ const Setup: React.FC = () => {
     navigate("/");
   };
   const clickStart = () => {
-    setRound(0);
+    setRound(1);
     navigate(showingCharacter ? "/SetChara" : "/Play");
   };
 
@@ -59,34 +63,24 @@ const Setup: React.FC = () => {
     <div className="game-container">
       <div className="back"></div>
       <div className="setup1">
-        <div>参加人数</div>
-        <div onClick={decreaseNumber} className="triangle">
-          ◀
-        </div>
-        <div>{playerCount}</div>
-        <div onClick={increaseNumber} className="triangle">
-          ▶
-        </div>
+        <div>参加人数　　</div>
+        <img src={left_arrow} onClick={decreaseNumber} className="triangle" />
+        <div className="setup-text">{playerCount}</div>
+        <img src={right_arrow} onClick={increaseNumber} className="triangle" />
       </div>
       <div className="setup2">
-        <div>表示モード</div>
-        <div onClick={modeTrue} className="triangle">
-          ◀
-        </div>
-        <div>{showingCharacter ? "キャラ" : "映像"}</div>
-        <div onClick={modeFalse} className="triangle">
-          ▶
-        </div>
+        <div>表示モード　</div>
+        <img src={left_arrow} onClick={modeTrue} className="triangle" />
+        <div className="setup-text">{showingCharacter ? "キャラ" : "映像"}</div>
+        <img src={right_arrow} onClick={modeFalse} className="triangle" />
       </div>
       <div className="setup3">
         <div>ゲームモード</div>
-        <div onClick={pointTrue} className="triangle">
-          ◀
+        <img src={left_arrow} onClick={pointTrue} className="triangle" />
+        <div className="setup-text">
+          {isPointSystem ? "ポイント制" : "残機制"}
         </div>
-        <div>{isPointSystem ? "ポイント制" : "残機制"}</div>
-        <div onClick={pointFalse} className="triangle">
-          ▶
-        </div>
+        <img src={right_arrow} onClick={pointFalse} className="triangle" />
       </div>
       <button className="back-button" onClick={clickBack}>
         戻る

@@ -43,14 +43,16 @@ body,
 }
 
 .triangle {
-  font-size: 48px;
+  image-rendering: pixelated;
+  transform: translateY(-10px);
+  width: 57px;
 }
 
 .triangle:hover {
-  color: rgb(81, 81, 81);
+  filter: brightness(2);
 }
 .triangle:active {
-  color: rgb(204, 204, 204);
+  filter: brightness(0) invert(1);
 }
 
 /* Title */
@@ -100,7 +102,7 @@ body,
 
 .setup1 {
   position: absolute;
-  gap: 80px;
+  gap: 20px;
   display: flex;
   top: 20%;
   left: 50%;
@@ -138,6 +140,10 @@ body,
   transform: translate(-50%, -50%);
   font-size: 48px;
   color: black;
+}
+.setup-text {
+  width: 250px;
+  text-align: center;
 }
 
 .back-button {

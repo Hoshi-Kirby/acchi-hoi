@@ -11,6 +11,10 @@ import p3w from "../assets/p3wN.png";
 import p3m from "../assets/p3mN.png";
 import p4w from "../assets/p4wN.png";
 import p4m from "../assets/p4mN.png";
+import left_arrow from "../assets/left_arrow.png";
+import right_arrow from "../assets/right_arrow.png";
+import left_C from "../assets/left_C.png";
+import right_C from "../assets/right_C.png";
 const pnw = [p1w, p2w, p3w, p4w];
 const pnm = [p1m, p2m, p3m, p4m];
 
@@ -44,16 +48,20 @@ const SetChara: React.FC = () => {
         {Array.from({ length: playerCount }).map((_, i) => (
           <div className="chara-packet-content" key={i}>
             <div className="chara-packet">
-              <div className="triangle" onClick={() => clickLeft(i + 1)}>
-                ◀
-              </div>
+              <img
+                src={left_arrow}
+                className="triangle"
+                onClick={() => clickLeft(i + 1)}
+              />
               <img
                 src={isMaleCharacter[i] ? pnm[i] : pnw[i]}
                 className="image"
               />
-              <div className="triangle" onClick={() => clickRight(i + 1)}>
-                ▶
-              </div>
+              <img
+                src={right_arrow}
+                className="triangle"
+                onClick={() => clickRight(i + 1)}
+              />
             </div>
             <div className="iplayer">{i + 1}p</div>
           </div>
