@@ -255,7 +255,7 @@ const Play = () => {
 
   return (
     <div className="game-container">
-      <div className="back"></div>
+      <div className="back-sea"></div>
       <img src={menuButton} className="menu-button" onClick={clickMenu} />
       <div className="play-chara-content">
         {Array.from({ length: playerCount }).map((_, i) => {

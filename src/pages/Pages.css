@@ -25,7 +25,17 @@ body,
   position: absolute;
   width: 100vw;
   height: 100vh;
-  background-image: url("../assets/sokaku.jpg");
+  background-image: url("../assets/wave.png");
+  image-rendering: pixelated;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.back-sea {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../assets/sea.png");
   image-rendering: pixelated;
   background-size: cover;
   background-position: center;
