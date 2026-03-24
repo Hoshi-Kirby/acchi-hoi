@@ -40,6 +40,7 @@ const Result: React.FC = () => {
     setRound(1);
     navigate("/");
   };
+
   return (
     <div className="game-container">
       <div className="back"></div>

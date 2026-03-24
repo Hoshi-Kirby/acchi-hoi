@@ -28,7 +28,7 @@ const Setup: React.FC = () => {
     navigate("/");
   };
   const clickStart = () => {
-    setRound(0);
+    setRound(1);
     navigate(showingCharacter ? "/SetChara" : "/Play");
   };
 

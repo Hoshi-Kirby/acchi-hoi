@@ -61,6 +61,7 @@ import menuFrame from "../assets/menuFrame.png";
 import kaSound from "../assets/ka.mp3";
 import kanSound from "../assets/kan.mp3";
 import { useGameLoop } from "../features/game/hooks/useGameLoop";
+import type { phase } from "../zustand";
 const playerImages = {
   center: { m: [p1mN, p2mN, p3mN, p4mN], w: [p1wN, p2wN, p3wN, p4wN] },
   right: { m: [p1mR, p2mR, p3mR, p4mR], w: [p1wR, p2wR, p3wR, p4wR] },
@@ -99,14 +100,14 @@ const Play = () => {
   const setRound = useGameStore((state) => state.setRound);
   const setScore = useGameStore((state) => state.setScore);
   const setLife = useGameStore((state) => state.setLife);
+  const phase: phase = useGameStore((state) => state.phase);
+  const setPhase = useGameStore((state) => state.setPhase);
 
   const lives: number[] = useGameStore((state) => state.lives);
   const isPointSystem: boolean = useGameStore((state) => state.isPointSystem);
   const scores = useGameStore((state) => state.scores);
   const [timer, settimer] = useState<number>(0); //カウント
-  const [gamePhase, setgamePhase] = useState<"waiting" | "arrow" | "judging">(
-    "waiting",
-  );
+
   const [count_speed, setcount_speed] = useState<number>(1000); //カウントの時間間隔
   const [isMenu, setIsMenu] = useState<boolean>(false);
   const [addC, setAddC] = useState<string[]>(["", "", "", "", "", "", "", ""]);
@@ -121,7 +122,7 @@ const Play = () => {
     setIsMenu(false);
   };
   const clickStart = () => {
-    setgamePhase("waiting");
+    setPhase("waiting");
     setAddC(Array(8).fill(""));
     settimer(0);
     setRound(1);
@@ -189,16 +190,16 @@ const Play = () => {
       playSoundKan();
     }
     if (timer === 4) {
-      setgamePhase("arrow");
+      setPhase("arrow");
       //console.log("arrow");
     }
     if (timer === 8) {
-      setgamePhase("judging");
+      setPhase("judging");
       //console.log("judging");
       //ここでゲーム終了の文言を入れてもいいかも
     }
     if (timer === 10) {
-      setgamePhase("waiting");
+      setPhase("waiting");
       //console.log("waiting");
       settimer(0);
       if (!isPointSystem) {
@@ -213,13 +214,14 @@ const Play = () => {
     }
   }, [
     timer,
-    gamePhase,
+    phase,
     round,
     increaseRound,
     isPointSystem,
     lives,
     navigate,
     playerCount,
+    setPhase,
   ]);
 
   useEffect(() => {
@@ -281,10 +283,10 @@ const Play = () => {
         })}
       </div>
       <div className="judge-display-area">
-        {gamePhase === "judging" && <Judge />}
+        {phase === "judging" && <Judge />}
       </div>
       <div className="round-text">round {round}</div>
-      {gamePhase === "arrow" && !isMenu && (
+      {phase === "arrow" && !isMenu && (
         <>
           <div className="arrow_up">
             {currentDirections[0] !== null && (
@@ -374,7 +376,7 @@ const Play = () => {
       )}
 
       <div className="count">
-        {gamePhase === "waiting" && timer !== 4 && !isMenu && <>{3 - timer}</>}
+        {phase === "waiting" && timer !== 4 && !isMenu && <>{3 - timer}</>}
       </div>
       <div className={`overlay ${isMenu ? "open" : ""}`}>
         <div className="menuWrapper">

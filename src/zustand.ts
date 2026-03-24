@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 export type Direction = "up" | "down" | "left" | "right" | "center" | null;
+export type phase = "arrow" | "waiting" | "judging";
 
 type gameState = {
   playerCount: number;
@@ -12,6 +13,7 @@ type gameState = {
   lives: number[]; //残機
   currentDirections: Direction[];
   playerDirections: Direction[];
+  phase: phase;
   increasePlayerCount: () => void;
   decreasePlayerCount: () => void;
   setPlayerCount: (c: number) => void;
@@ -29,6 +31,7 @@ type gameState = {
   setLife: (index: number, value: number) => void;
   setCurrentDirections: (index: number, value: Direction) => void;
   setPlayerDirections: (index: number, value: Direction) => void;
+  setPhase: (c: phase) => void;
 };
 
 export const useGameStore = create<gameState>((set) => ({
@@ -116,6 +119,9 @@ export const useGameStore = create<gameState>((set) => ({
         i === index ? value : l,
       ),
     })),
+
+  phase: "waiting",
+  setPhase: (c: phase) => set({ phase: c }),
 }));
 
 // まだやって無ければターミナルでnpm install zustandを実行する。
