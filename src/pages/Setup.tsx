@@ -60,21 +60,33 @@ const Setup: React.FC = () => {
       <div className="back"></div>
       <div className="setup1">
         <div>参加人数</div>
-        <div onClick={decreaseNumber}>◀</div>
+        <div onClick={decreaseNumber} className="triangle">
+          ◀
+        </div>
         <div>{playerCount}</div>
-        <div onClick={increaseNumber}>▶</div>
+        <div onClick={increaseNumber} className="triangle">
+          ▶
+        </div>
       </div>
       <div className="setup2">
         <div>表示モード</div>
-        <div onClick={modeTrue}>◀</div>
+        <div onClick={modeTrue} className="triangle">
+          ◀
+        </div>
         <div>{showingCharacter ? "キャラ" : "映像"}</div>
-        <div onClick={modeFalse}>▶</div>
+        <div onClick={modeFalse} className="triangle">
+          ▶
+        </div>
       </div>
       <div className="setup3">
         <div>ゲームモード</div>
-        <div onClick={pointTrue}>◀</div>
+        <div onClick={pointTrue} className="triangle">
+          ◀
+        </div>
         <div>{isPointSystem ? "ポイント制" : "残機制"}</div>
-        <div onClick={pointFalse}>▶</div>
+        <div onClick={pointFalse} className="triangle">
+          ▶
+        </div>
       </div>
       <button className="back-button" onClick={clickBack}>
         戻る

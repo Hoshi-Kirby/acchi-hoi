@@ -1,6 +1,7 @@
 import React /*, { useState, useEffect } */ from "react";
 import "./Pages.css";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/titleLogo.png";
 
 const Title: React.FC = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const Title: React.FC = () => {
   return (
     <div className="game-container">
       <div className="back"></div>
-      <div className="title-title">あっちむくなホイ！</div>
+      <img src={logo} className="title-logo" />
       <button className="title-start-button" onClick={clickStart}>
         Start
       </button>

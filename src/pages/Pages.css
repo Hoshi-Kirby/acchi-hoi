@@ -42,6 +42,17 @@ body,
   background-repeat: no-repeat;
 }
 
+.triangle {
+  font-size: 48px;
+}
+
+.triangle:hover {
+  color: rgb(81, 81, 81);
+}
+.triangle:active {
+  color: rgb(204, 204, 204);
+}
+
 /* Title */
 
 .title-title {
@@ -51,6 +62,14 @@ body,
   transform: translate(-50%, -50%);
   font-size: 48px;
   color: black;
+}
+.title-logo {
+  image-rendering: pixelated;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
 }
 
 .title-start-button {
@@ -69,11 +88,11 @@ body,
 }
 
 .title-start-button:hover {
-  background-color: #252525;
+  background-color: rgb(81, 81, 81);
 }
 
 .title-start-button:active {
-  background-color: #636363;
+  background-color: #adadad;
   /* 押した瞬間の色 */
 }
 
@@ -140,7 +159,7 @@ body,
 }
 
 .back-button:active {
-  background-color: #a6a6a6;
+  background-color: #adadad;
   /* 押した瞬間の色 */
 }
 
@@ -160,11 +179,11 @@ body,
 }
 
 .setup-start-button:hover {
-  background-color: #252525;
+  background-color: rgb(81, 81, 81);
 }
 
 .setup-start-button:active {
-  background-color: #636363;
+  background-color: #adadad;
   /* 押した瞬間の色 */
 }
 
@@ -203,10 +222,6 @@ body,
   align-items: center;
   display: flex;
   color: black;
-}
-
-.triangle {
-  font-size: 48px;
 }
 
 .image {
@@ -312,11 +327,11 @@ body,
 }
 
 .button-inmenu:hover {
-  background-color: #202020;
+  background-color: rgb(81, 81, 81);
 }
 
 .button-inmenu:active {
-  background-color: #858585;
+  background-color: #adadad;
   /* 押した瞬間の色 */
 }
 
