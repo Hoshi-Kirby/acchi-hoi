@@ -374,7 +374,7 @@ const Play = () => {
       )}
 
       <div className="count">
-        {gamePhase === "waiting" && timer !== 4 && <>{3 - timer}</>}
+        {gamePhase === "waiting" && timer !== 4 && !isMenu && <>{3 - timer}</>}
       </div>
       <div className={`overlay ${isMenu ? "open" : ""}`}>
         <div className="menuWrapper">
