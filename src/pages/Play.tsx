@@ -258,28 +258,30 @@ const Play = () => {
       <div className="back"></div>
       <img src={menuButton} className="menu-button" onClick={clickMenu} />
       <div className="play-chara-content">
-        {Array.from({ length: playerCount }).map((_, i) => (
-          <div className="play-chara-packet-content" key={i}>
-            <img
-              src={
-                playerImages[playerDirections[i] as keyof typeof playerImages][
-                  isMaleCharacter[i] ? "m" : "w"
-                ][i]
-              }
-              className="play-image"
-            />
-          </div>
-        ))}
+        {Array.from({ length: playerCount }).map((_, i) => {
+          const safeLives = Math.max(0, lives[i]); // 応急処置
+          return (
+            <div className="play-chara-packet-content" key={i}>
+              {/* 上に表示 */}
+              <div className={`player-${i} player-status`}>
+                {isPointSystem ? `${scores[i]}pt` : "♥".repeat(safeLives)}
+              </div>
+
+              {/* キャラクター画像 */}
+              <img
+                src={
+                  playerImages[
+                    playerDirections[i] as keyof typeof playerImages
+                  ][isMaleCharacter[i] ? "m" : "w"][i]
+                }
+                className="play-image"
+              />
+            </div>
+          );
+        })}
       </div>
       <div className="judge-display-area">
         {gamePhase === "judging" && <Judge />}
-      </div>
-      <div className="point">
-        {scores.slice(0, playerCount).map((score, index) => (
-          <div key={index} className={`player-${index}`}>
-            {score}pt
-          </div>
-        ))}
       </div>
       <div className="round-text">round {round}</div>
       {gamePhase === "arrow" && !isMenu && (

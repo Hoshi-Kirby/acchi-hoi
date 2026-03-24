@@ -313,23 +313,33 @@ body,
 .play-chara-content {
   position: absolute;
   gap: 120px;
-  top: 60%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
 }
 
-.play-chara-packet-content {
-  gap: 50px;
-  display: flex;
-  flex-direction: column;
-  color: black;
-}
-
 .play-image {
   image-rendering: pixelated;
+  bottom: 0pt;
   width: 100px;
   height: auto;
+}
+.play-chara-packet-content {
+  width: 50px; /* 各プレイヤーごとに固定幅 */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 画像と♥を中央揃え */
+}
+.player-lives {
+  margin-top: 4px; /* 画像との隙間 */
+}
+.player-status {
+  position: absolute;
+  top: -180px; /* 画像の上に出るように調整 */
+  font-weight: bold;
+
+  font-size: 48px;
 }
 
 .point {
