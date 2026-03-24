@@ -12,13 +12,13 @@ export const Judge: React.FC = () => {
   );
   const playerCount: number = useGameStore((state) => state.playerCount);
   const isPointSystem: boolean = useGameStore((state) => state.isPointSystem);
-  const increaseScore = useGameStore((state) => state.increaseScore);
-  const decleaseLife = useGameStore((state) => state.decreaseLife);
+  const setScore = useGameStore((state) => state.setScore);
+  const setLife = useGameStore((state) => state.setLife);
   const lives: number[] = useGameStore((state) => state.lives);
   const scores: number[] = useGameStore((state) => state.scores);
   useEffect(() => {
-    let counter: number = 0;
     for (let i = 0; i < playerCount; i++) {
+      let counter: number = 0;
       for (const element2 of currentDirections) {
         if (playerDirections[i] === element2) break;
         counter = counter + 1;
@@ -28,11 +28,11 @@ export const Judge: React.FC = () => {
         playerDirections[i] !== "center" &&
         lives[i] > 0
       ) {
-        increaseScore(i);
+        setScore(i, scores[i] + 1);
         console.log(scores);
       } else {
         if (!isPointSystem && lives[i] > 0) {
-          decleaseLife(i);
+          setLife(i, lives[i] - 1);
           console.log(lives);
         }
       }

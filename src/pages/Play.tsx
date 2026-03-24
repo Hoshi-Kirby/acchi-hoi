@@ -124,7 +124,7 @@ const Play = () => {
     setgamePhase("waiting");
     setAddC(Array(8).fill(""));
     settimer(0);
-    setRound(0);
+    setRound(1);
     for (let i = 0; i < playerCount; i++) {
       setScore(i, 0);
       setLife(i, 3);
@@ -137,7 +137,7 @@ const Play = () => {
       setScore(i, 0);
       setLife(i, 3);
     }
-    setRound(0);
+    setRound(1);
     navigate("/Setup");
   };
   const GotoTitle = () => {
@@ -146,7 +146,7 @@ const Play = () => {
       setScore(i, 0);
       setLife(i, 3);
     }
-    setRound(0);
+    setRound(1);
     navigate("/");
   };
 
@@ -255,7 +255,7 @@ const Play = () => {
 
   return (
     <div className="game-container">
-      <div className="back"></div>
+      <div className="back-sea"></div>
       <img src={menuButton} className="menu-button" onClick={clickMenu} />
       <div className="play-chara-content">
         {Array.from({ length: playerCount }).map((_, i) => {
