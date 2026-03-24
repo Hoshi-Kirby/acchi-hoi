@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useInterface } from "../features/game/hooks/interface";
 import "./Pages.css";
 import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../zustand";
@@ -58,8 +59,9 @@ const Play = () => {
   const round: number = useGameStore((state) => state.round); //ゲームのラウンド
   const increaseRound = useGameStore((state) => state.increaseRound);
   const setRound = useGameStore((state) => state.setRound);
+  const lives: number[] = useGameStore((state) => state.lives);
+  const isPointSystem: boolean = useGameStore((state) => state.isPointSystem);
   const scores = useGameStore((state) => state.scores);
-  const lives = useGameStore((state) => state.lives);
   const [timer, settimer] = useState<number>(0); //カウント
   const [gamePhase, setgamePhase] = useState<"waiting" | "arrow" | "judging">(
     "waiting",
@@ -94,6 +96,7 @@ const Play = () => {
   };
 
   useGameLoop(); //ここで矢印の方向を作る関数を呼び出す
+  useInterface(); //ここでキー操作の関数を呼び出す
 
   //時間関連の処理を隔離
   const audioRefKa = useRef<HTMLAudioElement | null>(null);
@@ -132,19 +135,37 @@ const Play = () => {
     }
     if (timer === 4) {
       setgamePhase("arrow");
-      console.log("arrow");
+      //console.log("arrow");
     }
     if (timer === 8) {
       setgamePhase("judging");
-      console.log("judging");
+      //console.log("judging");
+      //ここでゲーム終了の文言を入れてもいいかも
     }
     if (timer === 10) {
       setgamePhase("waiting");
-      console.log("waiting");
+      //console.log("waiting");
       settimer(0);
+      if (!isPointSystem) {
+        for (let i = 0; i < playerCount; i++) {
+          if (lives[i] > 0) break;
+          if (i === playerCount - 1) navigate("/Result"); //残機制のプレイヤーが全員死んだときの画面遷移
+        }
+      } else {
+        if (round === 10) navigate("/Result"); //ポイント制プレイヤーが10ラウンドを終えたときの画面遷移
+      }
       increaseRound();
     }
-  }, [timer, gamePhase, round, increaseRound]);
+  }, [
+    timer,
+    gamePhase,
+    round,
+    increaseRound,
+    isPointSystem,
+    lives,
+    navigate,
+    playerCount,
+  ]);
 
   useEffect(() => {
     if (round > 16) {

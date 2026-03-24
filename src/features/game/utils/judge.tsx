@@ -14,6 +14,7 @@ export const Judge: React.FC = () => {
   const isPointSystem: boolean = useGameStore((state) => state.isPointSystem);
   const increaseScore = useGameStore((state) => state.increaseScore);
   const decleaseLife = useGameStore((state) => state.decreaseLife);
+  const lives: number[] = useGameStore((state) => state.lives);
   const scores: number[] = useGameStore((state) => state.scores);
   useEffect(() => {
     let counter: number = 0;
@@ -22,39 +23,23 @@ export const Judge: React.FC = () => {
         if (playerDirections[i] === element2) break;
         counter = counter + 1;
       }
-      if (counter === currentDirections.length) {
+      if (
+        counter === currentDirections.length &&
+        playerDirections[i] !== "center" &&
+        lives[i] > 0
+      ) {
         increaseScore(i);
+        console.log(scores);
       } else {
-        if (!isPointSystem) {
+        if (!isPointSystem && lives[i] > 0) {
           decleaseLife(i);
+          console.log(lives);
         }
       }
     }
-    console.log(scores);
+    // console.log(scores);
   }, []);
 
-  return (
-    <ul
-      style={{
-        display: "flex", // 横並びにする
-        listStyle: "none", // 点（・）を消す
-        gap: "15px", // 要素間の隙間を作る
-        padding: 0, // デフォルトの余白を消す
-      }}
-    >
-      {scores.slice(0, playerCount).map((item: number, index: number) => (
-        <li
-          key={index}
-          style={{
-            padding: "5px 10px",
-            backgroundColor: "#f0f0f0",
-            borderRadius: "4px",
-          }}
-        >
-          {index + 1}p: {item}
-        </li>
-      ))}
-    </ul>
-  );
+  return <div></div>;
 };
 export default Judge;
