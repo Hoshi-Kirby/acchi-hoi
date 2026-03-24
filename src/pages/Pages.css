@@ -356,6 +356,16 @@ body,
 .player-3 {
   color: rgb(119, 255, 0);
 }
+.round-text {
+  position: absolute;
+  bottom: 80px;
+  right: 300px;
+  gap: 200px;
+  display: inline-block; /* transformを効かせるために必要 */
+  transform: scaleY(0.6);
+  font-size: 60px;
+  color: rgb(145, 121, 69);
+}
 
 /* 判定表示エリアのスタイル */
 .judge-display-area {

@@ -201,6 +201,7 @@ const Play = () => {
           </div>
         ))}
       </div>
+      <div className="round-text">round {round}</div>
       {gamePhase === "arrow" && !isMenu && (
         <>
           <div className="arrow_up">
