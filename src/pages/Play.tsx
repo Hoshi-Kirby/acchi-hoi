@@ -64,7 +64,7 @@ const Play = () => {
   );
   const [count_speed, setcount_speed] = useState<number>(1000); //カウントの時間間隔
   const [isMenu, setIsMenu] = useState<boolean>(false);
-  const [addC, setAddC] = useState<string>("");
+  const [addC, setAddC] = useState<string[]>(["", "", "", "", "", "", "", ""]);
 
   const clickMenu = () => {
     setIsMenu(true);
@@ -144,10 +144,22 @@ const Play = () => {
   }, [timer, gamePhase, round]);
   useEffect(() => {
     if (round > 16) {
-      setAddC("c");
+      setAddC(Array(8).fill("c"));
     }
     if (round > 20) {
-      setAddC("cmini");
+      setAddC(Array(8).fill("cmini"));
+    }
+    if (round > 25) {
+      const choices = ["", "c", "cmini"];
+
+      const newArray = [];
+
+      for (let i = 0; i < 8; i++) {
+        const randomIndex = Math.floor(Math.random() * choices.length);
+        newArray.push(choices[randomIndex]);
+      }
+
+      setAddC(newArray);
     }
   }, [round]);
 
@@ -184,7 +196,7 @@ const Play = () => {
             {currentDirections[0] !== null && (
               <img
                 className="arroww"
-                src={arrowImages[(currentDirections[0] + addC) as ArrowKey]}
+                src={arrowImages[(currentDirections[0] + addC[0]) as ArrowKey]}
                 alt="うえ"
               />
             )}
@@ -193,7 +205,7 @@ const Play = () => {
             {currentDirections[1] !== null && (
               <img
                 className="arroww"
-                src={arrowImages[(currentDirections[1] + addC) as ArrowKey]}
+                src={arrowImages[(currentDirections[1] + addC[1]) as ArrowKey]}
                 alt="みぎ"
               />
             )}
@@ -202,7 +214,7 @@ const Play = () => {
             {currentDirections[2] !== null && (
               <img
                 className="arroww"
-                src={arrowImages[(currentDirections[2] + addC) as ArrowKey]}
+                src={arrowImages[(currentDirections[2] + addC[2]) as ArrowKey]}
                 alt="した"
               />
             )}
@@ -211,7 +223,7 @@ const Play = () => {
             {currentDirections[3] !== null && (
               <img
                 className="arroww"
-                src={arrowImages[(currentDirections[3] + addC) as ArrowKey]}
+                src={arrowImages[(currentDirections[3] + addC[3]) as ArrowKey]}
                 alt="ひだり"
               />
             )}
@@ -222,7 +234,9 @@ const Play = () => {
                 {currentDirections[4] !== null && (
                   <img
                     className="arroww"
-                    src={arrowImages[(currentDirections[4] + addC) as ArrowKey]}
+                    src={
+                      arrowImages[(currentDirections[4] + addC[4]) as ArrowKey]
+                    }
                     alt="うえ"
                   />
                 )}
@@ -231,7 +245,9 @@ const Play = () => {
                 {currentDirections[5] !== null && (
                   <img
                     className="arroww"
-                    src={arrowImages[(currentDirections[5] + addC) as ArrowKey]}
+                    src={
+                      arrowImages[(currentDirections[5] + addC[5]) as ArrowKey]
+                    }
                     alt="みぎ"
                   />
                 )}
@@ -240,7 +256,9 @@ const Play = () => {
                 {currentDirections[6] !== null && (
                   <img
                     className="arroww"
-                    src={arrowImages[(currentDirections[6] + addC) as ArrowKey]}
+                    src={
+                      arrowImages[(currentDirections[6] + addC[6]) as ArrowKey]
+                    }
                     alt="した"
                   />
                 )}
@@ -249,7 +267,9 @@ const Play = () => {
                 {currentDirections[7] !== null && (
                   <img
                     className="arroww"
-                    src={arrowImages[(currentDirections[7] + addC) as ArrowKey]}
+                    src={
+                      arrowImages[(currentDirections[7] + addC[7]) as ArrowKey]
+                    }
                     alt="ひだり"
                   />
                 )}
