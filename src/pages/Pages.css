@@ -313,9 +313,9 @@ body,
 .play-chara-content {
   position: absolute;
   gap: 120px;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 40%;
+  width: 100%;
+  justify-content: center;
   display: flex;
 }
 
@@ -335,8 +335,8 @@ body,
   margin-top: 4px; /* 画像との隙間 */
 }
 .player-status {
-  position: absolute;
-  top: -180px; /* 画像の上に出るように調整 */
+  position: fixed; /* 縦方向は画面基準 */
+  top: 40px; /* 画面上部から20px */
   font-weight: bold;
 
   font-size: 48px;
