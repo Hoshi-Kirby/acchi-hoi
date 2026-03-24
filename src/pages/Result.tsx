@@ -8,18 +8,36 @@ const Result: React.FC = () => {
   const scores = useGameStore((state) => state.scores);
   const navigate = useNavigate();
   const indexedScores = scores.map((score, index) => ({ score, index }));
+  const setScore = useGameStore((state) => state.setScore);
+  const setLifes = useGameStore((state) => state.setLife);
+  const setRound = useGameStore((state) => state.setRound);
 
   indexedScores.sort((a, b) => b.score - a.score);
   const sortedValues = indexedScores.map((item) => item.score);
   const sortedIndices = indexedScores.map((item) => item.index);
 
   const clickStart = () => {
+    for (let i = 0; i < playerCount; i++) {
+      setScore(i, 0);
+      setLifes(i, 3);
+    }
+    setRound(0);
     navigate("/Play");
   };
   const GotoSetting = () => {
+    for (let i = 0; i < playerCount; i++) {
+      setScore(i, 0);
+      setLifes(i, 3);
+    }
+    setRound(0);
     navigate("/Setup");
   };
   const GotoTitle = () => {
+    for (let i = 0; i < playerCount; i++) {
+      setScore(i, 0);
+      setLifes(i, 3);
+    }
+    setRound(0);
     navigate("/");
   };
   return (

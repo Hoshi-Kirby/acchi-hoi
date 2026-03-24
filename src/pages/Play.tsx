@@ -97,6 +97,9 @@ const Play = () => {
   const round: number = useGameStore((state) => state.round); //ゲームのラウンド
   const increaseRound = useGameStore((state) => state.increaseRound);
   const setRound = useGameStore((state) => state.setRound);
+  const setScore = useGameStore((state) => state.setScore);
+  const setLife = useGameStore((state) => state.setLife);
+
   const lives: number[] = useGameStore((state) => state.lives);
   const isPointSystem: boolean = useGameStore((state) => state.isPointSystem);
   const scores = useGameStore((state) => state.scores);
@@ -122,14 +125,28 @@ const Play = () => {
     setAddC(Array(8).fill(""));
     settimer(0);
     setRound(0);
+    for (let i = 0; i < playerCount; i++) {
+      setScore(i, 0);
+      setLife(i, 3);
+    }
     setIsMenu(false);
   };
   const GotoSetting = () => {
     settimer(0);
+    for (let i = 0; i < playerCount; i++) {
+      setScore(i, 0);
+      setLife(i, 3);
+    }
+    setRound(0);
     navigate("/Setup");
   };
   const GotoTitle = () => {
     settimer(0);
+    for (let i = 0; i < playerCount; i++) {
+      setScore(i, 0);
+      setLife(i, 3);
+    }
+    setRound(0);
     navigate("/");
   };
 
