@@ -1,4 +1,8 @@
 /* all */
+* {
+  font-family: "DotGothic16", sans-serif;
+}
+
 html,
 body,
 #root {
@@ -6,14 +10,17 @@ body,
   padding: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden; /* ← スクロール禁止 */
+  overflow: hidden;
+  /* ← スクロール禁止 */
 }
+
 .game-container {
   position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
 }
+
 .back {
   position: absolute;
   width: 100vw;
@@ -35,22 +42,29 @@ body,
   font-size: 48px;
   color: black;
 }
+
 .title-start-button {
   position: absolute;
   top: 60%;
   left: 50%;
-  background-color: rgb(0, 0, 0); /* ボタンの色 */
-  border: 2px solid #ffffff; /* 縁の色 */
+  background-color: rgb(0, 0, 0);
+  /* ボタンの色 */
+  border: 2px solid #ffffff;
+  /* 縁の色 */
   transform: translate(-50%, -50%);
   font-size: 40px;
   padding: 10px 80px;
-  color: rgb(255, 255, 255); /* 文字の色 */
+  color: rgb(255, 255, 255);
+  /* 文字の色 */
 }
+
 .title-start-button:hover {
   background-color: #252525;
 }
+
 .title-start-button:active {
-  background-color: #636363; /* 押した瞬間の色 */
+  background-color: #636363;
+  /* 押した瞬間の色 */
 }
 
 /* Setup */
@@ -65,6 +79,7 @@ body,
   font-size: 48px;
   color: black;
 }
+
 .setup2 {
   position: absolute;
   gap: 20px;
@@ -75,6 +90,7 @@ body,
   font-size: 48px;
   color: black;
 }
+
 .setup3 {
   position: absolute;
   gap: 20px;
@@ -85,38 +101,52 @@ body,
   font-size: 48px;
   color: black;
 }
+
 .back-button {
   position: absolute;
   top: 10px;
   left: 10px;
-  background-color: rgb(255, 255, 255); /* ボタンの色 */
-  border: 2px solid #aaaaaa; /* 縁の色 */
+  background-color: rgb(255, 255, 255);
+  /* ボタンの色 */
+  border: 2px solid #aaaaaa;
+  /* 縁の色 */
   font-size: 25px;
   padding: 2px 10px;
-  color: rgb(0, 0, 0); /* 文字の色 */
+  color: rgb(0, 0, 0);
+  /* 文字の色 */
 }
+
 .back-button:hover {
   background-color: #dbdbdb;
 }
+
 .back-button:active {
-  background-color: #a6a6a6; /* 押した瞬間の色 */
+  background-color: #a6a6a6;
+  /* 押した瞬間の色 */
 }
+
 .setup-start-button {
   position: absolute;
   top: 80%;
   left: 50%;
-  background-color: rgb(0, 0, 0); /* ボタンの色 */
-  border: 2px solid #ffffff; /* 縁の色 */
+  background-color: rgb(0, 0, 0);
+  /* ボタンの色 */
+  border: 2px solid #ffffff;
+  /* 縁の色 */
   transform: translate(-50%, -50%);
   font-size: 40px;
   padding: 10px 80px;
-  color: rgb(255, 255, 255); /* 文字の色 */
+  color: rgb(255, 255, 255);
+  /* 文字の色 */
 }
+
 .setup-start-button:hover {
   background-color: #252525;
 }
+
 .setup-start-button:active {
-  background-color: #636363; /* 押した瞬間の色 */
+  background-color: #636363;
+  /* 押した瞬間の色 */
 }
 
 /* SetChara */
@@ -128,6 +158,7 @@ body,
   font-size: 48px;
   color: black;
 }
+
 .chara-content {
   position: absolute;
   gap: 80px;
@@ -136,29 +167,35 @@ body,
   transform: translate(-50%, -50%);
   display: flex;
 }
+
 .chara-packet-content {
   gap: 50px;
   display: flex;
   flex-direction: column;
   color: black;
 }
+
 .iplayer {
   font-size: 30px;
 }
+
 .chara-packet {
   gap: 50px;
   align-items: center;
   display: flex;
   color: black;
 }
+
 .triangle {
   font-size: 48px;
 }
+
 .image {
   image-rendering: pixelated;
   width: 63px;
   height: auto;
 }
+
 /* Play */
 .menu-button {
   position: absolute;
@@ -168,6 +205,7 @@ body,
   width: 60px;
   height: auto;
 }
+
 .arroww {
   image-rendering: pixelated;
   width: 100px;
@@ -176,12 +214,15 @@ body,
 /* 背景オーバーレイ */
 .overlay {
   position: fixed;
-  inset: 0; /* top:0; right:0; bottom:0; left:0 と同じ */
+  inset: 0;
+  /* top:0; right:0; bottom:0; left:0 と同じ */
   background: rgba(0, 0, 0, 0.4);
 
   display: flex;
-  justify-content: center; /* 横方向中央 */
-  align-items: center; /* 縦方向中央 */
+  justify-content: center;
+  /* 横方向中央 */
+  align-items: center;
+  /* 縦方向中央 */
 
   opacity: 0;
   pointer-events: none;
@@ -210,8 +251,10 @@ body,
 
 /* 画像サイズ */
 .menuImage {
-  width: 80vw; /* 画面幅の90% */
-  max-width: none; /* max-width制限を解除 */
+  width: 80vw;
+  /* 画面幅の90% */
+  max-width: none;
+  /* max-width制限を解除 */
   height: auto;
   z-index: 20;
 }
@@ -238,19 +281,24 @@ body,
 }
 
 .button-inmenu {
-  background-color: rgb(0, 0, 0); /* ボタンの色 */
-  border: 2px solid #ffffff; /* 縁の色 */
+  background-color: rgb(0, 0, 0);
+  /* ボタンの色 */
+  border: 2px solid #ffffff;
+  /* 縁の色 */
   font-size: 20px;
   padding: 10px 50px;
-  color: rgb(255, 255, 255); /* 文字の色 */
+  color: rgb(255, 255, 255);
+  /* 文字の色 */
   z-index: 20;
 }
 
 .button-inmenu:hover {
   background-color: #202020;
 }
+
 .button-inmenu:active {
-  background-color: #858585; /* 押した瞬間の色 */
+  background-color: #858585;
+  /* 押した瞬間の色 */
 }
 
 .play-chara-content {
@@ -261,12 +309,14 @@ body,
   transform: translate(-50%, -50%);
   display: flex;
 }
+
 .play-chara-packet-content {
   gap: 50px;
   display: flex;
   flex-direction: column;
   color: black;
 }
+
 .play-image {
   image-rendering: pixelated;
   width: 100px;
@@ -275,51 +325,77 @@ body,
 
 /* 判定表示エリアのスタイル */
 .judge-display-area {
-  position: absolute; /*親要素(game-container)に対して絶対位置 */
-  top: 50px; /*画面の下から50pxの位置 */
+  position: absolute;
+  /*親要素(game-container)に対して絶対位置 */
+  top: 50px;
+  /*画面の下から50pxの位置 */
   left: 0;
   right: 0;
   display: flex;
-  justify-content: center; /* 横方向の中央寄せ */
-  z-index: 10; /*キャラクターより手前に表示*/
-  pointer-events: none; /* 下の要素のクリックを邪魔したくない場合 */
+  justify-content: center;
+  /* 横方向の中央寄せ */
+  z-index: 10;
+  /*キャラクターより手前に表示*/
+  pointer-events: none;
+  /* 下の要素のクリックを邪魔したくない場合 */
 }
+
 .count {
-  position: absolute; /*親要素(game-container)に対して絶対位置 */
-  bottom: 50px; /*画面の下から50pxの位置 */
+  position: absolute;
+  /*親要素(game-container)に対して絶対位置 */
+  bottom: 50px;
+  /*画面の下から50pxの位置 */
   left: 0;
   right: 0;
   display: flex;
-  justify-content: center; /* 横方向の中央寄せ */
-  z-index: 10; /*キャラクターより手前に表示*/
-  pointer-events: none; /* 下の要素のクリックを邪魔したくない場合 */
+  justify-content: center;
+  /* 横方向の中央寄せ */
+  z-index: 10;
+  /*キャラクターより手前に表示*/
+  pointer-events: none;
+  /* 下の要素のクリックを邪魔したくない場合 */
 }
 
 .arrow_up {
-  position: absolute; /*親要素(game-container)に対して絶対位置 */
-  top: 100px; /*画面の下から50pxの位置 */
+  position: absolute;
+  /*親要素(game-container)に対して絶対位置 */
+  top: 100px;
+  /*画面の下から50pxの位置 */
   left: 0;
   right: 0;
   display: flex;
-  justify-content: center; /* 横方向の中央寄せ */
-  z-index: 10; /*キャラクターより手前に表示*/
-  pointer-events: none; /* 下の要素のクリックを邪魔したくない場合 */
+  justify-content: center;
+  /* 横方向の中央寄せ */
+  z-index: 10;
+  /*キャラクターより手前に表示*/
+  pointer-events: none;
+  /* 下の要素のクリックを邪魔したくない場合 */
 }
+
 .arrow_down {
-  position: absolute; /*親要素(game-container)に対して絶対位置 */
-  bottom: 50px; /*画面の下から50pxの位置 */
+  position: absolute;
+  /*親要素(game-container)に対して絶対位置 */
+  bottom: 50px;
+  /*画面の下から50pxの位置 */
   left: 0;
   right: 0;
   display: flex;
-  justify-content: center; /* 横方向の中央寄せ */
-  z-index: 10; /*キャラクターより手前に表示*/
-  pointer-events: none; /* 下の要素のクリックを邪魔したくない場合 */
+  justify-content: center;
+  /* 横方向の中央寄せ */
+  z-index: 10;
+  /*キャラクターより手前に表示*/
+  pointer-events: none;
+  /* 下の要素のクリックを邪魔したくない場合 */
 }
+
 .arrow_right {
-  position: absolute; /* 親要素(game-container)に対して絶対位置 */
-  top: calc(50% + 25px); /* 画面の上下中央に配置したい場合 */
+  position: absolute;
+  /* 親要素(game-container)に対して絶対位置 */
+  top: calc(50% + 25px);
+  /* 画面の上下中央に配置したい場合 */
   transform: translateY(-50%);
-  right: 20px; /* 画面の右端から20pxの位置に固定 */
+  right: 20px;
+  /* 画面の右端から20pxの位置に固定 */
 
   /* display: flex は中身の画像を並べるなら残してOK */
   display: flex;
@@ -329,52 +405,73 @@ body,
   z-index: 10;
   pointer-events: none;
 }
+
 .arrow_left {
-  position: absolute; /*親要素(game-container)に対して絶対位置 */
+  position: absolute;
+  /*親要素(game-container)に対して絶対位置 */
   top: calc(50% + 25px);
   left: 20px;
   transform: translateY(-50%);
 
   display: flex;
-  align-items: center; /* 横方向の中央寄せ */
-  z-index: 10; /*キャラクターより手前に表示*/
-  pointer-events: none; /* 下の要素のクリックを邪魔したくない場合 */
+  align-items: center;
+  /* 横方向の中央寄せ */
+  z-index: 10;
+  /*キャラクターより手前に表示*/
+  pointer-events: none;
+  /* 下の要素のクリックを邪魔したくない場合 */
 }
+
 .arrow_upleft {
-  position: absolute; /*親要素(game-container)に対して絶対位置 */
+  position: absolute;
+  /*親要素(game-container)に対して絶対位置 */
   top: 100px;
   left: 20px;
 
   display: flex;
-  z-index: 10; /*キャラクターより手前に表示*/
-  pointer-events: none; /* 下の要素のクリックを邪魔したくない場合 */
+  z-index: 10;
+  /*キャラクターより手前に表示*/
+  pointer-events: none;
+  /* 下の要素のクリックを邪魔したくない場合 */
 }
+
 .arrow_upright {
-  position: absolute; /*親要素(game-container)に対して絶対位置 */
+  position: absolute;
+  /*親要素(game-container)に対して絶対位置 */
   top: 100px;
   right: 20px;
 
   display: flex;
-  z-index: 10; /*キャラクターより手前に表示*/
-  pointer-events: none; /* 下の要素のクリックを邪魔したくない場合 */
+  z-index: 10;
+  /*キャラクターより手前に表示*/
+  pointer-events: none;
+  /* 下の要素のクリックを邪魔したくない場合 */
 }
+
 .arrow_downleft {
-  position: absolute; /*親要素(game-container)に対して絶対位置 */
+  position: absolute;
+  /*親要素(game-container)に対して絶対位置 */
   bottom: 50px;
   left: 20px;
 
   display: flex;
-  z-index: 10; /*キャラクターより手前に表示*/
-  pointer-events: none; /* 下の要素のクリックを邪魔したくない場合 */
+  z-index: 10;
+  /*キャラクターより手前に表示*/
+  pointer-events: none;
+  /* 下の要素のクリックを邪魔したくない場合 */
 }
+
 .arrow_downright {
-  position: absolute; /*親要素(game-container)に対して絶対位置 */
+  position: absolute;
+  /*親要素(game-container)に対して絶対位置 */
   bottom: 50px;
   right: 20px;
 
   display: flex;
-  z-index: 10; /*キャラクターより手前に表示*/
-  pointer-events: none; /* 下の要素のクリックを邪魔したくない場合 */
+  z-index: 10;
+  /*キャラクターより手前に表示*/
+  pointer-events: none;
+  /* 下の要素のクリックを邪魔したくない場合 */
 }
 
 /* Result */
@@ -386,6 +483,7 @@ body,
   font-size: 48px;
   color: black;
 }
+
 .result-table {
   position: absolute;
   top: 35%;
@@ -394,9 +492,11 @@ body,
   font-size: 48px;
   color: black;
 }
+
 .result-packet {
   padding: 15px;
 }
+
 .result-buttons {
   position: absolute;
   gap: 126px;
@@ -406,17 +506,23 @@ body,
   transform: translate(-50%, -50%);
   width: auto;
 }
+
 .result-button {
-  background-color: rgb(55, 155, 191); /* ボタンの色 */
-  border: 2px solid #ffffff; /* 縁の色 */
+  background-color: rgb(55, 155, 191);
+  /* ボタンの色 */
+  border: 2px solid #ffffff;
+  /* 縁の色 */
   font-size: 20px;
   padding: 10px 10px;
-  color: rgb(255, 255, 255); /* 文字の色 */
+  color: rgb(255, 255, 255);
+  /* 文字の色 */
 }
 
 .result-button:hover {
   background-color: #7ed6e5;
 }
+
 .result-button:active {
-  background-color: #ffffff; /* 押した瞬間の色 */
+  background-color: #ffffff;
+  /* 押した瞬間の色 */
 }
