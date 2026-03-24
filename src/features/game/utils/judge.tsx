@@ -17,8 +17,8 @@ export const Judge: React.FC = () => {
   const lives: number[] = useGameStore((state) => state.lives);
   const scores: number[] = useGameStore((state) => state.scores);
   useEffect(() => {
-    let counter: number = 0;
     for (let i = 0; i < playerCount; i++) {
+      let counter: number = 0;
       for (const element2 of currentDirections) {
         if (playerDirections[i] === element2) break;
         counter = counter + 1;
