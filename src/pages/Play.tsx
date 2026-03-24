@@ -77,6 +77,7 @@ const Play = () => {
   };
   const clickStart = () => {
     setgamePhase("waiting");
+    setAddC(Array(8).fill(""));
     settimer(0);
     setRound(0);
     setIsMenu(false);
