@@ -68,7 +68,7 @@ const Play = () => {
       increaseRound();
       setcount_speed(Math.max(600 - round * 30, 375));
     }
-  }, [timer, gamePhase, round]);
+  }, [timer, gamePhase, round, increaseRound]);
 
   useEffect(() => {
     //メニューを開いたとき以外はタイマーを動かし続ける
