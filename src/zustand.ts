@@ -12,6 +12,7 @@ type gameState = {
   lives: number[]; //残機
   currentDirections: Direction[];
   playerDirections: Direction[];
+  cameraDirections: Direction[];
   increasePlayerCount: () => void;
   decreasePlayerCount: () => void;
   setPlayerCount: (c: number) => void;
@@ -29,6 +30,7 @@ type gameState = {
   setLife: (index: number, value: number) => void;
   setCurrentDirections: (index: number, value: Direction) => void;
   setPlayerDirections: (index: number, value: Direction) => void;
+  setCameraDirections: (index: number, value: Direction) => void;
 };
 
 export const useGameStore = create<gameState>((set) => ({
@@ -113,6 +115,13 @@ export const useGameStore = create<gameState>((set) => ({
   setPlayerDirections: (index: number, value: Direction) =>
     set((state) => ({
       playerDirections: state.playerDirections.map((l, i) =>
+        i === index ? value : l,
+      ),
+    })),
+  cameraDirections: ["center", "center", "center"],
+  setCameraDirections: (index: number, value: Direction) =>
+    set((state) => ({
+      cameraDirections: state.cameraDirections.map((l, i) =>
         i === index ? value : l,
       ),
     })),
