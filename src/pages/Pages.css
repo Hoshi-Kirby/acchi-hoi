@@ -332,6 +332,41 @@ body,
   height: auto;
 }
 
+.point {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  gap: 200px;
+  flex-direction: row;
+  display: flex;
+  transform: translate(-50%, 0%);
+  font-size: 48px;
+  font-weight: bold;
+  -webkit-text-stroke: 0.02em #000000;
+}
+.player-0 {
+  color: red;
+}
+.player-1 {
+  color: rgb(0, 183, 255);
+}
+.player-2 {
+  color: yellow;
+}
+.player-3 {
+  color: rgb(119, 255, 0);
+}
+.round-text {
+  position: absolute;
+  bottom: 80px;
+  right: 300px;
+  gap: 200px;
+  display: inline-block; /* transformを効かせるために必要 */
+  transform: scaleY(0.6);
+  font-size: 60px;
+  color: rgb(145, 121, 69);
+}
+
 /* 判定表示エリアのスタイル */
 .judge-display-area {
   position: absolute;

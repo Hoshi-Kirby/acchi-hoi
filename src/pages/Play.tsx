@@ -61,6 +61,7 @@ const Play = () => {
   const setRound = useGameStore((state) => state.setRound);
   const lives: number[] = useGameStore((state) => state.lives);
   const isPointSystem: boolean = useGameStore((state) => state.isPointSystem);
+  const scores = useGameStore((state) => state.scores);
   const [timer, settimer] = useState<number>(0); //カウント
   const [gamePhase, setgamePhase] = useState<"waiting" | "arrow" | "judging">(
     "waiting",
@@ -214,6 +215,14 @@ const Play = () => {
       <div className="judge-display-area">
         {gamePhase === "judging" && <Judge />}
       </div>
+      <div className="point">
+        {scores.slice(0, playerCount).map((score, index) => (
+          <div key={index} className={`player-${index}`}>
+            {score}pt
+          </div>
+        ))}
+      </div>
+      <div className="round-text">round {round}</div>
       {gamePhase === "arrow" && !isMenu && (
         <>
           <div className="arrow_up">
