@@ -124,7 +124,7 @@ const Play = () => {
     setgamePhase("waiting");
     setAddC(Array(8).fill(""));
     settimer(0);
-    setRound(0);
+    setRound(1);
     for (let i = 0; i < playerCount; i++) {
       setScore(i, 0);
       setLife(i, 3);
@@ -137,7 +137,7 @@ const Play = () => {
       setScore(i, 0);
       setLife(i, 3);
     }
-    setRound(0);
+    setRound(1);
     navigate("/Setup");
   };
   const GotoTitle = () => {
@@ -146,7 +146,7 @@ const Play = () => {
       setScore(i, 0);
       setLife(i, 3);
     }
-    setRound(0);
+    setRound(1);
     navigate("/");
   };
 
