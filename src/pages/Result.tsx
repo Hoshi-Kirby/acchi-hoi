@@ -21,7 +21,7 @@ const Result: React.FC = () => {
       setScore(i, 0);
       setLifes(i, 3);
     }
-    setRound(0);
+    setRound(1);
     navigate("/Play");
   };
   const GotoSetting = () => {
@@ -29,7 +29,7 @@ const Result: React.FC = () => {
       setScore(i, 0);
       setLifes(i, 3);
     }
-    setRound(0);
+    setRound(1);
     navigate("/Setup");
   };
   const GotoTitle = () => {
@@ -37,7 +37,7 @@ const Result: React.FC = () => {
       setScore(i, 0);
       setLifes(i, 3);
     }
-    setRound(0);
+    setRound(1);
     navigate("/");
   };
   return (
