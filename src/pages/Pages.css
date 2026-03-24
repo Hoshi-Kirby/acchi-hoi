@@ -385,19 +385,16 @@ body,
 }
 
 .count {
-  position: absolute;
-  /*親要素(game-container)に対して絶対位置 */
-  bottom: 50px;
-  /*画面の下から50pxの位置 */
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  /* 横方向の中央寄せ */
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 100px;
   z-index: 10;
-  /*キャラクターより手前に表示*/
+  color: rgb(255, 255, 255);
+  -webkit-text-stroke: 0.02em #000000;
+  font-weight: 700;
   pointer-events: none;
-  /* 下の要素のクリックを邪魔したくない場合 */
 }
 
 .arrow_up {
