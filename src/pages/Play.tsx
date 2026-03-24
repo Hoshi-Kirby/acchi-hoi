@@ -19,6 +19,10 @@ import up_C from "../assets/up_C.png";
 import down_C from "../assets/down_C.png";
 import left_C from "../assets/left_C.png";
 import right_C from "../assets/right_C.png";
+import u_C from "../assets/u_c.png";
+import d_C from "../assets/d_c.png";
+import l_C from "../assets/l_c.png";
+import r_C from "../assets/r_c.png";
 import menuButton from "../assets/menuButton.png";
 import menuFrame from "../assets/menuFrame.png";
 import kaSound from "../assets/ka.mp3";
@@ -39,6 +43,10 @@ const arrowImages = {
   downc: down_C,
   leftc: left_C,
   rightc: right_C,
+  upcmini: u_C,
+  downcmini: d_C,
+  leftcmini: l_C,
+  rightcmini: r_C,
   center: p1w,
   centerc: p1w,
 };
@@ -56,6 +64,7 @@ const Play = () => {
   );
   const [count_speed, setcount_speed] = useState<number>(1000); //カウントの時間間隔
   const [isMenu, setIsMenu] = useState<boolean>(false);
+  const [addC, setAddC] = useState<string>("");
 
   const clickMenu = () => {
     setIsMenu(true);
@@ -133,6 +142,14 @@ const Play = () => {
       increaseRound();
     }
   }, [timer, gamePhase, round]);
+  useEffect(() => {
+    if (round > 16) {
+      setAddC("c");
+    }
+    if (round > 20) {
+      setAddC("cmini");
+    }
+  }, [round]);
 
   useEffect(() => {
     //メニューを開いたとき以外はタイマーを動かし続ける
@@ -163,128 +180,49 @@ const Play = () => {
       </div>
       {gamePhase === "arrow" && !isMenu && (
         <>
-          {round <= 16 ? (
+          <div className="arrow_up">
+            {currentDirections[0] !== null && (
+              <img
+                className="arroww"
+                src={arrowImages[(currentDirections[0] + addC) as ArrowKey]}
+                alt="うえ"
+              />
+            )}
+          </div>
+          <div className="arrow_right">
+            {currentDirections[1] !== null && (
+              <img
+                className="arroww"
+                src={arrowImages[(currentDirections[1] + addC) as ArrowKey]}
+                alt="みぎ"
+              />
+            )}
+          </div>
+          <div className="arrow_down">
+            {currentDirections[2] !== null && (
+              <img
+                className="arroww"
+                src={arrowImages[(currentDirections[2] + addC) as ArrowKey]}
+                alt="した"
+              />
+            )}
+          </div>
+          <div className="arrow_left">
+            {currentDirections[3] !== null && (
+              <img
+                className="arroww"
+                src={arrowImages[(currentDirections[3] + addC) as ArrowKey]}
+                alt="ひだり"
+              />
+            )}
+          </div>
+          {round > 12 && (
             <>
-              <div className="arrow_up">
-                {currentDirections[0] !== null && (
-                  <img
-                    className="arroww"
-                    src={arrowImages[currentDirections[0]]}
-                    alt="うえ"
-                  />
-                )}
-              </div>
-              <div className="arrow_right">
-                {currentDirections[1] !== null && (
-                  <img
-                    className="arroww"
-                    src={arrowImages[currentDirections[1]]}
-                    alt="みぎ"
-                  />
-                )}
-              </div>
-              <div className="arrow_down">
-                {currentDirections[2] !== null && (
-                  <img
-                    className="arroww"
-                    src={arrowImages[currentDirections[2]]}
-                    alt="した"
-                  />
-                )}
-              </div>
-              <div className="arrow_left">
-                {currentDirections[3] !== null && (
-                  <img
-                    className="arroww"
-                    src={arrowImages[currentDirections[3]]}
-                    alt="ひだり"
-                  />
-                )}
-              </div>
-              {round > 12 && (
-                <>
-                  <div className="arrow_upleft">
-                    {currentDirections[4] !== null && (
-                      <img
-                        className="arroww"
-                        src={arrowImages[currentDirections[4]]}
-                        alt="うえ"
-                      />
-                    )}
-                  </div>
-                  <div className="arrow_upright">
-                    {currentDirections[5] !== null && (
-                      <img
-                        className="arroww"
-                        src={arrowImages[currentDirections[5]]}
-                        alt="みぎ"
-                      />
-                    )}
-                  </div>
-                  <div className="arrow_downleft">
-                    {currentDirections[6] !== null && (
-                      <img
-                        className="arroww"
-                        src={arrowImages[currentDirections[6]]}
-                        alt="した"
-                      />
-                    )}
-                  </div>
-                  <div className="arrow_downright">
-                    {currentDirections[7] !== null && (
-                      <img
-                        className="arroww"
-                        src={arrowImages[currentDirections[7]]}
-                        alt="ひだり"
-                      />
-                    )}
-                  </div>
-                </>
-              )}
-            </>
-          ) : (
-            <>
-              <div className="arrow_up">
-                {currentDirections[0] !== null && (
-                  <img
-                    className="arroww"
-                    src={arrowImages[(currentDirections[0] + "c") as ArrowKey]}
-                    alt="うえ"
-                  />
-                )}
-              </div>
-              <div className="arrow_right">
-                {currentDirections[1] !== null && (
-                  <img
-                    className="arroww"
-                    src={arrowImages[(currentDirections[1] + "c") as ArrowKey]}
-                    alt="みぎ"
-                  />
-                )}
-              </div>
-              <div className="arrow_down">
-                {currentDirections[2] !== null && (
-                  <img
-                    className="arroww"
-                    src={arrowImages[(currentDirections[2] + "c") as ArrowKey]}
-                    alt="した"
-                  />
-                )}
-              </div>
-              <div className="arrow_left">
-                {currentDirections[3] !== null && (
-                  <img
-                    className="arroww"
-                    src={arrowImages[(currentDirections[3] + "c") as ArrowKey]}
-                    alt="ひだり"
-                  />
-                )}
-              </div>
               <div className="arrow_upleft">
                 {currentDirections[4] !== null && (
                   <img
                     className="arroww"
-                    src={arrowImages[(currentDirections[4] + "c") as ArrowKey]}
+                    src={arrowImages[(currentDirections[4] + addC) as ArrowKey]}
                     alt="うえ"
                   />
                 )}
@@ -293,7 +231,7 @@ const Play = () => {
                 {currentDirections[5] !== null && (
                   <img
                     className="arroww"
-                    src={arrowImages[(currentDirections[5] + "c") as ArrowKey]}
+                    src={arrowImages[(currentDirections[5] + addC) as ArrowKey]}
                     alt="みぎ"
                   />
                 )}
@@ -302,7 +240,7 @@ const Play = () => {
                 {currentDirections[6] !== null && (
                   <img
                     className="arroww"
-                    src={arrowImages[(currentDirections[6] + "c") as ArrowKey]}
+                    src={arrowImages[(currentDirections[6] + addC) as ArrowKey]}
                     alt="した"
                   />
                 )}
@@ -311,7 +249,7 @@ const Play = () => {
                 {currentDirections[7] !== null && (
                   <img
                     className="arroww"
-                    src={arrowImages[(currentDirections[7] + "c") as ArrowKey]}
+                    src={arrowImages[(currentDirections[7] + addC) as ArrowKey]}
                     alt="ひだり"
                   />
                 )}
