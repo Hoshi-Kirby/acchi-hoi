@@ -17,7 +17,7 @@ export const useInterface = () => {
   const setPlayerDirections = useGameStore(
     (state) => state.setPlayerDirections,
   );
-  const round = useGameStore((state) => state.round);
+  // const round = useGameStore((state) => state.round);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -43,15 +43,17 @@ export const useInterface = () => {
 
     // イベントリスナーを登録
     window.addEventListener("keydown", handleKeyDown);
+    console.log("イベントリスナー設置");
 
     // クリーンアップ関数（コンポーネントが消える時にリスナーを削除）
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
+      console.log("イベントリスナー撤去");
     };
   }, [setPlayerDirections]); // 依存配列にセット関数を含める
 
-  useEffect(() => {
-    set_all(setPlayerDirections, "center");
-    console.log("center");
-  }, [round, setPlayerDirections]);
+  // useEffect(() => {
+  // set_all(setPlayerDirections, "center");
+  // console.log("center");
+  // }, [round, setPlayerDirections]);
 };
