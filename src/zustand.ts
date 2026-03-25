@@ -16,6 +16,7 @@ type gameState = {
   timer: number;
   phase: phase;
   cameraDirections: Direction[];
+  token: boolean[];
   highScore: number;
   increasePlayerCount: () => void;
   decreasePlayerCount: () => void;
@@ -37,6 +38,7 @@ type gameState = {
   setTimer: (index: number) => void;
   setPhase: (c: phase) => void;
   setCameraDirections: (index: number, value: Direction) => void;
+  deleteToken: () => void;
   setHighScore: (index: number) => void;
 };
 
@@ -137,6 +139,9 @@ export const useGameStore = create<gameState>((set) => ({
         i === index ? value : l,
       ),
     })),
+
+  token: [true, true, true, true],
+  deleteToken: () => set({ token: [false, false, false, false] }),
   highScore: 0,
   setHighScore: (c: number) => set({ highScore: c }),
 }));
