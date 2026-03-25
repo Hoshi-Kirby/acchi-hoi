@@ -13,9 +13,11 @@ type gameState = {
   lives: number[]; //残機
   currentDirections: Direction[];
   playerDirections: Direction[];
+  timer: number;
   phase: phase;
   cameraDirections: Direction[];
   token: boolean[];
+  highScore: number;
   increasePlayerCount: () => void;
   decreasePlayerCount: () => void;
   setPlayerCount: (c: number) => void;
@@ -33,9 +35,11 @@ type gameState = {
   setLife: (index: number, value: number) => void;
   setCurrentDirections: (index: number, value: Direction) => void;
   setPlayerDirections: (index: number, value: Direction) => void;
+  setTimer: (index: number) => void;
   setPhase: (c: phase) => void;
   setCameraDirections: (index: number, value: Direction) => void;
   deleteToken: () => void;
+  setHighScore: (index: number) => void;
 };
 
 export const useGameStore = create<gameState>((set) => ({
@@ -123,6 +127,8 @@ export const useGameStore = create<gameState>((set) => ({
         i === index ? value : l,
       ),
     })),
+  timer: 0,
+  setTimer: (c: number) => set({ timer: c }),
 
   phase: "waiting",
   setPhase: (c: phase) => set({ phase: c }),
@@ -136,6 +142,8 @@ export const useGameStore = create<gameState>((set) => ({
 
   token: [true, true, true, true],
   deleteToken: () => set({ token: [false, false, false, false] }),
+  highScore: 0,
+  setHighScore: (c: number) => set({ highScore: c }),
 }));
 
 // まだやって無ければターミナルでnpm install zustandを実行する。

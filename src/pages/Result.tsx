@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Pages.css";
 import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../zustand";
@@ -13,6 +13,10 @@ const Result: React.FC = () => {
   const setScore = useGameStore((state) => state.setScore);
   const setLifes = useGameStore((state) => state.setLife);
   const setRound = useGameStore((state) => state.setRound);
+  const highScore = useGameStore((state) => state.highScore);
+  const setHighScore = useGameStore((state) => state.setHighScore);
+
+  const [getHighScore, setGetHighScore] = useState<boolean>(false);
 
   indexedScores.sort((a, b) => b.score - a.score);
   const sortedValues = indexedScores.map((item) => item.score);
@@ -61,6 +65,13 @@ const Result: React.FC = () => {
     audioRefB.current.currentTime = 0;
     audioRefB.current.play();
   };
+
+  useEffect(() => {
+    if (sortedValues[0] > highScore) {
+      setHighScore(sortedValues[0]);
+      setGetHighScore(true);
+    }
+  }, []);
   return (
     <div className="game-container">
       <div className="back"></div>
@@ -72,6 +83,8 @@ const Result: React.FC = () => {
           </div>
         ))}
       </div>
+      <div className="result-text2">ハイスコア:{highScore}pt</div>
+      {getHighScore && <div className="result-text3">ハイスコア更新！</div>}
       <div className="result-buttons">
         <button className="result-button" onClick={clickStart}>
           もういちど

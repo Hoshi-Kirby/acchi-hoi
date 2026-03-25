@@ -127,7 +127,6 @@ const Play = () => {
   const navigate = useNavigate();
   const clickContinue = () => {
     playSoundA();
-    settimer(10);
     setIsMenu(false);
   };
   const clickStart = () => {
@@ -144,22 +143,18 @@ const Play = () => {
   };
   const GotoSetting = () => {
     playSoundA();
-    settimer(0);
     for (let i = 0; i < playerCount; i++) {
       setScore(i, 0);
       setLife(i, 3);
     }
-    setRound(1);
     navigate("/Setup");
   };
   const GotoTitle = () => {
     playSoundA();
-    settimer(0);
     for (let i = 0; i < playerCount; i++) {
       setScore(i, 0);
       setLife(i, 3);
     }
-    setRound(1);
     navigate("/");
   };
 
@@ -241,7 +236,6 @@ const Play = () => {
     round,
     increaseRound,
     isPointSystem,
-    lives,
     navigate,
     playerCount,
     setPhase,
@@ -273,10 +267,19 @@ const Play = () => {
     const intervalId = setInterval(() => {
       if (!isMenu) {
         settimer((prev) => prev + 1);
+      } else {
+        if (phase === "arrow") {
+          settimer(8);
+        }
       }
     }, count_speed);
     return () => clearInterval(intervalId);
   }, [count_speed, isMenu]);
+
+  useEffect(() => {
+    settimer(0);
+    setRound(1);
+  }, []);
 
   return (
     <div className="game-container">
