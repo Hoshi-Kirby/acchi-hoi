@@ -260,7 +260,7 @@ const Play = () => {
       if (!isMenu) {
         settimer((prev) => prev + 1);
       } else {
-        if (gamePhase == "arrow") {
+        if (phase === "arrow") {
           settimer(8);
         }
       }
