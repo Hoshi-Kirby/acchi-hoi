@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./Pages.css";
 // import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../zustand";
@@ -27,6 +27,20 @@ const Setup: React.FC = () => {
   const setIsPointSystem = useGameStore((state) => state.setIsPointSystem);
   const setRound = useGameStore((state) => state.setRound);
 
+  const highScore = useGameStore((state) => state.highScore);
+
+  const [addC, setAddC] = useState<string[]>(["", "", ""]);
+
+  type Direction = "left" | "right";
+  type DirectionC = `${Direction}c`;
+
+  type ArrowKey = Direction | DirectionC;
+  const arrowImages = {
+    left: left_arrow,
+    right: right_arrow,
+    leftc: left_C,
+    rightc: right_C,
+  };
   // 画面遷移処理
 
   const navigate = useNavigate();
@@ -49,7 +63,7 @@ const Setup: React.FC = () => {
   };
   const increaseNumber = () => {
     playSoundA();
-    if (playerCount < 4) {
+    if (playerCount < 3) {
       increasePlayerCount();
     }
   };
@@ -87,28 +101,61 @@ const Setup: React.FC = () => {
     audioRefB.current.play();
   };
 
+  useEffect(() => {
+    if (highScore > 25) {
+      setAddC(["c", "c", "c"]);
+    } else if (highScore > 20) {
+      setAddC(["c", "c", ""]);
+    } else if (highScore > 16) {
+      setAddC(["c", "", ""]);
+    }
+  }, []);
   return (
     <div className="game-container">
       <div className="back"></div>
       <div className="setup1">
         <div>参加人数　　</div>
-        <img src={left_arrow} onClick={decreaseNumber} className="triangle" />
+        <img
+          src={arrowImages[("left" + addC[2]) as ArrowKey]}
+          onClick={decreaseNumber}
+          className="triangle"
+        />
         <div className="setup-text">{playerCount}</div>
-        <img src={right_arrow} onClick={increaseNumber} className="triangle" />
+        <img
+          src={arrowImages[("right" + addC[2]) as ArrowKey]}
+          onClick={increaseNumber}
+          className="triangle"
+        />
       </div>
       <div className="setup2">
         <div>表示モード　</div>
-        <img src={left_arrow} onClick={modeTrue} className="triangle" />
+        <img
+          src={arrowImages[("left" + addC[1]) as ArrowKey]}
+          onClick={modeTrue}
+          className="triangle"
+        />
         <div className="setup-text">{showingCharacter ? "キャラ" : "映像"}</div>
-        <img src={right_arrow} onClick={modeFalse} className="triangle" />
+        <img
+          src={arrowImages[("right" + addC[1]) as ArrowKey]}
+          onClick={modeFalse}
+          className="triangle"
+        />
       </div>
       <div className="setup3">
         <div>ゲームモード</div>
-        <img src={left_arrow} onClick={pointTrue} className="triangle" />
+        <img
+          src={arrowImages[("left" + addC[0]) as ArrowKey]}
+          onClick={pointTrue}
+          className="triangle"
+        />
         <div className="setup-text">
           {isPointSystem ? "ポイント制" : "残機制"}
         </div>
-        <img src={right_arrow} onClick={pointFalse} className="triangle" />
+        <img
+          src={arrowImages[("right" + addC[0]) as ArrowKey]}
+          onClick={pointFalse}
+          className="triangle"
+        />
       </div>
       <button className="back-button" onClick={clickBack}>
         戻る

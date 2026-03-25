@@ -227,7 +227,6 @@ const Play = () => {
     round,
     increaseRound,
     isPointSystem,
-    lives,
     navigate,
     playerCount,
     setPhase,
