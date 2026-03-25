@@ -5,10 +5,6 @@ import { type Direction } from "../../../zustand";
 
 const useDirection: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  //   const [directions, setDirections] = useState<string[]>(["無", "無", "無"]);
-  //   const [sayuu, setSayuu] = useState<number[]>([0, 0, 0]);
-  //   const [joge, setJoge] = useState<number[]>([0, 0, 0]);
-  //   const cameraDirections = useGameStore((state) => state.cameraDirections);
   const setCameraDirections = useGameStore(
     (state) => state.setCameraDirections,
   );
@@ -72,7 +68,7 @@ const useDirection: React.FC = () => {
           const faceX = landmarks[1].x;
 
           // videoタグで scaleX(-1)（左右反転）しているため、
-          // 画面の左側（見た目）が、カメラのデータ上では 1.0 に近くなります。
+          // 画面の左側（見た目）が、カメラのデータ上では 1.0 に近くなる。
           // 画面の左から 0, 1, 2, 3 のインデックスになるように座標を反転させます。
           const screenX = 1.0 - faceX;
 
@@ -103,8 +99,6 @@ const useDirection: React.FC = () => {
         });
       }
 
-      //   setSayuu(newSayuus);
-      //   setJoge(newJoges);
       animationFrameId = requestAnimationFrame(predictWebcam);
     };
     setUpDetector();
@@ -117,7 +111,7 @@ const useDirection: React.FC = () => {
         faceLandmarker.close();
       }
     };
-  });
+  }, []);
 };
 
 export default useDirection;

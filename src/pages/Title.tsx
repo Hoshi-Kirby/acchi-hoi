@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./Pages.css";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/titleLogo.png";
 import Bbutton from "../assets/buttonS.mp3";
+import { useGameStore } from "../zustand";
 
 const Title: React.FC = () => {
   const navigate = useNavigate();
@@ -19,6 +20,9 @@ const Title: React.FC = () => {
     audioRefB.current.play();
   };
 
+  const setHighScore = useGameStore((state) => state.setHighScore);
+
+  useEffect(() => {});
   return (
     <div className="game-container">
       <div className="back"></div>
