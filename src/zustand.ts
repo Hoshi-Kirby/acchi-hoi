@@ -12,6 +12,7 @@ type gameState = {
   lives: number[]; //残機
   currentDirections: Direction[];
   playerDirections: Direction[];
+  timer: number;
   increasePlayerCount: () => void;
   decreasePlayerCount: () => void;
   setPlayerCount: (c: number) => void;
@@ -29,6 +30,7 @@ type gameState = {
   setLife: (index: number, value: number) => void;
   setCurrentDirections: (index: number, value: Direction) => void;
   setPlayerDirections: (index: number, value: Direction) => void;
+  setTimer: (index: number) => void;
 };
 
 export const useGameStore = create<gameState>((set) => ({
@@ -116,6 +118,8 @@ export const useGameStore = create<gameState>((set) => ({
         i === index ? value : l,
       ),
     })),
+  timer: 0,
+  setTimer: (c: number) => set({ round: c }),
 }));
 
 // まだやって無ければターミナルでnpm install zustandを実行する。
