@@ -5,6 +5,7 @@ import Setup from "./pages/Setup";
 import SetChara from "./pages/SetChara";
 import Play from "./pages/Play";
 import Result from "./pages/Result";
+import useDirection from "./features/camera/hooks/useDirection";
 // import { useState } from "react";
 // import reactLogo from "./assets/react.svg";
 // import viteLogo from "./assets/vite.svg";

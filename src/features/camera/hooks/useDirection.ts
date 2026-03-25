@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { FaceLandmarker, FilesetResolver } from "@mediapipe/tasks-vision";
 import { useGameStore } from "../../../zustand";
 import { type Direction } from "../../../zustand";
 
-const useDirection: React.FC = () => {
+const useDirection = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   //   const [directions, setDirections] = useState<string[]>(["無", "無", "無"]);
   //   const [sayuu, setSayuu] = useState<number[]>([0, 0, 0]);
@@ -16,7 +16,7 @@ const useDirection: React.FC = () => {
   useEffect(() => {
     let faceLandmarker: FaceLandmarker;
     let animationFrameId: number;
-
+    // console.log("AIAIAIAIAI");
     const setUpDetector = async () => {
       //モデルの初期化
       const vision = await FilesetResolver.forVisionTasks(
@@ -60,12 +60,10 @@ const useDirection: React.FC = () => {
         videoRef.current,
         startTimeMs,
       );
-
       // 毎フレーム「無」でリセットし、顔が見つかったエリアだけ上書きする
       setCameraDirections(0, null);
       setCameraDirections(1, null);
       setCameraDirections(2, null);
-
       if (results.faceLandmarks && results.faceLandmarks.length > 0) {
         results.faceLandmarks.forEach((landmarks, index) => {
           // 顔の基準点として鼻の頭付近のX座標を取得 (0.0 〜 1.0)
@@ -97,6 +95,7 @@ const useDirection: React.FC = () => {
 
             // 計算したエリア（インデックス）の方向を上書き
             setCameraDirections(sectorIndex, dir);
+
             newJoges[sectorIndex] = pitch;
             newSayuus[sectorIndex] = yaw;
           }
@@ -117,7 +116,7 @@ const useDirection: React.FC = () => {
         faceLandmarker.close();
       }
     };
-  });
+  }, []);
 };
 
 export default useDirection;

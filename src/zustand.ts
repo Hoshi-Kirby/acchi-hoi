@@ -15,6 +15,7 @@ type gameState = {
   playerDirections: Direction[];
   phase: phase;
   cameraDirections: Direction[];
+  token: boolean[];
   increasePlayerCount: () => void;
   decreasePlayerCount: () => void;
   setPlayerCount: (c: number) => void;
@@ -34,6 +35,7 @@ type gameState = {
   setPlayerDirections: (index: number, value: Direction) => void;
   setPhase: (c: phase) => void;
   setCameraDirections: (index: number, value: Direction) => void;
+  deleteToken: () => void;
 };
 
 export const useGameStore = create<gameState>((set) => ({
@@ -131,6 +133,9 @@ export const useGameStore = create<gameState>((set) => ({
         i === index ? value : l,
       ),
     })),
+
+  token: [true, true, true, true],
+  deleteToken: () => set({ token: [false, false, false, false] }),
 }));
 
 // まだやって無ければターミナルでnpm install zustandを実行する。
