@@ -6,12 +6,13 @@ import { type Direction } from "../../../zustand";
 const useDirection = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   //   const [directions, setDirections] = useState<string[]>(["無", "無", "無"]);
-  const [sayuu, setSayuu] = useState<number[]>([0, 0, 0]);
-  const [joge, setJoge] = useState<number[]>([0, 0, 0]);
+  const [sayuu, setSayuu] = useState<number[]>([0, 0, 0, 0]);
+  const [joge, setJoge] = useState<number[]>([0, 0, 0, 0]);
   //   const cameraDirections = useGameStore((state) => state.cameraDirections);
   const setCameraDirections = useGameStore(
     (state) => state.setCameraDirections,
   );
+  const playerCount = useGameStore((state) => state.playerCount);
 
   useEffect(() => {
     let faceLandmarker: FaceLandmarker;
@@ -29,7 +30,7 @@ const useDirection = () => {
         },
         outputFacialTransformationMatrixes: true,
         runningMode: "VIDEO",
-        numFaces: 3, // 検出人数をに設定
+        numFaces: playerCount, // 検出人数をに設定
       });
       startCamera();
       console.log("初期化完了");
@@ -48,8 +49,8 @@ const useDirection = () => {
       }
     };
 
-    const newSayuus = [0, 0, 0];
-    const newJoges = [0, 0, 0];
+    const newSayuus = [0, 0, 0, 0];
+    const newJoges = [0, 0, 0, 0];
 
     const predictWebcam = () => {
       if (!videoRef.current || !faceLandmarker) return;
@@ -63,6 +64,7 @@ const useDirection = () => {
       setCameraDirections(0, null);
       setCameraDirections(1, null);
       setCameraDirections(2, null);
+      setCameraDirections(3, null);
       if (results.faceLandmarks.length > 0) {
         results.faceLandmarks.forEach((landmarks, index) => {
           // 顔の基準点として鼻の頭付近のX座標を取得 (0.0 〜 1.0)
@@ -72,12 +74,11 @@ const useDirection = () => {
           // 画面の左側（見た目）が、カメラのデータ上では 1.0 に近くなる。
           // 画面の左から 0, 1, 2, 3 のインデックスになるように座標を反転させます。
           const screenX = 1.0 - faceX;
-
           // 画面を4分割し、どの領域(0〜3)にいるか計算
-          let sectorIndex = Math.floor(screenX * 3);
+          let sectorIndex = Math.floor(screenX * playerCount);
           // 画面端で見切れた場合の安全対策
           if (sectorIndex < 0) sectorIndex = 0;
-          if (sectorIndex > 2) sectorIndex = 2;
+          if (sectorIndex > playerCount - 1) sectorIndex = playerCount - 1;
 
           // その顔の回転行列を取得
           const matrix = results.facialTransformationMatrixes?.[index]?.data;

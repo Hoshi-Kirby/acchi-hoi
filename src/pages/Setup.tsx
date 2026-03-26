@@ -63,7 +63,7 @@ const Setup: React.FC = () => {
   };
   const increaseNumber = () => {
     playSoundA();
-    if (playerCount < 3) {
+    if (playerCount < 4) {
       increasePlayerCount();
     }
   };

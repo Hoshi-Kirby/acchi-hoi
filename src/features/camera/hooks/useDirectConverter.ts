@@ -55,6 +55,7 @@ export const useDirectConverter = () => {
   useEffect(() => {
     setTimer((prev) => [prev[0], prev[1], prev[2], 0]);
   }, [cameraDirections[3]]);
+  console.log(cameraDirections[3]);
 
   useEffect(() => {
     if (phase === "arrow") {

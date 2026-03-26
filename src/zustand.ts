@@ -132,7 +132,7 @@ export const useGameStore = create<gameState>((set) => ({
 
   phase: "waiting",
   setPhase: (c: phase) => set({ phase: c }),
-  cameraDirections: ["center", "center", "center"],
+  cameraDirections: ["center", "center", "center", "center"],
   setCameraDirections: (index: number, value: Direction) =>
     set((state) => ({
       cameraDirections: state.cameraDirections.map((l, i) =>
