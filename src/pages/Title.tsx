@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "../assets/titleLogo.png";
 import Bbutton from "../assets/buttonS.mp3";
 import { useGameStore } from "../zustand";
+import Cookies from "js-cookie";
 
 const Title: React.FC = () => {
   const navigate = useNavigate();
@@ -22,7 +23,14 @@ const Title: React.FC = () => {
 
   const setHighScore = useGameStore((state) => state.setHighScore);
 
-  useEffect(() => {});
+  useEffect(() => {
+    const cookieHighScore = Cookies.get("cookieHighScore");
+    if (cookieHighScore) {
+      const numHighScore: number = Number(cookieHighScore);
+      setHighScore(numHighScore);
+    }
+  }, []);
+
   return (
     <div className="game-container">
       <div className="back"></div>
