@@ -174,7 +174,7 @@ const Play = () => {
       audioRefKa.current = new Audio(kaSound);
     }
     audioRefKa.current.currentTime = 0;
-    audioRefKa.current.playbackRate = 1.0;
+    audioRefKa.current.playbackRate = round;
     audioRefKa.current.play();
   };
   const playSoundKan = () => {
