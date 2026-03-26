@@ -31,6 +31,7 @@ body,
   background-position: center;
   background-repeat: no-repeat;
 }
+
 .back-sea {
   position: absolute;
   width: 100vw;
@@ -51,6 +52,7 @@ body,
 .triangle:hover {
   filter: brightness(2);
 }
+
 .triangle:active {
   filter: brightness(0) invert(1);
 }
@@ -65,6 +67,7 @@ body,
   font-size: 48px;
   color: black;
 }
+
 .title-logo {
   image-rendering: pixelated;
   position: absolute;
@@ -75,31 +78,36 @@ body,
 }
 
 .title-start-button {
+  image-rendering: pixelated;
   position: absolute;
-  top: 60%;
+  top: 70%;
   left: 50%;
-  background-color: rgb(0, 0, 0);
-  /* ボタンの色 */
-  border: 2px solid #ffffff;
-  /* 縁の色 */
+  width: 300px;
+  height: 100px;
+  background-image: url("../assets/button_Blue_1.png");
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  border: none;
   transform: translate(-50%, -50%);
-  font-size: 40px;
-  padding: 10px 80px;
+  font-size: 50px;
+  padding-bottom: 8px;
   color: rgb(255, 255, 255);
   /* 文字の色 */
 }
 
 .title-start-button:hover {
-  background-color: rgb(81, 81, 81);
+  background-image: url("../assets/button_Blue_2.png");
 }
 
 .title-start-button:active {
-  background-color: #adadad;
-  /* 押した瞬間の色 */
+  background-image: url("../assets/button_Blue_3.png");
 }
+
 .delete-button-wrapper {
   width: 100;
 }
+
 .delete {
   position: absolute;
   top: 88%;
@@ -114,6 +122,7 @@ body,
   padding: 5px 10px;
   color: rgb(0, 0, 0);
 }
+
 .suka {
   position: absolute;
   top: 95%;
@@ -166,6 +175,7 @@ body,
   font-size: 48px;
   color: black;
 }
+
 .setup-text {
   width: 250px;
   text-align: center;
@@ -195,27 +205,32 @@ body,
 }
 
 .setup-start-button {
+  image-rendering: pixelated;
   position: absolute;
   top: 80%;
   left: 50%;
-  background-color: rgb(0, 0, 0);
+  width: 270px;
+  height: 90px;
+  background-image: url("../assets/button_Blue_1.png");
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
   /* ボタンの色 */
-  border: 2px solid #ffffff;
+  border: none;
   /* 縁の色 */
   transform: translate(-50%, -50%);
   font-size: 40px;
-  padding: 10px 80px;
+  padding-bottom: 8px;
   color: rgb(255, 255, 255);
   /* 文字の色 */
 }
 
 .setup-start-button:hover {
-  background-color: rgb(81, 81, 81);
+  background-image: url("../assets/button_Blue_2.png");
 }
 
 .setup-start-button:active {
-  background-color: #adadad;
-  /* 押した瞬間の色 */
+  background-image: url("../assets/button_Blue_3.png");
 }
 
 /* SetChara */
@@ -346,23 +361,27 @@ body,
 }
 
 .button-inmenu {
-  background-color: rgb(0, 0, 0);
-  /* ボタンの色 */
-  border: 2px solid #ffffff;
-  /* 縁の色 */
+  image-rendering: pixelated;
+  width: 200px;
+  height: 50px;
+  background-image: url("../assets/button_menu_1.png");
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  padding-bottom: 5px;
   font-size: 20px;
-  padding: 10px 50px;
   color: rgb(255, 255, 255);
+  border: none;
   /* 文字の色 */
   z-index: 20;
 }
 
 .button-inmenu:hover {
-  background-color: rgb(81, 81, 81);
+  background-image: url("../assets/button_menu_2.png");
 }
 
 .button-inmenu:active {
-  background-color: #adadad;
+  background-image: url("../assets/button_menu_3.png");
   /* 押した瞬間の色 */
 }
 
@@ -381,54 +400,26 @@ body,
   width: 100px;
   height: auto;
 }
+
 .play-chara-packet-content {
-  width: 50px; /* 各プレイヤーごとに固定幅 */
+  width: 50px;
+  /* 各プレイヤーごとに固定幅 */
   display: flex;
   flex-direction: column;
-  align-items: center; /* 画像と♥を中央揃え */
-}
-.success-jump {
-  animation: successJump 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  align-items: center;
+  /* 画像と♥を中央揃え */
 }
 
-@keyframes successJump {
-  0% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-20px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-.fail-shake {
-  animation: failShake 0.28s ease;
-}
-
-@keyframes failShake {
-  0% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-5px);
-  }
-  50% {
-    transform: translateX(10px);
-  }
-  75% {
-    transform: translateX(-5px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
 .player-lives {
-  margin-top: 4px; /* 画像との隙間 */
+  margin-top: 4px;
+  /* 画像との隙間 */
 }
+
 .player-status {
-  position: fixed; /* 縦方向は画面基準 */
-  top: 40px; /* 画面上部から20px */
+  position: fixed;
+  /* 縦方向は画面基準 */
+  top: 40px;
+  /* 画面上部から20px */
   font-weight: bold;
 
   font-size: 48px;
@@ -446,24 +437,30 @@ body,
   font-weight: bold;
   -webkit-text-stroke: 0.02em #000000;
 }
+
 .player-0 {
   color: red;
 }
+
 .player-1 {
   color: rgb(0, 183, 255);
 }
+
 .player-2 {
   color: yellow;
 }
+
 .player-3 {
   color: rgb(119, 255, 0);
 }
+
 .round-text {
   position: absolute;
   bottom: 80px;
   right: 300px;
   gap: 200px;
-  display: inline-block; /* transformを効かせるために必要 */
+  display: inline-block;
+  /* transformを効かせるために必要 */
   transform: scaleY(0.6);
   font-size: 60px;
   color: rgb(145, 121, 69);
@@ -626,29 +623,21 @@ body,
   font-size: 48px;
   color: black;
 }
-.HighScore {
-  position: absolute;
-  top: 70%;
-  width: 100%;
-  display: flex;
-  justify-content: center; /* 中央寄せ */
-  align-items: center;
-  gap: 16px; /* 要素間の余白 */
-}
 
 .result-text2 {
   position: absolute;
-  left: 50%; /* 横方向中央 */
-  transform: translateX(-50%); /* 自分の幅の半分だけ左にずらす */
+  left: 50%;
+  /* 横方向中央 */
+  transform: translateX(-50%);
+  /* 自分の幅の半分だけ左にずらす */
   font-size: 48px;
   color: black;
 }
 
 .result-text3 {
   position: absolute;
-  left: calc(
-    50% + 200px
-  ); /* ハイスコアの右側に配置。200px はハイスコア幅に応じて調整 */
+  left: calc(50% + 200px);
+  /* ハイスコアの右側に配置。200px はハイスコア幅に応じて調整 */
   top: 0;
   font-size: 24px;
   color: black;
@@ -678,49 +667,25 @@ body,
 }
 
 .result-button {
-  background-color: rgb(55, 155, 191);
-  /* ボタンの色 */
-  border: 2px solid #ffffff;
+  border: none;
   /* 縁の色 */
+  width: 180px;
+  height: 60px;
+  background-image: url("../assets/button_Blue_1.png");
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  padding-bottom: 5px;
   font-size: 20px;
-  padding: 10px 10px;
+  padding-bottom: 5pt;
   color: rgb(255, 255, 255);
   /* 文字の色 */
 }
 
 .result-button:hover {
-  background-color: #7ed6e5;
+  background-image: url("../assets/button_Blue_2.png");
 }
 
 .result-button:active {
-  background-color: #ffffff;
-  /* 押した瞬間の色 */
-}
-
-.resultWrapper {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform: scale(1);
-  opacity: 1;
-  transform-origin: center;
-  pointer-events: auto;
-}
-.resultWrapper {
-  display: flex;
-  justify-content: center; /* 横中央 */
-  align-items: center; /* 縦中央 */
-  height: 100vh;
-}
-
-.resultImage {
-  display: flex;
-  width: 30%;
-  /* 画面幅の90% */
-  max-width: none;
-  /* max-width制限を解除 */
-  transform: translateY(3%);
-  height: auto;
-  z-index: -10;
+  background-image: url("../assets/button_Blue_3.png");
 }

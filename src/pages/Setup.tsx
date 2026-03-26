@@ -170,7 +170,7 @@ const Setup: React.FC = () => {
         戻る
       </button>
       <button className="setup-start-button" onClick={clickStart}>
-        GameStart!
+        Next
       </button>
     </div>
   );
