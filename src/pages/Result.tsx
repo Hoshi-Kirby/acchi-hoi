@@ -6,6 +6,7 @@ import Abutton from "../assets/buttonA.mp3";
 import Bbutton from "../assets/buttonD.mp3";
 import BGM1 from "../assets/resultBGMsummer.mp3";
 import BGM2 from "../assets/resultBGMwinter.mp3";
+import Cookies from "js-cookie";
 
 const Result: React.FC = () => {
   const playerCount = useGameStore((state) => state.playerCount);
@@ -72,6 +73,7 @@ const Result: React.FC = () => {
     if (sortedValues[0] > highScore) {
       setHighScore(sortedValues[0]);
       setGetHighScore(true);
+      Cookies.set("cookieHighScore", String(sortedValues[0]), { expires: 365 });
     }
   }, []);
   return (
