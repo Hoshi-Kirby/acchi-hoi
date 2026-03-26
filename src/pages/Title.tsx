@@ -26,19 +26,26 @@ const Title: React.FC = () => {
 
   const setHighScore = useGameStore((state) => state.setHighScore);
 
-  // useEffect(() => {
-  //   const cookieHighScore = Cookies.get("cookieHighScore");
-  //   if (cookieHighScore) {
-  //     const numHighScore: number = Number(cookieHighScore);
-  //     setHighScore(numHighScore);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const cookieHighScore = Cookies.get("cookieHighScore");
+    if (cookieHighScore) {
+      const numHighScore: number = Number(cookieHighScore);
+      setHighScore(numHighScore);
+    }
+  }, []);
+
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.2; // 音量を20%に設定
+    }
+  }, []);
 
   return (
     <div className="game-container">
       <div className="back"></div>
-      <audio src={Bgm} autoPlay loop />
-
+      <audio ref={audioRef} src={Bgm} autoPlay loop />
       <img src={logo} className="title-logo" />
       <button className="title-start-button" onClick={clickStart}>
         Start

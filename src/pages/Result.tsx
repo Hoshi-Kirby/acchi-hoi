@@ -76,13 +76,20 @@ const Result: React.FC = () => {
       Cookies.set("cookieHighScore", String(sortedValues[0]), { expires: 365 });
     }
   }, []);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.2; // 音量を20%に設定
+    }
+  }, []);
   return (
     <div className="game-container">
       <div className="back"></div>
       {getHighScore ? (
-        <audio src={BGM1} autoPlay loop />
+        <audio ref={audioRef} src={BGM1} autoPlay loop />
       ) : (
-        <audio src={BGM2} autoPlay loop />
+        <audio ref={audioRef} src={BGM2} autoPlay loop />
       )}
       <div className="result-text">結果発表</div>
       <div className="result-table">

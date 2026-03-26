@@ -111,10 +111,17 @@ const Setup: React.FC = () => {
       setAddC(["c", "", ""]);
     }
   }, []);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.2; // 音量を20%に設定
+    }
+  }, []);
   return (
     <div className="game-container">
       <div className="back"></div>
-      <audio src={BGm} autoPlay loop />
+      <audio ref={audioRef} src={BGm} autoPlay loop />
       <div className="setup1">
         <div>参加人数　　</div>
         <img

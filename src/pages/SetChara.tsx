@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import "./Pages.css";
 // import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../zustand";
@@ -64,10 +64,17 @@ const SetChara: React.FC = () => {
     audioRefB.current.currentTime = 0;
     audioRefB.current.play();
   };
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.2; // 音量を20%に設定
+    }
+  }, []);
   return (
     <div className="game-container">
       <div className="back"></div>
-      <audio src={BGm} autoPlay loop />
+      <audio ref={audioRef} src={BGm} autoPlay loop />
       <div className="set-chara-text">キャラ選択</div>
       <div className="chara-content">
         {Array.from({ length: playerCount }).map((_, i) => (
