@@ -635,3 +635,20 @@ body,
   background-color: #ffffff;
   /* 押した瞬間の色 */
 }
+
+.resultWrapper {
+  position: relative;
+  transform: scale(1);
+  opacity: 1;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.resultImage {
+  width: 70vw;
+  /* 画面幅の90% */
+  max-width: none;
+  /* max-width制限を解除 */
+  height: 50vw;
+  z-index: 20;
+}

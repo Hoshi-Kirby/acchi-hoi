@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./Pages.css";
 import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../zustand";
+import resultFrame from "../assets/resultFrame.png";
 import Abutton from "../assets/buttonA.mp3";
 import Bbutton from "../assets/buttonD.mp3";
 import BGM1 from "../assets/resultBGMsummer.mp3";
@@ -91,28 +92,31 @@ const Result: React.FC = () => {
       ) : (
         <audio ref={audioRef} src={BGM2} autoPlay loop />
       )}
-      <div className="result-text">結果発表</div>
-      <div className="result-table">
-        {Array.from({ length: playerCount }).map((_, i) => (
-          <div className="result-packet" key={i}>
-            {i + 1}位 {sortedIndices[i] + 1}p {sortedValues[i]}pt
-          </div>
-        ))}
-      </div>
-      <div className="HighScore">
-        <div className="result-text2">ハイスコア:{highScore}pt</div>
-        {getHighScore && <div className="result-text3">ハイスコア更新！</div>}
-      </div>
-      <div className="result-buttons">
-        <button className="result-button" onClick={clickStart}>
-          もういちど
-        </button>
-        <button className="result-button" onClick={GotoSetting}>
-          設定へ
-        </button>
-        <button className="result-button" onClick={GotoTitle}>
-          タイトルへ
-        </button>
+      <div className="resultWrapper">
+        <img src={resultFrame} alt="result" className="resultImage" />
+        <div className="result-text">結果発表</div>
+        <div className="result-table">
+          {Array.from({ length: playerCount }).map((_, i) => (
+            <div className="result-packet" key={i}>
+              {i + 1}位 {sortedIndices[i] + 1}p {sortedValues[i]}pt
+            </div>
+          ))}
+        </div>
+        <div className="HighScore">
+          <div className="result-text2">ハイスコア:{highScore}pt</div>
+          {getHighScore && <div className="result-text3">ハイスコア更新！</div>}
+        </div>
+        <div className="result-buttons">
+          <button className="result-button" onClick={clickStart}>
+            もういちど
+          </button>
+          <button className="result-button" onClick={GotoSetting}>
+            設定へ
+          </button>
+          <button className="result-button" onClick={GotoTitle}>
+            タイトルへ
+          </button>
+        </div>
       </div>
     </div>
   );
