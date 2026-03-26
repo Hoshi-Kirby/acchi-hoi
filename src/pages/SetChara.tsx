@@ -17,6 +17,7 @@ import left_C from "../assets/left_C.png";
 import right_C from "../assets/right_C.png";
 import Abutton from "../assets/buttonA.mp3";
 import Bbutton from "../assets/buttonD.mp3";
+import BGm from "../assets/settingBGM.mp3";
 const pnw = [p1w, p2w, p3w, p4w];
 const pnm = [p1m, p2m, p3m, p4m];
 
@@ -66,6 +67,7 @@ const SetChara: React.FC = () => {
   return (
     <div className="game-container">
       <div className="back"></div>
+      <audio src={BGm} autoPlay loop />
       <div className="set-chara-text">キャラ選択</div>
       <div className="chara-content">
         {Array.from({ length: playerCount }).map((_, i) => (

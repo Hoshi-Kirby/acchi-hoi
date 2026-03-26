@@ -9,6 +9,7 @@ import left_C from "../assets/left_C.png";
 import right_C from "../assets/right_C.png";
 import Abutton from "../assets/buttonA.mp3";
 import Bbutton from "../assets/buttonD.mp3";
+import BGm from "../assets/settingBGM.mp3";
 
 const Setup: React.FC = () => {
   // グローバル変数
@@ -113,6 +114,7 @@ const Setup: React.FC = () => {
   return (
     <div className="game-container">
       <div className="back"></div>
+      <audio src={BGm} autoPlay loop />
       <div className="setup1">
         <div>参加人数　　</div>
         <img

@@ -21,7 +21,6 @@ const App: React.FC = () => {
         <Route path="/SetChara" element={<SetChara />} />
         <Route path="/Play" element={<Play />} />
         <Route path="/Result" element={<Result />} />
-        {/* 404ページ（どのパスにも一致しない場合） */}
         <Route path="*" element={<Title />} />
       </Routes>
     </BrowserRouter>
