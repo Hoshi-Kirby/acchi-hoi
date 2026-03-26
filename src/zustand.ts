@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 export type Direction = "up" | "down" | "left" | "right" | "center" | null;
 export type phase = "arrow" | "waiting" | "judging";
+export type Success = "success" | "fail" | null;
 
 type gameState = {
   playerCount: number;
@@ -18,6 +19,7 @@ type gameState = {
   cameraDirections: Direction[];
   token: boolean[];
   highScore: number;
+  resultEffect: Success[];
   increasePlayerCount: () => void;
   decreasePlayerCount: () => void;
   setPlayerCount: (c: number) => void;
@@ -40,6 +42,7 @@ type gameState = {
   setCameraDirections: (index: number, value: Direction) => void;
   deleteToken: () => void;
   setHighScore: (index: number) => void;
+  setResultEffect: (index: number, value: Success) => void;
 };
 
 export const useGameStore = create<gameState>((set) => ({
@@ -144,6 +147,13 @@ export const useGameStore = create<gameState>((set) => ({
   deleteToken: () => set({ token: [false, false, false, false] }),
   highScore: 0,
   setHighScore: (c: number) => set({ highScore: c }),
+
+  // ジャッジの判定
+  resultEffect: [null, null, null, null],
+  setResultEffect: (index: number, value: Success) =>
+    set((state) => ({
+      resultEffect: state.resultEffect.map((l, i) => (i === index ? value : l)),
+    })),
 }));
 
 // まだやって無ければターミナルでnpm install zustandを実行する。

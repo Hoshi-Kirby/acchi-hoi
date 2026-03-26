@@ -16,6 +16,8 @@ export const Judge: React.FC = () => {
   const setLife = useGameStore((state) => state.setLife);
   const lives: number[] = useGameStore((state) => state.lives);
   const scores: number[] = useGameStore((state) => state.scores);
+  const setResultEffect = useGameStore((state) => state.setResultEffect);
+  const resultEffect = useGameStore((state) => state.resultEffect);
   useEffect(() => {
     for (let i = 0; i < playerCount; i++) {
       let counter: number = 0;
@@ -30,11 +32,13 @@ export const Judge: React.FC = () => {
       ) {
         setScore(i, scores[i] + 1);
         console.log(scores);
+        setResultEffect(i, "success");
       } else {
         if (!isPointSystem && lives[i] > 0) {
           setLife(i, lives[i] - 1);
           console.log(lives);
         }
+        setResultEffect(i, "fail");
       }
     }
     // console.log(scores);
