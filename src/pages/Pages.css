@@ -660,7 +660,7 @@ body,
   left: 50%;
   transform: translate(-50%, 0%);
   font-size: 48px;
-  color: black;
+  color: rgb(116, 72, 18);
 }
 
 .result-packet {
@@ -698,18 +698,29 @@ body,
 }
 
 .resultWrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   position: relative;
   transform: scale(1);
   opacity: 1;
-  transition: all 0.3s ease;
   transform-origin: center;
+  pointer-events: auto;
+}
+.resultWrapper {
+  display: flex;
+  justify-content: center; /* 横中央 */
+  align-items: center; /* 縦中央 */
+  height: 100vh;
 }
 
 .resultImage {
-  width: 70vw;
+  display: flex;
+  width: 30%;
   /* 画面幅の90% */
   max-width: none;
   /* max-width制限を解除 */
-  height: 50vw;
-  z-index: 20;
+  transform: translateY(3%);
+  height: auto;
+  z-index: -10;
 }

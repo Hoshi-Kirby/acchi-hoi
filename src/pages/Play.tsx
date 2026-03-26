@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useInterface } from "../features/game/hooks/interface";
 import "./Pages.css";
 import { useNavigate } from "react-router-dom";

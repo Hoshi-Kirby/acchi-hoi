@@ -17,7 +17,6 @@ export const Judge: React.FC = () => {
   const lives: number[] = useGameStore((state) => state.lives);
   const scores: number[] = useGameStore((state) => state.scores);
   const setResultEffect = useGameStore((state) => state.setResultEffect);
-  const resultEffect = useGameStore((state) => state.resultEffect);
   useEffect(() => {
     for (let i = 0; i < playerCount; i++) {
       let counter: number = 0;
