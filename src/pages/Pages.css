@@ -97,6 +97,31 @@ body,
   background-color: #adadad;
   /* 押した瞬間の色 */
 }
+.delete-button-wrapper {
+  width: 100;
+}
+.delete {
+  position: absolute;
+  top: 88%;
+  left: 85%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(122, 122, 122);
+  /* ボタンの色 */
+  border: 2px solid #323232;
+  /* 縁の色 */
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+  padding: 5px 10px;
+  color: rgb(0, 0, 0);
+}
+.suka {
+  position: absolute;
+  top: 95%;
+  left: 85%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+  color: black;
+}
 
 /* Setup */
 

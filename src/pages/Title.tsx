@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./Pages.css";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/titleLogo.png";
@@ -9,10 +9,23 @@ import { useGameStore } from "../zustand";
 import Cookies from "js-cookie";
 
 const Title: React.FC = () => {
+  const [isSuka, setIsSuka] = useState<boolean>(false);
+  const setHighScore = useGameStore((state) => state.setHighScore);
   const navigate = useNavigate();
   const clickStart = () => {
     playSoundB();
     navigate("/Setup");
+  };
+  const clickBack = () => {
+    setIsSuka(false);
+  };
+  const clickDelete = () => {
+    setIsSuka(false);
+    playSoundB();
+    setHighScore(0);
+  };
+  const clickSuka = () => {
+    setIsSuka(true);
   };
   const audioRefB = useRef<HTMLAudioElement | null>(null);
   const playSoundB = () => {
@@ -23,8 +36,6 @@ const Title: React.FC = () => {
     audioRefB.current.play();
   };
   useEffect(() => {}, []);
-
-  const setHighScore = useGameStore((state) => state.setHighScore);
 
   useEffect(() => {
     const cookieHighScore = Cookies.get("cookieHighScore");
@@ -44,12 +55,24 @@ const Title: React.FC = () => {
 
   return (
     <div className="game-container">
-      <div className="back"></div>
+      <div className="back" onClick={clickBack}></div>
       <audio ref={audioRef} src={Bgm} autoPlay loop />
       <img src={logo} className="title-logo" />
       <button className="title-start-button" onClick={clickStart}>
         Start
       </button>
+      <div className="delete-button-wrapper">
+        <button
+          className="delete"
+          onClick={clickSuka}
+          onDoubleClick={clickDelete}
+        >
+          記録を削除する
+        </button>
+        {isSuka && (
+          <div className="suka">削除するにはダブルクリックをしてください</div>
+        )}
+      </div>
     </div>
   );
 };
