@@ -12,7 +12,12 @@ const useDirection = () => {
   const setCameraDirections = useGameStore(
     (state) => state.setCameraDirections,
   );
-  const playerCount = useGameStore((state) => state.playerCount);
+  const playerCount = useGameStore((state) => state.playerCount); //キャリブレーションをもとに変化するはん
+  const down_standard = useRef<number>(0.4);
+  const up_standard = useRef<number>(0.4);
+  const center_standard = useRef<number>(0.4);
+
+  const calibration_timer = useGameStore((state) => state.calibration_timer);
 
   useEffect(() => {
     let faceLandmarker: FaceLandmarker;
@@ -89,8 +94,27 @@ const useDirection = () => {
             // ※閾値はまた決める
             if (yaw > 0.4) dir = "right";
             else if (yaw < -0.4) dir = "left";
-            else if (pitch > 0.2) dir = "down";
-            else if (pitch < -0.2) dir = "up";
+            else if (
+              pitch >
+              0.4 * down_standard.current + 0.6 * center_standard.current
+            )
+              dir = "down";
+            else if (
+              pitch <
+              0.4 * up_standard.current + 0.6 * center_standard.current
+            )
+              dir = "up";
+            console.log(pitch);
+
+            if (calibration_timer === 9) {
+              down_standard.current = yaw;
+            }
+            if (calibration_timer === 12) {
+              up_standard.current = yaw;
+            }
+            if (calibration_timer === 15) {
+              center_standard.current = yaw;
+            }
 
             // 計算したエリア（インデックス）の方向を上書き
             setCameraDirections(sectorIndex, dir);

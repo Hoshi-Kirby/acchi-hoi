@@ -55,7 +55,6 @@ export const useDirectConverter = () => {
   useEffect(() => {
     setTimer((prev) => [prev[0], prev[1], prev[2], 0]);
   }, [cameraDirections[3]]);
-  console.log(cameraDirections[3]);
 
   useEffect(() => {
     if (phase === "arrow") {
@@ -67,8 +66,7 @@ export const useDirectConverter = () => {
           math[i] = token[i];
         }
       }
-      console.log(token);
-      console.log(timer);
+
       setToken([math[0], math[1], math[2], math[3]]);
     }
   }, [timer]);

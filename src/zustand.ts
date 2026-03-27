@@ -18,6 +18,7 @@ type gameState = {
   cameraDirections: Direction[];
   token: boolean[];
   highScore: number;
+  calibration_timer: number;
   increasePlayerCount: () => void;
   decreasePlayerCount: () => void;
   setPlayerCount: (c: number) => void;
@@ -40,6 +41,8 @@ type gameState = {
   setCameraDirections: (index: number, value: Direction) => void;
   deleteToken: () => void;
   setHighScore: (index: number) => void;
+  setCalibration_timer: (c: number) => void;
+  increaseCalibration_timer: () => void;
 };
 
 export const useGameStore = create<gameState>((set) => ({
@@ -144,6 +147,11 @@ export const useGameStore = create<gameState>((set) => ({
   deleteToken: () => set({ token: [false, false, false, false] }),
   highScore: 0,
   setHighScore: (c: number) => set({ highScore: c }),
+
+  calibration_timer: 0,
+  setCalibration_timer: (c: number) => set({ calibration_timer: c }),
+  increaseCalibration_timer: () =>
+    set((state) => ({ calibration_timer: state.calibration_timer + 1 })),
 }));
 
 // まだやって無ければターミナルでnpm install zustandを実行する。

@@ -437,6 +437,14 @@ body,
   font-weight: 700;
   pointer-events: none;
 }
+.calibration {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 100px;
+  z-index: 12;
+}
 
 .arrow_up {
   position: absolute;

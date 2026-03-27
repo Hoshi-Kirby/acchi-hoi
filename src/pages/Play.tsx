@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useInterface } from "../features/game/hooks/interface";
+// import { useInterface } from "../features/game/hooks/interface";
 import "./Pages.css";
 import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../zustand";
@@ -64,7 +64,7 @@ import Abutton from "../assets/buttonA.mp3";
 import { useGameLoop } from "../features/game/hooks/useGameLoop";
 import type { phase } from "../zustand";
 import { useDirectConverter } from "../features/camera/hooks/useDirectConverter";
-import useDirection from "../features/camera/hooks/useDirection";
+import Calibration from "../features/camera/components/Calibration";
 const playerImages = {
   center: { m: [p1mN, p2mN, p3mN, p4mN], w: [p1wN, p2wN, p3wN, p4wN] },
   right: { m: [p1mR, p2mR, p3mR, p4mR], w: [p1wR, p2wR, p3wR, p4wR] },
@@ -115,6 +115,7 @@ const Play = () => {
   const [isMenu, setIsMenu] = useState<boolean>(false);
   const [addC, setAddC] = useState<string[]>(["", "", "", "", "", "", "", ""]);
   const deleteToken = useGameStore((state) => state.deleteToken);
+  const calibration_timer = useGameStore((state) => state.calibration_timer);
 
   const clickMenu = () => {
     playSoundA();
@@ -159,9 +160,8 @@ const Play = () => {
   };
 
   useGameLoop(); //ここで矢印の方向を作る関数を呼び出す
-  useInterface(); //ここでキー操作の関数を呼び出す
+  // useInterface(); //ここでキー操作の関数を呼び出す
 
-  const { videoRef } = useDirection();
   useDirectConverter(); //AI
 
   //時間関連の処理を隔離
@@ -265,16 +265,16 @@ const Play = () => {
   useEffect(() => {
     //メニューを開いたとき以外はタイマーを動かし続ける
     const intervalId = setInterval(() => {
-      if (!isMenu) {
+      if (!isMenu && calibration_timer > 20) {
         settimer((prev) => prev + 1);
-      } else {
+      } else if (isMenu) {
         if (phase === "arrow") {
           settimer(8);
         }
       }
     }, count_speed);
     return () => clearInterval(intervalId);
-  }, [count_speed, isMenu]);
+  }, [count_speed, isMenu, calibration_timer]);
 
   useEffect(() => {
     settimer(0);
@@ -400,13 +400,14 @@ const Play = () => {
           )}
         </>
       )}
-      <div>
-        <video ref={videoRef} muted playsInline autoPlay />
-      </div>
 
       <div className="count">
         {phase === "waiting" && timer !== 4 && !isMenu && <>{3 - timer}</>}
       </div>
+      <div className="calibration">
+        <Calibration />
+      </div>
+      {/* キャリブレーション */}
       <div className={`overlay ${isMenu ? "open" : ""}`}>
         <div className="menuWrapper">
           <img src={menuFrame} alt="menu" className="menuImage" />

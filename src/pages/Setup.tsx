@@ -31,6 +31,10 @@ const Setup: React.FC = () => {
 
   const [addC, setAddC] = useState<string[]>(["", "", ""]);
 
+  const setCalibration_timer = useGameStore(
+    (state) => state.setCalibration_timer,
+  );
+
   type Direction = "left" | "right";
   type DirectionC = `${Direction}c`;
 
@@ -51,6 +55,7 @@ const Setup: React.FC = () => {
   const clickStart = () => {
     playSoundB();
     setRound(1);
+    setCalibration_timer(0);
     navigate(showingCharacter ? "/SetChara" : "/Play");
   };
 

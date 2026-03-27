@@ -50,7 +50,7 @@ export const useInterface = () => {
       window.removeEventListener("keydown", handleKeyDown);
       console.log("イベントリスナー撤去");
     };
-  }, [setPlayerDirections]); // 依存配列にセット関数を含める
+  }, []); // 依存配列にセット関数を含める
 
   // useEffect(() => {
   // set_all(setPlayerDirections, "center");
