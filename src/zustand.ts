@@ -160,8 +160,8 @@ export const useGameStore = create<gameState>((set) => ({
   deleteToken: () => set({ token: [false, false, false, false] }),
   highScore: 0,
   setHighScore: (c: number) => set({ highScore: c }),
-  highScore2: 0,
-  setHighScore2: (c: number) => set({ highScore: c }),
+  highScore2: 99990,
+  setHighScore2: (c: number) => set({ highScore2: c }),
 
   // ジャッジの判定
   resultEffect: [null, null, null, null],
