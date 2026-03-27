@@ -9,9 +9,11 @@ type gameState = {
   round: number; //ラウンド
   showingCharacter: boolean;
   isPointSystem: boolean;
+  isTimeAtack: boolean;
   isMaleCharacter: boolean[];
   scores: number[]; //ポイント
   lives: number[]; //残機
+  timeScore: number; //ポイント
   currentDirections: Direction[];
   playerDirections: Direction[];
   timer: number;
@@ -19,6 +21,7 @@ type gameState = {
   cameraDirections: Direction[];
   token: boolean[];
   highScore: number;
+  highScore2: number;
   resultEffect: Success[];
   increasePlayerCount: () => void;
   decreasePlayerCount: () => void;
@@ -28,10 +31,12 @@ type gameState = {
   setRound: (c: number) => void;
   setShowingCharacter: (c: boolean) => void;
   setIsPointSystem: (c: boolean) => void;
+  setIsTimeAtack: (c: boolean) => void;
   setIsMaleCharacter: (index: number, value: boolean) => void;
   increaseScore: (index: number) => void;
   decreaseScore: (index: number) => void;
   setScore: (index: number, value: number) => void;
+  setTimeScore: (value: number) => void;
   increaseLife: (index: number) => void;
   decreaseLife: (index: number) => void;
   setLife: (index: number, value: number) => void;
@@ -42,6 +47,7 @@ type gameState = {
   setCameraDirections: (index: number, value: Direction) => void;
   deleteToken: () => void;
   setHighScore: (index: number) => void;
+  setHighScore2: (index: number) => void;
   setResultEffect: (index: number, value: Success) => void;
 };
 
@@ -68,6 +74,10 @@ export const useGameStore = create<gameState>((set) => ({
   isPointSystem: true,
   setIsPointSystem: (c: boolean) => set({ isPointSystem: c }),
 
+  // TA
+  isTimeAtack: false,
+  setIsTimeAtack: (c: boolean) => set({ isTimeAtack: c }),
+
   // 性別
   isMaleCharacter: [true, true, true, true],
   setIsMaleCharacter: (index: number, value: boolean) =>
@@ -91,6 +101,9 @@ export const useGameStore = create<gameState>((set) => ({
     set((state) => ({
       scores: state.scores.map((s, i) => (i === index ? value : s)),
     })),
+
+  timeScore: 0,
+  setTimeScore: (c: number) => set({ timeScore: c }),
 
   // 残機
   lives: [3, 3, 3, 3],
@@ -147,6 +160,8 @@ export const useGameStore = create<gameState>((set) => ({
   deleteToken: () => set({ token: [false, false, false, false] }),
   highScore: 0,
   setHighScore: (c: number) => set({ highScore: c }),
+  highScore2: 0,
+  setHighScore2: (c: number) => set({ highScore: c }),
 
   // ジャッジの判定
   resultEffect: [null, null, null, null],

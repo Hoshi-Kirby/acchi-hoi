@@ -167,7 +167,7 @@ body,
   color: black;
 }
 .setup-text {
-  width: 250px;
+  width: 340px;
   text-align: center;
 }
 
@@ -647,7 +647,7 @@ body,
 .result-text3 {
   position: absolute;
   left: calc(
-    50% + 200px
+    50% + 210px
   ); /* ハイスコアの右側に配置。200px はハイスコア幅に応じて調整 */
   top: 0;
   font-size: 24px;
