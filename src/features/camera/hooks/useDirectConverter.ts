@@ -28,7 +28,7 @@ export const useDirectConverter = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTimer((prev) => [prev[0] + 1, prev[1] + 1, prev[2] + 1, prev[3] + 1]);
-    }, 200);
+    }, 50);
     return () => clearInterval(intervalId);
   }, [playerDirections]);
 
