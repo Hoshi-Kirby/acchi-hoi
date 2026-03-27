@@ -9,7 +9,6 @@ const useDirection = () => {
   // const [sayuu, setSayuu] = useState<number[]>([0, 0, 0, 0]);
   // const [joge, setJoge] = useState<number[]>([0, 0, 0, 0]);
   //   const cameraDirections = useGameStore((state) => state.cameraDirections);
-  const playerCount = useGameStore((state) => state.playerCount);
   const setCameraDirections = useGameStore(
     (state) => state.setCameraDirections,
   );
