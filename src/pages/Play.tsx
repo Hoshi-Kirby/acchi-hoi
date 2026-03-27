@@ -410,7 +410,6 @@ const Play = () => {
       </div>
       {showingCharacter ? (
         <>
-          {" "}
           <div className="back-sea"></div>
           <img src={menuButton} className="menu-button" onClick={clickMenu} />
           <div className="play-chara-content">
@@ -423,19 +422,18 @@ const Play = () => {
                     {isPointSystem ? `${scores[i]}pt` : "♥".repeat(safeLives)}
                   </div>
 
-         
-              {resultEffect[i] == "success" && combo[i] > 4 && (
-                <div className="combo">{combo[i]}combo</div>
-              )}
+                  {resultEffect[i] == "success" && combo[i] > 4 && (
+                    <div className="combo">{combo[i]}combo</div>
+                  )}
 
-              {/* キャラクター画像 */}
-              <img
-                src={
-                  playerImages[
-                    playerDirections[i] as keyof typeof playerImages
-                  ][isMaleCharacter[i] ? "m" : "w"][i]
-                }
-                className={`
+                  {/* キャラクター画像 */}
+                  <img
+                    src={
+                      playerImages[
+                        playerDirections[i] as keyof typeof playerImages
+                      ][isMaleCharacter[i] ? "m" : "w"][i]
+                    }
+                    className={`
                   play-image
                   ${resultEffect[i] === "success" ? "success-jump" : ""}
                   ${resultEffect[i] === "fail" ? "fail-shake" : ""}
@@ -448,12 +446,7 @@ const Play = () => {
         </>
       ) : (
         <>
-          {" "}
-          <img
-            src={menuButton}
-            className="menu-button"
-            onClick={clickMenu}
-          />{" "}
+          <img src={menuButton} className="menu-button" onClick={clickMenu} />
           <div className="play-chara-content">
             {Array.from({ length: playerCount }).map((_, i) => {
               const safeLives = Math.max(0, lives[i]); // 応急処置

@@ -37,13 +37,16 @@ const Title: React.FC = () => {
     audioRefB.current.currentTime = 0;
     audioRefB.current.play();
   };
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     const cookieHighScore = Cookies.get("cookieHighScore");
+    const cookieTimeHighScore = Cookies.get("cookieTimeHighScore");
     if (cookieHighScore) {
-      const numHighScore: number = Number(cookieHighScore);
-      setHighScore(numHighScore);
+      setHighScore(Number(cookieHighScore));
+    }
+    if (cookieTimeHighScore) {
+      setHighScore2(Number(cookieTimeHighScore));
     }
   }, []);
 

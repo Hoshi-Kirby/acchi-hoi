@@ -88,6 +88,7 @@ const Result: React.FC = () => {
     } else {
       if (timeScore < highScore2) {
         setHighScore2(timeScore);
+        Cookies.set("cookieTimeHighScore", String(timeScore));
         setGetHighScore(true);
         setHighScoreS(Math.round(timeScore / 10) / 100);
       } else {
