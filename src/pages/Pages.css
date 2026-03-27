@@ -43,11 +43,13 @@ body,
   background-position: center;
   background-repeat: no-repeat;
 }
+
 .visual {
   position: relative;
   width: 100%;
   height: 100vh;
 }
+
 .movie {
   overflow: hidden;
   position: absolute;
@@ -56,6 +58,7 @@ body,
   width: 100%;
   height: 100%;
 }
+
 .movie video {
   position: absolute;
   top: 50%;
@@ -207,25 +210,30 @@ body,
 }
 
 .back-button {
+  image-rendering: pixelated;
   position: absolute;
   top: 10px;
   left: 10px;
-  background-color: rgb(255, 255, 255);
+  background-image: url("../assets/button_back_1.png");
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
   /* ボタンの色 */
-  border: 2px solid #aaaaaa;
-  /* 縁の色 */
+  border: none;
   font-size: 25px;
-  padding: 2px 10px;
+  width: 100px;
+  height: 50px;
+  padding-bottom: 5px;
   color: rgb(0, 0, 0);
   /* 文字の色 */
 }
 
 .back-button:hover {
-  background-color: #dbdbdb;
+  background-image: url("../assets/button_back_2.png");
 }
 
 .back-button:active {
-  background-color: #adadad;
+  background-image: url("../assets/button_back_2.png");
   /* 押した瞬間の色 */
 }
 
@@ -435,9 +443,11 @@ body,
   align-items: center;
   /* 画像と♥を中央揃え */
 }
+
 .combo {
   position: absolute;
-  top: -30px; /* キャラの上に表示 */
+  top: -30px;
+  /* キャラの上に表示 */
   font-size: 35px;
   font-weight: bold;
   color: rgb(255, 166, 0);
@@ -450,13 +460,18 @@ body,
     transform: translateX(-50%) translateY(0);
     opacity: 1;
   }
+
   50% {
-    transform: translateX(-50%) translateY(-20px); /* 上に移動 */
+    transform: translateX(-50%) translateY(-20px);
+    /* 上に移動 */
     opacity: 1;
   }
+
   100% {
-    transform: translateX(-50%) translateY(-40px); /* さらに上に移動 */
-    opacity: 0; /* フェードアウト */
+    transform: translateX(-50%) translateY(-40px);
+    /* さらに上に移動 */
+    opacity: 0;
+    /* フェードアウト */
   }
 }
 
@@ -468,13 +483,16 @@ body,
   0% {
     transform: translateY(0);
   }
+
   40% {
     transform: translateY(-20px);
   }
+
   100% {
     transform: translateY(0);
   }
 }
+
 .fail-shake {
   animation: failShake 0.28s ease;
 }
@@ -483,15 +501,19 @@ body,
   0% {
     transform: translateX(0);
   }
+
   25% {
     transform: translateX(-5px);
   }
+
   50% {
     transform: translateX(10px);
   }
+
   75% {
     transform: translateX(-5px);
   }
+
   100% {
     transform: translateX(0);
   }
@@ -550,6 +572,7 @@ body,
   font-size: 60px;
   color: rgb(0, 0, 0);
 }
+
 .round-text.chara {
   transform: scaleY(0.6);
   color: rgb(145, 121, 69);
@@ -584,6 +607,7 @@ body,
   font-weight: 700;
   pointer-events: none;
 }
+
 .calibration {
   position: fixed;
   top: 0;
@@ -720,29 +744,33 @@ body,
   font-size: 48px;
   color: black;
 }
+
 .HighScore {
   position: absolute;
   top: 70%;
   width: 100%;
   display: flex;
-  justify-content: center; /* 中央寄せ */
+  justify-content: center;
+  /* 中央寄せ */
   align-items: center;
-  gap: 16px; /* 要素間の余白 */
+  gap: 16px;
+  /* 要素間の余白 */
 }
 
 .result-text2 {
   position: absolute;
-  left: 50%; /* 横方向中央 */
-  transform: translateX(-50%); /* 自分の幅の半分だけ左にずらす */
+  left: 50%;
+  /* 横方向中央 */
+  transform: translateX(-50%);
+  /* 自分の幅の半分だけ左にずらす */
   font-size: 48px;
   color: black;
 }
 
 .result-text3 {
   position: absolute;
-  left: calc(
-    50% + 200px
-  ); /* ハイスコアの右側に配置。200px はハイスコア幅に応じて調整 */
+  left: calc(50% + 200px);
+  /* ハイスコアの右側に配置。200px はハイスコア幅に応じて調整 */
   top: 0;
   font-size: 24px;
   color: black;
@@ -759,10 +787,13 @@ body,
   transform-origin: center;
   pointer-events: auto;
 }
+
 .resultWrapper {
   display: flex;
-  justify-content: center; /* 横中央 */
-  align-items: center; /* 縦中央 */
+  justify-content: center;
+  /* 横中央 */
+  align-items: center;
+  /* 縦中央 */
   height: 100vh;
 }
 
@@ -779,6 +810,7 @@ body,
   height: auto;
   z-index: -10;
 }
+
 .result-table {
   position: absolute;
   top: 35%;
