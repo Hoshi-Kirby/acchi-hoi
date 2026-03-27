@@ -26,6 +26,8 @@ const Setup: React.FC = () => {
   );
   const isPointSystem = useGameStore((state) => state.isPointSystem);
   const setIsPointSystem = useGameStore((state) => state.setIsPointSystem);
+  const isTimeAtack = useGameStore((state) => state.isTimeAtack);
+  const setIsTimeAtack = useGameStore((state) => state.setIsTimeAtack);
   const setRound = useGameStore((state) => state.setRound);
 
   const highScore = useGameStore((state) => state.highScore);
@@ -78,11 +80,21 @@ const Setup: React.FC = () => {
   };
   const pointTrue = () => {
     playSoundA();
-    setIsPointSystem(true);
+    if (!isTimeAtack) {
+      setIsPointSystem(true);
+    } else {
+      setIsPointSystem(false);
+      setIsTimeAtack(false);
+    }
   };
   const pointFalse = () => {
     playSoundA();
-    setIsPointSystem(false);
+    if (isPointSystem && !isTimeAtack) {
+      setIsPointSystem(false);
+    } else {
+      setIsPointSystem(true);
+      setIsTimeAtack(true);
+    }
   };
 
   const audioRefA = useRef<HTMLAudioElement | null>(null);
@@ -158,7 +170,11 @@ const Setup: React.FC = () => {
           className="triangle"
         />
         <div className="setup-text">
-          {isPointSystem ? "ポイント制" : "残機制"}
+          {isPointSystem
+            ? isTimeAtack
+              ? "タイムアタック"
+              : "ポイント制"
+            : "残機制"}
         </div>
         <img
           src={arrowImages[("right" + addC[0]) as ArrowKey]}

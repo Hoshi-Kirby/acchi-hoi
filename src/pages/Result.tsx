@@ -19,6 +19,12 @@ const Result: React.FC = () => {
   const setRound = useGameStore((state) => state.setRound);
   const highScore = useGameStore((state) => state.highScore);
   const setHighScore = useGameStore((state) => state.setHighScore);
+  const highScore2 = useGameStore((state) => state.highScore2);
+  const setHighScore2 = useGameStore((state) => state.setHighScore2);
+  const isTimeAtack: boolean = useGameStore((state) => state.isTimeAtack);
+  const timeScore: number = useGameStore((state) => state.timeScore);
+  const timeScoreS = Math.round(timeScore / 10) / 100;
+  const [highScoreS, setHighScoreS] = useState<number>(0); //ハイスコアタイムをsにしたもの
 
   const [getHighScore, setGetHighScore] = useState<boolean>(false);
 
@@ -71,10 +77,22 @@ const Result: React.FC = () => {
   };
 
   useEffect(() => {
-    if (sortedValues[0] > highScore) {
-      setHighScore(sortedValues[0]);
-      setGetHighScore(true);
-      Cookies.set("cookieHighScore", String(sortedValues[0]), { expires: 365 });
+    if (!isTimeAtack) {
+      if (sortedValues[0] > highScore) {
+        setHighScore(sortedValues[0]);
+        setGetHighScore(true);
+        Cookies.set("cookieHighScore", String(sortedValues[0]), {
+          expires: 365,
+        });
+      }
+    } else {
+      if (timeScore > highScore2) {
+        setHighScore2(timeScore);
+        setGetHighScore(true);
+        setHighScoreS(Math.round(timeScore / 10) / 100);
+      } else {
+        setHighScoreS(Math.round(highScore2 / 10) / 100);
+      }
     }
   }, []);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -95,15 +113,26 @@ const Result: React.FC = () => {
       <div className="resultWrapper">
         <img src={resultFrame} alt="result" className="resultImage" />
         <div className="result-text">結果発表</div>
-        <div className="result-table">
-          {Array.from({ length: playerCount }).map((_, i) => (
-            <div className="result-packet" key={i}>
-              {i + 1}位 {sortedIndices[i] + 1}p {sortedValues[i]}pt
-            </div>
-          ))}
-        </div>
+        {!isTimeAtack ? (
+          <div className="result-table">
+            {Array.from({ length: playerCount }).map((_, i) => (
+              <div className="result-packet" key={i}>
+                {i + 1}位 {sortedIndices[i] + 1}p {sortedValues[i]}pt
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="result-table">
+            <div className="result-packet">　　{timeScoreS}s</div>
+          </div>
+        )}
+
         <div className="HighScore">
-          <div className="result-text2">ハイスコア:{highScore}pt</div>
+          {!isTimeAtack ? (
+            <div className="result-text2">ハイスコア:{highScore}pt</div>
+          ) : (
+            <div className="result-text2">ハイスコア:{highScoreS}s</div>
+          )}
           {getHighScore && <div className="result-text3">ハイスコア更新！</div>}
         </div>
         <div className="result-buttons">
