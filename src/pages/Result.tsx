@@ -23,7 +23,7 @@ const Result: React.FC = () => {
   const setHighScore2 = useGameStore((state) => state.setHighScore2);
   const isTimeAtack: boolean = useGameStore((state) => state.isTimeAtack);
   const timeScore: number = useGameStore((state) => state.timeScore);
-  const timeScoreS = Math.round(timeScore / 10) / 100;
+  const timeScoreS = Math.min(Math.round(timeScore / 10) / 100, 99.99);
   const [highScoreS, setHighScoreS] = useState<number>(0); //ハイスコアタイムをsにしたもの
 
   const [getHighScore, setGetHighScore] = useState<boolean>(false);
@@ -86,7 +86,7 @@ const Result: React.FC = () => {
         });
       }
     } else {
-      if (timeScore > highScore2) {
+      if (timeScore < highScore2) {
         setHighScore2(timeScore);
         setGetHighScore(true);
         setHighScoreS(Math.round(timeScore / 10) / 100);
