@@ -98,6 +98,7 @@ const arrowImages = {
 const Play = () => {
   const currentDirections = useGameStore((state) => state.currentDirections);
   const playerDirections = useGameStore((state) => state.playerDirections);
+  const showingCharacter = useGameStore((state) => state.showingCharacter);
   const playerCount = useGameStore((state) => state.playerCount);
   const isMaleCharacter = useGameStore((state) => state.isMaleCharacter);
   const round: number = useGameStore((state) => state.round); //ゲームのラウンド
@@ -400,18 +401,29 @@ const Play = () => {
 
   return (
     <div className="game-container">
-      <div className="back-sea"></div>
-      <img src={menuButton} className="menu-button" onClick={clickMenu} />
-      <div className="play-chara-content">
-        {Array.from({ length: playerCount }).map((_, i) => {
-          const safeLives = Math.max(0, lives[i]); // 応急処置
-          return (
-            <div className="play-chara-packet-content" key={i}>
-              {/* 上に表示 */}
-              <div className={`player-${i} player-status`}>
-                {isPointSystem ? `${scores[i]}pt` : "♥".repeat(safeLives)}
-              </div>
+      <div className="visual">
+        <div className="movie">
+          <div>
+            <video ref={videoRef} muted playsInline autoPlay />
+          </div>
+        </div>
+      </div>
+      {showingCharacter ? (
+        <>
+          {" "}
+          <div className="back-sea"></div>
+          <img src={menuButton} className="menu-button" onClick={clickMenu} />
+          <div className="play-chara-content">
+            {Array.from({ length: playerCount }).map((_, i) => {
+              const safeLives = Math.max(0, lives[i]); // 応急処置
+              return (
+                <div className="play-chara-packet-content" key={i}>
+                  {/* 上に表示 */}
+                  <div className={`player-${i} player-status`}>
+                    {isPointSystem ? `${scores[i]}pt` : "♥".repeat(safeLives)}
+                  </div>
 
+         
               {resultEffect[i] == "success" && combo[i] > 4 && (
                 <div className="combo">{combo[i]}combo</div>
               )}
@@ -428,11 +440,36 @@ const Play = () => {
                   ${resultEffect[i] === "success" ? "success-jump" : ""}
                   ${resultEffect[i] === "fail" ? "fail-shake" : ""}
                 `}
-              />
-            </div>
-          );
-        })}
-      </div>
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </>
+      ) : (
+        <>
+          {" "}
+          <img
+            src={menuButton}
+            className="menu-button"
+            onClick={clickMenu}
+          />{" "}
+          <div className="play-chara-content">
+            {Array.from({ length: playerCount }).map((_, i) => {
+              const safeLives = Math.max(0, lives[i]); // 応急処置
+              return (
+                <div className="play-chara-packet-content" key={i}>
+                  {/* 上に表示 */}
+                  <div className={`player-${i} player-status`}>
+                    {isPointSystem ? `${scores[i]}pt` : "♥".repeat(safeLives)}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
+
       <div className="judge-display-area">
         {phase === "judging" && <Judge />}
       </div>
@@ -525,10 +562,6 @@ const Play = () => {
           )}
         </>
       )}
-      <div>
-        <video ref={videoRef} muted playsInline autoPlay />
-      </div>
-
       <div className="count">
         {phase === "waiting" && timer !== 4 && !isMenu && <>{3 - timer}</>}
       </div>
