@@ -160,6 +160,111 @@ body,
   color: black;
 }
 
+.line {
+  position: absolute;
+  background-color: #525252; /* 灰色 */
+}
+
+.line.active {
+  background-color: white;
+}
+
+/* 横線 */
+.line-horizontal {
+  width: 200px;
+  height: 4px;
+  transform: translate(0%, -50%);
+}
+
+/* 縦線 */
+.line-vertical {
+  width: 4px;
+  height: 200px;
+  transform: translate(-50%, 0%);
+}
+
+.grid {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background: rgba(0, 0, 0, 0.63);
+}
+
+.cell {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  transform: translate(-50%, -50%);
+}
+.arrow {
+  transition: all 0.3s ease;
+}
+
+.cell {
+  display: inline-block;
+  position: absolute;
+}
+
+/* 光る */
+.arrow.clear {
+  image-rendering: pixelated;
+  width: 50px;
+  filter: brightness(2);
+
+  animation: neon-glow-clear 1.5s infinite alternate;
+}
+
+@keyframes neon-glow-clear {
+  0% {
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8))
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
+  }
+  50% {
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8))
+      drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
+  }
+  100% {
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8))
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
+  }
+}
+/* 通常 */
+.arrow.normal {
+  image-rendering: pixelated;
+  width: 50px;
+  filter: grayscale(100%) brightness(0.5) drop-shadow(0 0 0px white)
+    drop-shadow(0 0 2px white);
+
+  animation: neon-glow 1.5s infinite alternate;
+}
+
+@keyframes neon-glow {
+  0% {
+    filter: grayscale(100%) brightness(0.5)
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.5))
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+  }
+  50% {
+    filter: grayscale(100%) brightness(0.5)
+      drop-shadow(0 0 4px rgba(255, 255, 255, 0.5))
+      drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+  }
+  100% {
+    filter: grayscale(100%) brightness(0.5)
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.5))
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+  }
+}
+
+/* 灰色 */
+.arrow.disabled {
+  image-rendering: pixelated;
+  width: 50px;
+  filter: grayscale(100%) brightness(0.5);
+}
+
 /* Setup */
 
 .setup1 {

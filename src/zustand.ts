@@ -24,6 +24,8 @@ type gameState = {
   calibration_timer: number;
   highScore2: number;
   resultEffect: Success[];
+  isClear: boolean[];
+  isOpen: boolean[];
   increasePlayerCount: () => void;
   decreasePlayerCount: () => void;
   setPlayerCount: (c: number) => void;
@@ -52,6 +54,8 @@ type gameState = {
   increaseCalibration_timer: () => void;
   setHighScore2: (index: number) => void;
   setResultEffect: (index: number, value: Success) => void;
+  setIsClear: (index: number, value: boolean) => void;
+  setIsOpen: (index: number, value: boolean) => void;
 };
 
 export const useGameStore = create<gameState>((set) => ({
@@ -176,6 +180,16 @@ export const useGameStore = create<gameState>((set) => ({
   setResultEffect: (index: number, value: Success) =>
     set((state) => ({
       resultEffect: state.resultEffect.map((l, i) => (i === index ? value : l)),
+    })),
+  isClear: [true, false, false, false, false, false, false, false],
+  isOpen: [false, true, true, false, false, false, false, false],
+  setIsClear: (index: number, value: boolean) =>
+    set((state) => ({
+      isClear: state.isClear.map((l, i) => (i === index ? value : l)),
+    })),
+  setIsOpen: (index: number, value: boolean) =>
+    set((state) => ({
+      isOpen: state.isOpen.map((l, i) => (i === index ? value : l)),
     })),
 }));
 
