@@ -402,11 +402,18 @@ const Play = () => {
 
   return (
     <div className="game-container">
-      <div className="visual">
+      <div
+        className="visual"
+        style={{ zIndex: calibration_timer < 17 ? 100 : 0 }}
+      >
         <div className="movie">
           <div>
             <video ref={videoRef} muted playsInline autoPlay />
           </div>
+          <div className="calibration">
+            <Calibration />
+          </div>
+          {/* キャリブレーション */}
         </div>
       </div>
       {showingCharacter ? (
@@ -562,10 +569,7 @@ const Play = () => {
       <div className="count">
         {phase === "waiting" && timer !== 4 && !isMenu && <>{3 - timer}</>}
       </div>
-      <div className="calibration">
-        <Calibration />
-      </div>
-      {/* キャリブレーション */}
+
       <div className={`overlay ${isMenu ? "open" : ""}`}>
         <div className="menuWrapper">
           <img src={menuFrame} alt="menu" className="menuImage" />
