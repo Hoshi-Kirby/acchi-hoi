@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./Pages.css";
 import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../zustand";
+import { AchievementPopup } from "../features/game/components/AchievementPopup.tsx";
 import resultFrame from "../assets/resultFrame.png";
 import Abutton from "../assets/buttonA.mp3";
 import Bbutton from "../assets/buttonD.mp3";
@@ -11,6 +12,7 @@ import Cookies from "js-cookie";
 
 const Result: React.FC = () => {
   const playerCount = useGameStore((state) => state.playerCount);
+  const isPointSystem = useGameStore((state) => state.isPointSystem);
   const scores = useGameStore((state) => state.scores);
   const navigate = useNavigate();
   const indexedScores = scores.map((score, index) => ({ score, index }));
@@ -28,9 +30,30 @@ const Result: React.FC = () => {
 
   const [getHighScore, setGetHighScore] = useState<boolean>(false);
 
+  const isClear = useGameStore((state) => state.isClear);
+  const setIsClear = useGameStore((state) => state.setIsClear);
+  const hasAchieved = useGameStore((state) => state.hasAchieved);
+  const setHasAchieved = useGameStore((state) => state.setHasAchieved);
+  const [Clear, setClear] = useState([...isClear]);
+
   indexedScores.sort((a, b) => b.score - a.score);
   const sortedValues = indexedScores.map((item) => item.score);
   const sortedIndices = indexedScores.map((item) => item.index);
+
+  const achieve = (index: number) => {
+    if (hasAchieved) return;
+    // すでに達成している場合は何もしない
+    if (Clear[index]) return;
+
+    // Reactのstateも更新
+    const newClear = [...Clear];
+    newClear[index] = true;
+    setClear(newClear);
+
+    // グローバル変数も更新
+    setIsClear(index, true);
+    setHasAchieved(true);
+  };
 
   const clickStart = () => {
     playSoundA();
@@ -85,6 +108,9 @@ const Result: React.FC = () => {
           expires: 365,
         });
       }
+      if (!isPointSystem && scores.includes(1)) {
+        achieve(6);
+      }
     } else {
       if (timeScore < highScore2) {
         setHighScore2(timeScore);
@@ -93,6 +119,9 @@ const Result: React.FC = () => {
         setHighScoreS(Math.round(timeScore / 10) / 100);
       } else {
         setHighScoreS(Math.round(highScore2 / 10) / 100);
+      }
+      if (isTimeAtack && timeScoreS < 25) {
+        achieve(5);
       }
     }
   }, []);
@@ -147,6 +176,10 @@ const Result: React.FC = () => {
             タイトルへ
           </button>
         </div>
+      </div>
+      <div className="achievement-layer">
+        <AchievementPopup isClear={Clear[5]} title="脊髄反射" />
+        <AchievementPopup isClear={Clear[6]} title="今日はこのへんで" />
       </div>
     </div>
   );

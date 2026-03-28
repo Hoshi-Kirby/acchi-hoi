@@ -137,18 +137,25 @@ body,
 }
 
 .delete {
+  image-rendering: pixelated;
   position: absolute;
   top: 88%;
   left: 85%;
+  background-image: url("../assets/button_delete_1.png");
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  border: none;
   transform: translate(-50%, -50%);
-  background-color: rgb(122, 122, 122);
-  /* ボタンの色 */
-  border: 2px solid #323232;
-  /* 縁の色 */
-  transform: translate(-50%, -50%);
+  width: 168px;
+  height: 24px;
   font-size: 15px;
-  padding: 5px 10px;
+  padding-bottom: 4px;
   color: rgb(0, 0, 0);
+}
+
+.delete:hover {
+  background-image: url("../assets/button_delete_2.png");
 }
 
 .suka {
@@ -206,6 +213,13 @@ body,
   display: inline-block;
   position: absolute;
 }
+.arrow.human {
+  image-rendering: pixelated;
+  width: 35px;
+  filter: brightness(2);
+
+  animation: neon-glow-clear 1.5s infinite alternate;
+}
 
 /* 光る */
 .arrow.clear {
@@ -234,7 +248,7 @@ body,
 .arrow.normal {
   image-rendering: pixelated;
   width: 50px;
-  filter: grayscale(100%) brightness(0.5) drop-shadow(0 0 0px white)
+  filter: grayscale(100%) brightness(0.3) drop-shadow(0 0 0px white)
     drop-shadow(0 0 2px white);
 
   animation: neon-glow 1.5s infinite alternate;
@@ -242,19 +256,19 @@ body,
 
 @keyframes neon-glow {
   0% {
-    filter: grayscale(100%) brightness(0.5)
-      drop-shadow(0 0 2px rgba(255, 255, 255, 0.5))
-      drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+    filter: grayscale(100%) brightness(0.3)
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.3))
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
   }
   50% {
-    filter: grayscale(100%) brightness(0.5)
-      drop-shadow(0 0 4px rgba(255, 255, 255, 0.5))
-      drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+    filter: grayscale(100%) brightness(0.7)
+      drop-shadow(0 0 4px rgba(255, 255, 255, 0.3))
+      drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
   }
   100% {
-    filter: grayscale(100%) brightness(0.5)
-      drop-shadow(0 0 2px rgba(255, 255, 255, 0.5))
-      drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+    filter: grayscale(100%) brightness(0.3)
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.3))
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
   }
 }
 
@@ -262,7 +276,45 @@ body,
 .arrow.disabled {
   image-rendering: pixelated;
   width: 50px;
-  filter: grayscale(100%) brightness(0.5);
+  filter: grayscale(100%) brightness(0.3);
+}
+
+.label {
+  position: absolute;
+  top: 100%;
+  left: 100%;
+  transform: translate(0, 0);
+
+  opacity: 0;
+  transition: 0.2s;
+  border-radius: 0;
+
+  background: rgba(11, 65, 14, 0.559);
+  border: 2px solid rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  padding: 4px 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.lab {
+  top: -20px;
+}
+.label .title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 4px;
+  color: rgb(255, 171, 165); /* 任意 */
+}
+
+.label .desc {
+  font-size: 12px;
+}
+
+/* ホバーで表示 */
+.cell:hover .label {
+  opacity: 1;
+  transform: translate(0, -4px);
 }
 
 /* Setup */
@@ -839,6 +891,15 @@ body,
   /*キャラクターより手前に表示*/
   pointer-events: none;
   /* 下の要素のクリックを邪魔したくない場合 */
+}
+.achievement-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
 }
 
 /* Result */

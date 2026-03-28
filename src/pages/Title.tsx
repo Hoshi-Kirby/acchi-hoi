@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import "./Pages.css";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/titleLogo.png";
+import Abutton from "../assets/buttonA.mp3";
 import Bbutton from "../assets/buttonS.mp3";
 import Bgm from "../assets/titleBGM.mp3";
 // import { bgm } from "../features/music/BGMprovider";
@@ -12,12 +13,15 @@ import down_arrow from "../assets/down_arrow.png";
 import left_arrow from "../assets/left_arrow.png";
 import right_arrow from "../assets/right_arrow.png";
 import AchieveButton from "../assets/AchieveButton.png";
+import right_C from "../assets/right_C.png";
+import p1wL from "../assets/p1wL.png";
 
 const arrowImages = {
   left: left_arrow,
   right: right_arrow,
   up: up_arrow,
   down: down_arrow,
+  rightc: right_C,
 };
 // type Props = {
 //   lineStates: {
@@ -40,7 +44,6 @@ const Title: React.FC = () => {
   const isOpen = useGameStore((state) => state.isOpen);
   const isClear = useGameStore((state) => state.isClear);
   const setIsOpen = useGameStore((state) => state.setIsOpen);
-  const setIsClear = useGameStore((state) => state.setIsClear);
   const navigate = useNavigate();
   const [isMenu, setIsMenu] = useState<boolean>(false);
   const clickStart = () => {
@@ -49,6 +52,10 @@ const Title: React.FC = () => {
   };
   const clickBack = () => {
     setIsSuka(false);
+  };
+  const BB = () => {
+    playSoundA();
+    setIsMenu(false);
   };
   const clickDelete = () => {
     setIsSuka(false);
@@ -59,6 +66,14 @@ const Title: React.FC = () => {
   const clickSuka = () => {
     setIsSuka(true);
   };
+  const audioRefA = useRef<HTMLAudioElement | null>(null);
+  const playSoundA = () => {
+    if (!audioRefA.current) {
+      audioRefA.current = new Audio(Abutton);
+    }
+    audioRefA.current.currentTime = 0;
+    audioRefA.current.play();
+  };
   const audioRefB = useRef<HTMLAudioElement | null>(null);
   const playSoundB = () => {
     if (!audioRefB.current) {
@@ -67,19 +82,49 @@ const Title: React.FC = () => {
     audioRefB.current.currentTime = 0;
     audioRefB.current.play();
   };
-  const [lineStates] = useState({
-    l1: false,
-    l2: false,
-    l3: false,
-    l4: false,
-    l5: false,
-    l6: false,
-    l7: false,
-    l8: false,
-  });
 
   const clickMenu = () => {
+    playSoundA();
     setIsMenu(true);
+    if (isClear[0]) {
+      setIsOpen(1, true);
+      setIsOpen(2, true);
+    }
+    if (isClear[1]) {
+      setIsOpen(7, true);
+    }
+    if (isClear[2]) {
+      setIsOpen(3, true);
+      setIsOpen(5, true);
+    }
+    if (isClear[3]) {
+      setIsOpen(2, true);
+      setIsOpen(5, true);
+    }
+    if (isClear[5]) {
+      setIsOpen(4, true);
+      setIsOpen(6, true);
+    }
+    if (isClear[6]) {
+      setIsOpen(1, true);
+      setIsOpen(7, true);
+    }
+    if (isClear[7]) {
+      setIsOpen(1, true);
+      setIsOpen(6, true);
+    }
+    if (
+      isClear[0] == true &&
+      isClear[1] == true &&
+      isClear[2] == true &&
+      isClear[3] == true &&
+      isClear[4] == true &&
+      isClear[5] == true &&
+      isClear[6] == true &&
+      isClear[7] == true
+    ) {
+      setIsOpen(8, true);
+    }
   };
 
   useEffect(() => {
@@ -134,27 +179,27 @@ const Title: React.FC = () => {
             style={{ top: "calc(50% + 100px)", left: "calc(50% - 100px)" }}
           />
           <div
-            className={`line line-horizontal ${lineStates.l3 ? "active" : ""}`}
+            className={`line line-horizontal ${isClear[5] ? "active" : ""}`}
             style={{ top: "calc(50% - 100px)", left: "calc(50% - 100px)" }}
           />
           <div
-            className={`line line-horizontal ${lineStates.l4 ? "active" : ""}`}
+            className={`line line-horizontal ${isClear[5] ? "active" : ""}`}
             style={{ top: "calc(50% - 100px)", left: "calc(50% + 100px)" }}
           />
           <div
-            className={`line line-vertical ${lineStates.l5 ? "active" : ""}`}
+            className={`line line-vertical ${isClear[2] || isClear[3] ? "active" : ""}`}
             style={{ top: "calc(50% - 300px)", left: "calc(50% - 100px)" }}
           />
           <div
-            className={`line line-vertical ${lineStates.l6 ? "active" : ""}`}
+            className={`line line-vertical ${isClear[2] || isClear[3] ? "active" : ""}`}
             style={{ top: "calc(50% - 100px)", left: "calc(50% - 100px)" }}
           />
           <div
-            className={`line line-vertical ${lineStates.l7 ? "active" : ""}`}
+            className={`line line-vertical ${isClear[6] || isClear[7] ? "active" : ""}`}
             style={{ top: "calc(50% - 100px)", left: "calc(50% + 100px)" }}
           />
           <div
-            className={`line line-vertical ${lineStates.l8 ? "active" : ""}`}
+            className={`line line-vertical ${isClear[1] || isClear[6] || isClear[7] ? "active" : ""}`}
             style={{ top: "calc(50% + 100px)", left: "calc(50% + 100px)" }}
           />
 
@@ -168,6 +213,12 @@ const Title: React.FC = () => {
               }`}
               src={arrowImages["right"]}
             />
+            {(isOpen[0] || isClear[0]) && (
+              <div className="label">
+                {isClear[0] && <div className="title">まずは様子見</div>}
+                <div className="desc">初めてこのゲームをプレイした。</div>
+              </div>
+            )}
           </div>
 
           <div
@@ -180,6 +231,12 @@ const Title: React.FC = () => {
               }`}
               src={arrowImages["down"]}
             />
+            {(isOpen[1] || isClear[1]) && (
+              <div className="label">
+                {isClear[1] && <div className="title">連続王</div>}
+                <div className="desc">５コンボ達成した。</div>
+              </div>
+            )}
           </div>
 
           <div
@@ -192,6 +249,12 @@ const Title: React.FC = () => {
               }`}
               src={arrowImages["up"]}
             />
+            {(isOpen[2] || isClear[2]) && (
+              <div className="label">
+                {isClear[2] && <div className="title">全会一致</div>}
+                <div className="desc">４人プレイで全員同じ方向を向いた。</div>
+              </div>
+            )}
           </div>
 
           <div
@@ -204,6 +267,12 @@ const Title: React.FC = () => {
               }`}
               src={arrowImages["down"]}
             />
+            {(isOpen[3] || isClear[3]) && (
+              <div className="label">
+                {isClear[3] && <div className="title">ギリギリセーフ</div>}
+                <div className="desc">タイムアップギリギリで反応した。</div>
+              </div>
+            )}
           </div>
 
           <div
@@ -216,6 +285,12 @@ const Title: React.FC = () => {
               }`}
               src={arrowImages["right"]}
             />
+            {(isOpen[4] || isClear[4]) && (
+              <div className="label">
+                {isClear[4] && <div className="title">もはや視力検査</div>}
+                <div className="desc">残機制でラウンド１７に突入した。</div>
+              </div>
+            )}
           </div>
 
           <div
@@ -228,6 +303,14 @@ const Title: React.FC = () => {
               }`}
               src={arrowImages["right"]}
             />
+            {(isOpen[5] || isClear[5]) && (
+              <div className="label">
+                {isClear[5] && <div className="title">脊髄反射</div>}
+                <div className="desc">
+                  タイムアタックを２５秒以内にクリアした。
+                </div>
+              </div>
+            )}
           </div>
 
           <div
@@ -240,6 +323,14 @@ const Title: React.FC = () => {
               }`}
               src={arrowImages["down"]}
             />
+            {(isOpen[6] || isClear[6]) && (
+              <div className="label">
+                {isClear[6] && <div className="title">今日はこのへんで</div>}
+                <div className="desc">
+                  ちょうど４ラウンドで残機が０になった。
+                </div>
+              </div>
+            )}
           </div>
 
           <div
@@ -252,7 +343,40 @@ const Title: React.FC = () => {
               }`}
               src={arrowImages["up"]}
             />
+            {(isOpen[7] || isClear[7]) && (
+              <div className="label lab">
+                {isClear[7] && <div className="title">方向音痴</div>}
+                <div className="desc">正面を向いたまま３連続ミスをした。</div>
+              </div>
+            )}
           </div>
+          {isOpen[8] && (
+            <div
+              className="cell"
+              style={{ top: "calc(50%)", left: "calc(50%)" }}
+            >
+              <img
+                className={`arrow ${
+                  isClear[8] ? "human" : isOpen[8] ? "normal" : "disabled"
+                }`}
+                src={isClear[8] ? p1wL : arrowImages["rightc"]}
+              />
+              {(isOpen[8] || isClear[8]) && (
+                <div className="label">
+                  {isClear[8] && (
+                    <div className="title">ランドルト環マスター</div>
+                  )}
+                  <div className="desc">
+                    設定画面をすべてランドルト環にする。
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          <button className="back-button" onClick={BB}>
+            戻る
+          </button>
         </div>
       </div>
     </div>

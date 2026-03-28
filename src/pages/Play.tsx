@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-// import { useInterface } from "../features/game/hooks/interface";
+import { useInterface } from "../features/game/hooks/interface";
 import "./Pages.css";
 import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../zustand";
+import { AchievementPopup } from "../features/game/components/AchievementPopup.tsx";
 import Judge from "../features/game/utils/judge";
 import p1wN from "../assets/p1wN.png";
 import p1mN from "../assets/p1mN.png";
@@ -127,6 +128,39 @@ const Play = () => {
   const [combo, setCombo] = useState<number[]>([0, 0, 0, 0]);
   const settimeScore = useGameStore((state) => state.setTimeScore);
   const startRef = useRef<number | null>(null);
+  const isClear = useGameStore((state) => state.isClear);
+  const setIsClear = useGameStore((state) => state.setIsClear);
+  const hasAchieved = useGameStore((state) => state.hasAchieved);
+  const setHasAchieved = useGameStore((state) => state.setHasAchieved);
+  const [Clear, setClear] = useState([...isClear]);
+  const [notCenter, setNotCenter] = useState<boolean[]>([
+    false,
+    false,
+    false,
+    false,
+  ]);
+  const [isCenter, setIsCenter] = useState<boolean[]>([
+    false,
+    false,
+    false,
+    false,
+  ]);
+
+  const achieve = (index: number) => {
+    if (hasAchieved) return;
+    // すでに達成している場合は何もしない
+    if (Clear[index]) return;
+    if (isClear[index]) return;
+
+    // Reactのstateも更新
+    const newClear = [...Clear];
+    newClear[index] = true;
+    setClear(newClear);
+
+    // グローバル変数も更新
+    setIsClear(index, true);
+    setHasAchieved(true);
+  };
 
   const lastProcessedTimer = useRef<number>(-1); //二回効果音が鳴ってしまうかもしれないバグの対処
 
@@ -152,9 +186,12 @@ const Play = () => {
     for (let i = 0; i < playerCount; i++) {
       setScore(i, 0);
       setLife(i, 3);
+      resetCombo(i);
       setResultEffect(i, null);
     }
     setIsMenu(false);
+    setHasAchieved(false);
+    setNotCenter([false, false, false, false]);
   };
   const GotoSetting = () => {
     playSoundA();
@@ -175,6 +212,9 @@ const Play = () => {
     navigate("/");
   };
   const increaseCombo = (i: number) => {
+    if (combo[i] == 4) {
+      achieve(1);
+    }
     setCombo((prev) => {
       const newCombos = [...prev]; // 配列をコピー
       newCombos[i] += 1; // i番目のコンボを1増やす
@@ -192,7 +232,7 @@ const Play = () => {
   };
 
   useGameLoop(); //ここで矢印の方向を作る関数を呼び出す
-  // useInterface(); //ここでキー操作の関数を呼び出す
+  useInterface(); //ここでキー操作の関数を呼び出す
   const { videoRef } = useDirection();
   useDirectConverter(); //AI
 
@@ -261,7 +301,10 @@ const Play = () => {
       setLife(i, 3);
       setResultEffect(i, null);
     }
+    setNotCenter([false, false, false, false]);
     setPhase("waiting");
+    setHasAchieved(false);
+    achieve(0);
   }, []);
 
   useEffect(() => {
@@ -302,10 +345,36 @@ const Play = () => {
       setPhase("arrow");
       //console.log("arrow");
     }
+    if (timer === 7) {
+      for (let i = 0; i < playerCount; i++) {
+        setIsCenter((prev) => {
+          const newState = [...prev];
+          newState[i] = playerDirections[i] === "center";
+          return newState;
+        });
+      }
+    }
     if (timer === 8) {
       setPhase("judging");
-      //console.log("judging");
-      //ここでゲーム終了の文言を入れてもいいかも
+      if (playerDirections[0] != "center" && playerCount == 4) {
+        if (
+          playerDirections[0] == playerDirections[1] &&
+          playerDirections[0] == playerDirections[2] &&
+          playerDirections[0] == playerDirections[3]
+        ) {
+          achieve(2);
+        }
+      }
+
+      for (let i = 0; i < playerCount; i++) {
+        if (playerDirections[i] !== "center") {
+          setNotCenter((prev) => {
+            const newState = [...prev];
+            newState[i] = true;
+            return newState;
+          });
+        }
+      }
     }
     if (timer === 10) {
       setPhase("waiting");
@@ -352,6 +421,9 @@ const Play = () => {
   useEffect(() => {
     if (round > 16) {
       setAddC(Array(8).fill("c"));
+    }
+    if (round == 17) {
+      achieve(4);
     }
     if (round > 20) {
       setAddC(Array(8).fill("cmini"));
@@ -401,10 +473,16 @@ const Play = () => {
       if (resultEffect[i] === "success") {
         hasSuccess = true;
         increaseCombo(i);
+        if (isCenter[i]) {
+          achieve(3);
+        }
       }
       if (resultEffect[i] === "fail") {
         hasFail = true;
         resetCombo(i);
+        if (!notCenter[i] && round == 3 && i < playerCount) {
+          achieve(7);
+        }
       }
     }
 
@@ -601,6 +679,14 @@ const Play = () => {
             </button>
           </div>
         </div>
+      </div>
+      <div className="achievement-layer">
+        <AchievementPopup isClear={Clear[0]} title="まずは様子見" />
+        <AchievementPopup isClear={Clear[1]} title="連続王" />
+        <AchievementPopup isClear={Clear[2]} title="全会一致" />
+        <AchievementPopup isClear={Clear[3]} title="ギリギリセーフ" />
+        <AchievementPopup isClear={Clear[4]} title="もはや視力検査" />
+        <AchievementPopup isClear={Clear[7]} title="方向音痴" />
       </div>
     </div>
   );
