@@ -137,18 +137,25 @@ body,
 }
 
 .delete {
+  image-rendering: pixelated;
   position: absolute;
   top: 88%;
   left: 85%;
+  background-image: url("../assets/button_delete_1.png");
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  border: none;
   transform: translate(-50%, -50%);
-  background-color: rgb(122, 122, 122);
-  /* ボタンの色 */
-  border: 2px solid #323232;
-  /* 縁の色 */
-  transform: translate(-50%, -50%);
+  width: 168px;
+  height: 24px;
   font-size: 15px;
-  padding: 5px 10px;
+  padding-bottom: 4px;
   color: rgb(0, 0, 0);
+}
+
+.delete:hover {
+  background-image: url("../assets/button_delete_2.png");
 }
 
 .suka {
