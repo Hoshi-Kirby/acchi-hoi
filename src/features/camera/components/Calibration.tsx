@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useGameStore } from "../../../zustand";
-import useDirection from "../hooks/useDirection";
 import "./calibration.css";
 
 const Calibration = () => {
@@ -17,12 +16,8 @@ const Calibration = () => {
 
     return () => clearInterval(intervalId);
   }, [increaseCalibration_timer]); // timerを外せるので、エフェクトが再生成されません
-  const { videoRef } = useDirection();
   return (
     <div>
-      <video ref={videoRef} autoPlay muted />
-      {/*動画再生＆（時間経過＆背景選択）で表示or隠す */}
-
       <div className="instruct">
         {/*(17秒以降でcomponent全体を非表示)+線を引く */}
         {timer < 3 && (

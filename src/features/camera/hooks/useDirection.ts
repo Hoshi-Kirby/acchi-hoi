@@ -13,9 +13,9 @@ const useDirection = () => {
     (state) => state.setCameraDirections,
   );
   const playerCount = useGameStore((state) => state.playerCount); //キャリブレーションをもとに変化するはん
-  const down_standard = useRef<number>(0.4);
-  const up_standard = useRef<number>(0.4);
-  const center_standard = useRef<number>(0.4);
+  const down_standard = useRef<number[]>([0.4, 0.4, 0.4, 0.4]);
+  const up_standard = useRef<number[]>([0.4, 0.4, 0.4, 0.4]);
+  const center_standard = useRef<number[]>([0.4, 0.4, 0.4, 0.4]);
 
   const calibration_timer = useGameStore((state) => state.calibration_timer);
 
@@ -96,24 +96,26 @@ const useDirection = () => {
             else if (yaw < -0.4) dir = "left";
             else if (
               pitch >
-              0.4 * down_standard.current + 0.6 * center_standard.current
+              0.3 * down_standard.current[sectorIndex] +
+                0.6 * center_standard.current[sectorIndex]
             )
               dir = "down";
             else if (
               pitch <
-              0.4 * up_standard.current + 0.6 * center_standard.current
+              0.4 * up_standard.current[sectorIndex] +
+                0.6 * center_standard.current[sectorIndex]
             )
               dir = "up";
             console.log(pitch);
 
             if (calibration_timer === 9) {
-              down_standard.current = yaw;
+              down_standard.current[sectorIndex] = yaw;
             }
             if (calibration_timer === 12) {
-              up_standard.current = yaw;
+              up_standard.current[sectorIndex] = yaw;
             }
             if (calibration_timer === 15) {
-              center_standard.current = yaw;
+              center_standard.current[sectorIndex] = yaw;
             }
 
             // 計算したエリア（インデックス）の方向を上書き
