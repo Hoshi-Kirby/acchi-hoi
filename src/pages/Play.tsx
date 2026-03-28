@@ -150,6 +150,7 @@ const Play = () => {
     for (let i = 0; i < playerCount; i++) {
       setScore(i, 0);
       setLife(i, 3);
+      setResultEffect(i, null);
     }
     setIsMenu(false);
   };
@@ -158,6 +159,7 @@ const Play = () => {
     for (let i = 0; i < playerCount; i++) {
       setScore(i, 0);
       setLife(i, 3);
+      setResultEffect(i, null);
     }
     navigate("/Setup");
   };
@@ -166,6 +168,7 @@ const Play = () => {
     for (let i = 0; i < playerCount; i++) {
       setScore(i, 0);
       setLife(i, 3);
+      setResultEffect(i, null);
     }
     navigate("/");
   };
