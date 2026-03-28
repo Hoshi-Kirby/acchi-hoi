@@ -213,6 +213,13 @@ body,
   display: inline-block;
   position: absolute;
 }
+.arrow.human {
+  image-rendering: pixelated;
+  width: 35px;
+  filter: brightness(2);
+
+  animation: neon-glow-clear 1.5s infinite alternate;
+}
 
 /* 光る */
 .arrow.clear {

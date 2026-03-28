@@ -13,12 +13,15 @@ import down_arrow from "../assets/down_arrow.png";
 import left_arrow from "../assets/left_arrow.png";
 import right_arrow from "../assets/right_arrow.png";
 import AchieveButton from "../assets/AchieveButton.png";
+import right_C from "../assets/right_C.png";
+import p1wL from "../assets/p1wL.png";
 
 const arrowImages = {
   left: left_arrow,
   right: right_arrow,
   up: up_arrow,
   down: down_arrow,
+  rightc: right_C,
 };
 // type Props = {
 //   lineStates: {
@@ -109,6 +112,18 @@ const Title: React.FC = () => {
     if (isClear[7]) {
       setIsOpen(1, true);
       setIsOpen(6, true);
+    }
+    if (
+      isClear[0] == true &&
+      isClear[1] == true &&
+      isClear[2] == true &&
+      isClear[3] == true &&
+      isClear[4] == true &&
+      isClear[5] == true &&
+      isClear[6] == true &&
+      isClear[7] == true
+    ) {
+      setIsOpen(8, true);
     }
   };
 
@@ -335,6 +350,29 @@ const Title: React.FC = () => {
               </div>
             )}
           </div>
+          {isOpen[8] && (
+            <div
+              className="cell"
+              style={{ top: "calc(50%)", left: "calc(50%)" }}
+            >
+              <img
+                className={`arrow ${
+                  isClear[8] ? "human" : isOpen[8] ? "normal" : "disabled"
+                }`}
+                src={isClear[8] ? p1wL : arrowImages["rightc"]}
+              />
+              {(isOpen[8] || isClear[8]) && (
+                <div className="label">
+                  {isClear[8] && (
+                    <div className="title">ランドルト環マスター</div>
+                  )}
+                  <div className="desc">
+                    設定画面をすべてランドルト環にする。
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
 
           <button className="back-button" onClick={BB}>
             戻る

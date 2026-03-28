@@ -3,6 +3,7 @@ import "./Pages.css";
 // import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../zustand";
 import { useNavigate } from "react-router-dom";
+import { AchievementPopup } from "../features/game/components/AchievementPopup.tsx";
 import left_arrow from "../assets/left_arrow.png";
 import right_arrow from "../assets/right_arrow.png";
 import left_C from "../assets/left_C.png";
@@ -38,6 +39,10 @@ const Setup: React.FC = () => {
     (state) => state.setCalibration_timer,
   );
 
+  const isClear = useGameStore((state) => state.isClear);
+  const setIsClear = useGameStore((state) => state.setIsClear);
+  const [Clear, setClear] = useState([...isClear]);
+
   type Direction = "left" | "right";
   type DirectionC = `${Direction}c`;
 
@@ -62,6 +67,15 @@ const Setup: React.FC = () => {
     navigate(showingCharacter ? "/SetChara" : "/Play");
   };
 
+  const achieve = (index: number) => {
+    // Reactのstateも更新
+    const newClear = [...Clear];
+    newClear[index] = true;
+    setClear(newClear);
+
+    // グローバル変数も更新
+    setIsClear(index, true);
+  };
   // 変数の変動処理
   const decreaseNumber = () => {
     playSoundA();
@@ -122,6 +136,18 @@ const Setup: React.FC = () => {
   useEffect(() => {
     if (highScore > 25) {
       setAddC(["c", "c", "c"]);
+      if (
+        isClear[0] == true &&
+        isClear[1] == true &&
+        isClear[2] == true &&
+        isClear[3] == true &&
+        isClear[4] == true &&
+        isClear[5] == true &&
+        isClear[6] == true &&
+        isClear[7] == true
+      ) {
+        achieve(8);
+      }
     } else if (highScore > 20) {
       setAddC(["c", "c", ""]);
     } else if (highScore > 16) {
@@ -193,6 +219,10 @@ const Setup: React.FC = () => {
       <button className="setup-start-button" onClick={clickStart}>
         {showingCharacter ? "Next" : "GameStart!"}
       </button>
+
+      <div className="achievement-layer">
+        <AchievementPopup isClear={Clear[8]} title="ランドルト環マスター" />
+      </div>
     </div>
   );
 };
