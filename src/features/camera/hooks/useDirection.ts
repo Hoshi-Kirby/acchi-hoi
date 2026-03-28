@@ -102,8 +102,8 @@ const useDirection = () => {
               dir = "down";
             else if (
               pitch <
-              0.4 * up_standard.current[sectorIndex] +
-                0.6 * center_standard.current[sectorIndex]
+              0.1 * up_standard.current[sectorIndex] +
+                0.1 * center_standard.current[sectorIndex]
             )
               dir = "up";
             console.log(pitch);
