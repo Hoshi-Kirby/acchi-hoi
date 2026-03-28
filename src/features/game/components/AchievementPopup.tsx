@@ -12,6 +12,7 @@ export function AchievementPopup({ isClear, title }: AchievementPopupProps) {
   const prevClear = usePrevious(isClear);
 
   useEffect(() => {
+    if (prevClear === undefined) return;
     if (!prevClear && isClear) {
       setShowPopup(true);
       setTimeout(() => setShowPopup(false), 2000);
@@ -22,7 +23,7 @@ export function AchievementPopup({ isClear, title }: AchievementPopupProps) {
     <div
       className={`achievement-popup ${showPopup ? "achievement-popup-show" : ""}`}
     >
-      実績達成！「{title}」
+      実績解除！「{title}」
     </div>
   );
 }

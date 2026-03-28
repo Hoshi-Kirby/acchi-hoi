@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import "./Pages.css";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/titleLogo.png";
+import Abutton from "../assets/buttonA.mp3";
 import Bbutton from "../assets/buttonS.mp3";
 import Bgm from "../assets/titleBGM.mp3";
 // import { bgm } from "../features/music/BGMprovider";
@@ -49,6 +50,10 @@ const Title: React.FC = () => {
   const clickBack = () => {
     setIsSuka(false);
   };
+  const BB = () => {
+    playSoundA();
+    setIsMenu(false);
+  };
   const clickDelete = () => {
     setIsSuka(false);
     playSoundB();
@@ -57,6 +62,14 @@ const Title: React.FC = () => {
   };
   const clickSuka = () => {
     setIsSuka(true);
+  };
+  const audioRefA = useRef<HTMLAudioElement | null>(null);
+  const playSoundA = () => {
+    if (!audioRefA.current) {
+      audioRefA.current = new Audio(Abutton);
+    }
+    audioRefA.current.currentTime = 0;
+    audioRefA.current.play();
   };
   const audioRefB = useRef<HTMLAudioElement | null>(null);
   const playSoundB = () => {
@@ -68,6 +81,7 @@ const Title: React.FC = () => {
   };
 
   const clickMenu = () => {
+    playSoundA();
     setIsMenu(true);
     if (isClear[0]) {
       setIsOpen(1, true);
@@ -187,7 +201,7 @@ const Title: React.FC = () => {
             {(isOpen[0] || isClear[0]) && (
               <div className="label">
                 {isClear[0] && <div className="title">まずは様子見</div>}
-                <div className="desc">初めてこのゲームを起動した。</div>
+                <div className="desc">初めてこのゲームをプレイした。</div>
               </div>
             )}
           </div>
@@ -259,7 +273,7 @@ const Title: React.FC = () => {
             {(isOpen[4] || isClear[4]) && (
               <div className="label">
                 {isClear[4] && <div className="title">もはや視力検査</div>}
-                <div className="desc">残機制で15ラウンドに突入した。</div>
+                <div className="desc">残機制でラウンド１７に突入した。</div>
               </div>
             )}
           </div>
@@ -297,7 +311,9 @@ const Title: React.FC = () => {
             {(isOpen[6] || isClear[6]) && (
               <div className="label">
                 {isClear[6] && <div className="title">今日はこのへんで</div>}
-                <div className="desc">５ラウンド以内に残機が０になった。</div>
+                <div className="desc">
+                  ちょうど４ラウンドで残機が０になった。
+                </div>
               </div>
             )}
           </div>
@@ -319,6 +335,10 @@ const Title: React.FC = () => {
               </div>
             )}
           </div>
+
+          <button className="back-button" onClick={BB}>
+            戻る
+          </button>
         </div>
       </div>
     </div>
