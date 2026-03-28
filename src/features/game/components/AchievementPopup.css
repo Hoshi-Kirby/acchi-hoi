@@ -1,0 +1,22 @@
+.achievement-popup {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: rgba(255, 255, 255, 0.829);
+  color: rgb(0, 0, 0);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.4s ease;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.achievement-popup-show {
+  transform: translateY(0);
+  opacity: 1;
+}
