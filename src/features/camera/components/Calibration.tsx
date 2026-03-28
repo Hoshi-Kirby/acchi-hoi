@@ -11,7 +11,11 @@ const Calibration = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      increaseCalibration_timer();
+      if (useGameStore.getState().calibration_timer <= 20) {
+        increaseCalibration_timer();
+      } else {
+        clearInterval(intervalId);
+      }
     }, 1500);
 
     return () => clearInterval(intervalId);

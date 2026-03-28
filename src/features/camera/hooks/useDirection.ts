@@ -17,11 +17,14 @@ const useDirection = () => {
   const up_standard = useRef<number[]>([0.4, 0.4, 0.4, 0.4]);
   const center_standard = useRef<number[]>([0.4, 0.4, 0.4, 0.4]);
 
-  const calibration_timer = useGameStore((state) => state.calibration_timer);
+  const prevCameraDirections = useRef<Direction[]>([null, null, null, null]);
+  //useStateからuseRefへの変更
 
   useEffect(() => {
     let faceLandmarker: FaceLandmarker;
     let animationFrameId: number;
+    let isActive = true; //ロード中にユーザーが画面の遷移をしてしまった場合カメラが起動してしまうバグの修正
+
     const setUpDetector = async () => {
       //モデルの初期化
       const vision = await FilesetResolver.forVisionTasks(
@@ -37,7 +40,7 @@ const useDirection = () => {
         runningMode: "VIDEO",
         numFaces: playerCount, // 検出人数をに設定
       });
-      startCamera();
+      if (isActive) startCamera();
       console.log("初期化完了");
     };
     const startCamera = async () => {
@@ -54,9 +57,6 @@ const useDirection = () => {
       }
     };
 
-    const newSayuus = [0, 0, 0, 0];
-    const newJoges = [0, 0, 0, 0];
-
     const predictWebcam = () => {
       if (!videoRef.current || !faceLandmarker) return;
 
@@ -65,11 +65,11 @@ const useDirection = () => {
         videoRef.current,
         startTimeMs,
       );
-      // 毎フレーム「無」でリセットし、顔が見つかったエリアだけ上書きする
-      setCameraDirections(0, null);
-      setCameraDirections(1, null);
-      setCameraDirections(2, null);
-      setCameraDirections(3, null);
+
+      const currentTimer = useGameStore.getState().calibration_timer;
+      const newCameraDirs: Direction[] = [null, null, null, null];
+      // レンダリングの原因となるzustandの使用を避ける
+
       if (results.faceLandmarks.length > 0) {
         results.faceLandmarks.forEach((landmarks, index) => {
           // 顔の基準点として鼻の頭付近のX座標を取得 (0.0 〜 1.0)
@@ -106,34 +106,36 @@ const useDirection = () => {
                 0.1 * center_standard.current[sectorIndex]
             )
               dir = "up";
-            console.log(pitch);
+            // console.log(pitch);
 
-            if (calibration_timer === 9) {
-              down_standard.current[sectorIndex] = yaw;
+            if (currentTimer === 9) {
+              down_standard.current[sectorIndex] = pitch;
             }
-            if (calibration_timer === 12) {
-              up_standard.current[sectorIndex] = yaw;
+            if (currentTimer === 12) {
+              up_standard.current[sectorIndex] = pitch;
             }
-            if (calibration_timer === 15) {
-              center_standard.current[sectorIndex] = yaw;
+            if (currentTimer === 15) {
+              center_standard.current[sectorIndex] = pitch;
             }
 
-            // 計算したエリア（インデックス）の方向を上書き
-            setCameraDirections(sectorIndex, dir);
-
-            newJoges[sectorIndex] = pitch;
-            newSayuus[sectorIndex] = yaw;
+            newCameraDirs[sectorIndex] = dir;
           }
         });
       }
 
-      // setSayuu(newSayuus);
-      // setJoge(newJoges);
+      for (let i = 0; i < 4; i++) {
+        // 向きが変わった時だけ再レンダリング
+        if (newCameraDirs[i] !== prevCameraDirections.current[i]) {
+          setCameraDirections(i, newCameraDirs[i]);
+          prevCameraDirections.current[i] = newCameraDirs[i];
+        }
+      }
       animationFrameId = requestAnimationFrame(predictWebcam);
     };
     setUpDetector();
 
     return () => {
+      isActive = false;
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }

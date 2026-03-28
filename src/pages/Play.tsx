@@ -128,6 +128,8 @@ const Play = () => {
   const settimeScore = useGameStore((state) => state.setTimeScore);
   const startRef = useRef<number | null>(null);
 
+  const lastProcessedTimer = useRef<number>(-1); //二回効果音が鳴ってしまうかもしれないバグの対処
+
   const clickMenu = () => {
     playSoundA();
     setIsMenu(true);
@@ -264,6 +266,11 @@ const Play = () => {
 
   useEffect(() => {
     setcount_speed(Math.max(600 - round * 30, 375));
+
+    //効果音が二十でなってしまう可能性を排除
+    if (lastProcessedTimer.current === timer) return;
+    lastProcessedTimer.current = timer;
+
     if (
       timer === 0 ||
       timer === 1 ||
@@ -365,16 +372,18 @@ const Play = () => {
   useEffect(() => {
     //メニューを開いたとき以外はタイマーを動かし続ける
     const intervalId = setInterval(() => {
-      if (!isMenu && calibration_timer > 20) {
+      const currentCalTimer = useGameStore.getState().calibration_timer;
+      if (!isMenu && currentCalTimer > 20) {
         settimer((prev) => prev + 1);
       } else if (isMenu) {
-        if (phase === "arrow") {
+        if (useGameStore.getState().phase === "arrow") {
           settimer(8);
         }
       }
     }, count_speed);
     return () => clearInterval(intervalId);
-  }, [count_speed, isMenu, calibration_timer]);
+  }, [count_speed, isMenu]);
+  //calibration_timerが必要なくなったため。
 
   useEffect(() => {
     if (isTimeAtack && phase === "arrow" && playerDirections[0] != "center") {
