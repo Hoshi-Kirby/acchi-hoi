@@ -182,7 +182,7 @@ export const useGameStore = create<gameState>((set) => ({
       resultEffect: state.resultEffect.map((l, i) => (i === index ? value : l)),
     })),
   isClear: [true, false, false, false, false, false, false, false],
-  isOpen: [false, true, true, false, false, false, false, false],
+  isOpen: [false, false, false, false, false, false, false, false],
   setIsClear: (index: number, value: boolean) =>
     set((state) => ({
       isClear: state.isClear.map((l, i) => (i === index ? value : l)),

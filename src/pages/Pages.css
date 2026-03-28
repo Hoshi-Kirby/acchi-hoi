@@ -234,7 +234,7 @@ body,
 .arrow.normal {
   image-rendering: pixelated;
   width: 50px;
-  filter: grayscale(100%) brightness(0.5) drop-shadow(0 0 0px white)
+  filter: grayscale(100%) brightness(0.3) drop-shadow(0 0 0px white)
     drop-shadow(0 0 2px white);
 
   animation: neon-glow 1.5s infinite alternate;
@@ -242,19 +242,19 @@ body,
 
 @keyframes neon-glow {
   0% {
-    filter: grayscale(100%) brightness(0.5)
-      drop-shadow(0 0 2px rgba(255, 255, 255, 0.5))
-      drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+    filter: grayscale(100%) brightness(0.3)
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.3))
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
   }
   50% {
-    filter: grayscale(100%) brightness(0.5)
-      drop-shadow(0 0 4px rgba(255, 255, 255, 0.5))
-      drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+    filter: grayscale(100%) brightness(0.7)
+      drop-shadow(0 0 4px rgba(255, 255, 255, 0.3))
+      drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
   }
   100% {
-    filter: grayscale(100%) brightness(0.5)
-      drop-shadow(0 0 2px rgba(255, 255, 255, 0.5))
-      drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+    filter: grayscale(100%) brightness(0.3)
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.3))
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
   }
 }
 
@@ -262,7 +262,45 @@ body,
 .arrow.disabled {
   image-rendering: pixelated;
   width: 50px;
-  filter: grayscale(100%) brightness(0.5);
+  filter: grayscale(100%) brightness(0.3);
+}
+
+.label {
+  position: absolute;
+  top: 100%;
+  left: 100%;
+  transform: translate(0, 0);
+
+  opacity: 0;
+  transition: 0.2s;
+  border-radius: 0;
+
+  background: rgba(11, 65, 14, 0.559);
+  border: 2px solid rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  padding: 4px 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.lab {
+  top: -20px;
+}
+.label .title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 4px;
+  color: rgb(255, 171, 165); /* 任意 */
+}
+
+.label .desc {
+  font-size: 12px;
+}
+
+/* ホバーで表示 */
+.cell:hover .label {
+  opacity: 1;
+  transform: translate(0, -4px);
 }
 
 /* Setup */
