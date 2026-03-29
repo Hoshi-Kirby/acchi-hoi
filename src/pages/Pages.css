@@ -719,6 +719,16 @@ body,
 .player-3 {
   color: rgb(119, 255, 0);
 }
+.success-image {
+  position: fixed;
+  top: 70px;
+  width: 100px;
+}
+.fail-image {
+  position: fixed;
+  top: 70px;
+  width: 100px;
+}
 
 .round-text {
   position: absolute;
