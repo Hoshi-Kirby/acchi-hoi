@@ -57,6 +57,8 @@ import u_C from "../assets/u_c.png";
 import d_C from "../assets/d_c.png";
 import l_C from "../assets/l_c.png";
 import r_C from "../assets/r_c.png";
+import o_Effect from "../assets/o-effect.png";
+import x_Effect from "../assets/x-effect.png";
 import menuButton from "../assets/menuButton.png";
 import menuFrame from "../assets/menuFrame.png";
 import kaSound from "../assets/ka.mp3";
@@ -95,6 +97,10 @@ const arrowImages = {
   rightcmini: r_C,
   center: p1wN,
   centerc: p1wN,
+};
+const effectImages = {
+  success: o_Effect,
+  fail: x_Effect,
 };
 
 const Play = () => {
@@ -541,12 +547,29 @@ const Play = () => {
             {Array.from({ length: playerCount }).map((_, i) => {
               const safeLives = Math.max(0, lives[i]); // 応急処置
               return (
-                <div className="play-chara-packet-content" key={i}>
-                  {/* 上に表示 */}
-                  <div className={`player-${i} player-status`}>
-                    {isPointSystem ? `${scores[i]}pt` : "♥".repeat(safeLives)}
+                <>
+                  <div className="play-chara-packet-content" key={i}>
+                    {/* 上に表示 */}
+                    <div className={`player-${i} player-status`}>
+                      {isPointSystem ? `${scores[i]}pt` : "♥".repeat(safeLives)}
+                    </div>
+
+                    {resultEffect[i] == "success" && combo[i] > 4 && (
+                      <div className="combo">{combo[i]}combo</div>
+                    )}
+
+                    {resultEffect[i] !== null && (
+                      <img
+                        src={effectImages[resultEffect[i]]}
+                        className={`
+                  effect-image
+                  ${resultEffect[i] === "success" ? "success-image" : ""}
+                  ${resultEffect[i] === "fail" ? "fail-image" : ""}
+                `}
+                      />
+                    )}
                   </div>
-                </div>
+                </>
               );
             })}
           </div>
