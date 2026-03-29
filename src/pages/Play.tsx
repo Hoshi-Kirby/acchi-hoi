@@ -444,7 +444,7 @@ const Play = () => {
   useEffect(() => {
     //メニューを開いたとき以外はタイマーを動かし続ける
     const intervalId = setInterval(() => {
-      if (!isMenu && calibration_timer > 20) {
+      if (!isMenu && calibration_timer > 17) {
         settimer((prev) => prev + 1);
       } else if (isMenu) {
         if (phase === "arrow") {

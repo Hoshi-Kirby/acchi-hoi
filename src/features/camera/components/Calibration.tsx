@@ -11,8 +11,8 @@ const Calibration = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      increaseCalibration_timer();
-    }, 1500);
+      if (timer < 18) increaseCalibration_timer();
+    }, 1000);
 
     return () => clearInterval(intervalId);
   }, [increaseCalibration_timer]); // timerを外せるので、エフェクトが再生成されません

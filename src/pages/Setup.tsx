@@ -63,7 +63,7 @@ const Setup: React.FC = () => {
   const clickStart = () => {
     playSoundB();
     setRound(1);
-    setCalibration_timer(0);
+    // setCalibration_timer(0);
     navigate(showingCharacter ? "/SetChara" : "/Play");
   };
 

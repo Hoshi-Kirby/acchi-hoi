@@ -17,7 +17,12 @@ const useDirection = () => {
   const up_standard = useRef<number[]>([0.4, 0.4, 0.4, 0.4]);
   const center_standard = useRef<number[]>([0.4, 0.4, 0.4, 0.4]);
 
-  const calibration_timer = useGameStore((state) => state.calibration_timer);
+  const timer = useGameStore((state) => state.calibration_timer);
+  const calibration_timer = useRef<number>(timer);
+
+  useEffect(() => {
+    calibration_timer.current = timer;
+  }, [timer]);
 
   useEffect(() => {
     let faceLandmarker: FaceLandmarker;
@@ -96,30 +101,30 @@ const useDirection = () => {
             else if (yaw < -0.4) dir = "left";
             else if (
               pitch >
-              0.3 * down_standard.current[sectorIndex] +
-                0.6 * center_standard.current[sectorIndex]
-            )
+              0.5 * down_standard.current[sectorIndex] +
+                0.5 * center_standard.current[sectorIndex]
+            ) {
               dir = "down";
-            else if (
+            } else if (
               pitch <
-              0.1 * up_standard.current[sectorIndex] +
-                0.1 * center_standard.current[sectorIndex]
+              0.5 * up_standard.current[sectorIndex] +
+                0.5 * center_standard.current[sectorIndex]
             )
               dir = "up";
-            console.log(pitch);
 
-            if (calibration_timer === 9) {
-              down_standard.current[sectorIndex] = yaw;
+            if (calibration_timer.current === 9) {
+              down_standard.current[sectorIndex] = 0.3;
             }
-            if (calibration_timer === 12) {
-              up_standard.current[sectorIndex] = yaw;
+            if (calibration_timer.current === 12) {
+              up_standard.current[sectorIndex] = -0.4;
             }
-            if (calibration_timer === 15) {
-              center_standard.current[sectorIndex] = yaw;
+            if (calibration_timer.current === 15) {
+              center_standard.current[sectorIndex] = 0;
             }
 
             // 計算したエリア（インデックス）の方向を上書き
             setCameraDirections(sectorIndex, dir);
+            console.log(down_standard.current);
 
             newJoges[sectorIndex] = pitch;
             newSayuus[sectorIndex] = yaw;
