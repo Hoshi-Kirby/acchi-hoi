@@ -132,7 +132,7 @@ const Result: React.FC = () => {
       } else {
         setHighScoreS(Math.round(highScore2 / 10) / 100);
       }
-      if (isTimeAtack && timeScoreS < 25) {
+      if (isTimeAtack && timeScoreS < 20) {
         achieve(5);
       }
     }

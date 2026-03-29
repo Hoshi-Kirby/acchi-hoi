@@ -377,7 +377,7 @@ const Title: React.FC = () => {
               <div className="label">
                 {isClear[5] && <div className="title">脊髄反射</div>}
                 <div className="desc">
-                  タイムアタックを２５秒以内にクリアした。
+                  タイムアタックを２０秒以内にクリアした。
                 </div>
               </div>
             )}
