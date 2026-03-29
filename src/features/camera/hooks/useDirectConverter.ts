@@ -28,7 +28,7 @@ export const useDirectConverter = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTimer((prev) => [prev[0] + 1, prev[1] + 1, prev[2] + 1, prev[3] + 1]);
-    }, 50);
+    }, 5);
     return () => clearInterval(intervalId);
   }, [playerDirections]);
 
@@ -60,7 +60,11 @@ export const useDirectConverter = () => {
     if (phase === "arrow") {
       const math: boolean[] = [true, true, true, true];
       for (let i = 0; i < playerCount; i++) {
-        if (timer[i] > 1 && playerDirections[i] !== preDirections[i]) {
+        if (
+          timer[i] > 1 &&
+          playerDirections[i] !== "center" &&
+          playerDirections[i] !== preDirections[i]
+        ) {
           math[i] = false;
         } else {
           math[i] = token[i];
@@ -73,8 +77,14 @@ export const useDirectConverter = () => {
 
   useEffect(() => {
     for (let i = 0; i < playerCount; i++) {
+      if (playerDirections[i] === "center") {
+        setPreDirections(["center", "center", "center", "center"]);
+      }
       if (
-        ((token[i] && cameraDirections[i] !== "center") || phase !== "arrow") &&
+        ((token[i] &&
+          (preDirections[i] !== "center" ||
+            cameraDirections[i] !== "center")) ||
+          phase !== "arrow") &&
         cameraDirections[i] !== null
       ) {
         setplayerDirections(i, cameraDirections[i]);
