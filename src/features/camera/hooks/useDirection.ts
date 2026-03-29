@@ -13,16 +13,21 @@ const useDirection = () => {
     (state) => state.setCameraDirections,
   );
   const playerCount = useGameStore((state) => state.playerCount); //キャリブレーションをもとに変化するはん
-  const down_standard = useRef<number[]>([0.4, 0.4, 0.4, 0.4]);
-  const up_standard = useRef<number[]>([0.4, 0.4, 0.4, 0.4]);
-  const center_standard = useRef<number[]>([0.4, 0.4, 0.4, 0.4]);
+  const down_standard = useGameStore.getState().down_standard;
+  const up_standard = useGameStore.getState().up_standard;
+  const setUp_standard = useGameStore((state) => state.setUp_standard);
+  const setDown_standard = useGameStore((state) => state.setDown_standard);
 
   const timer = useGameStore((state) => state.calibration_timer);
   const calibration_timer = useRef<number>(timer);
+  const up_standard2 = useRef<number[]>(up_standard);
+  const down_standard2 = useRef<number[]>(down_standard);
 
   useEffect(() => {
     calibration_timer.current = timer;
-  }, [timer]);
+    up_standard2.current = up_standard;
+    down_standard2.current = down_standard;
+  }, [timer, up_standard, down_standard]);
 
   useEffect(() => {
     let faceLandmarker: FaceLandmarker;
@@ -101,25 +106,25 @@ const useDirection = () => {
             else if (yaw < -0.4) dir = "left";
             else if (
               pitch >
-              0.5 * down_standard.current[sectorIndex] +
-                0.5 * center_standard.current[sectorIndex]
+              0.6 * down_standard2.current[sectorIndex] +
+                0.3 * up_standard2.current[sectorIndex]
             ) {
               dir = "down";
             } else if (
               pitch <
-              0.5 * up_standard.current[sectorIndex] +
-                0.5 * center_standard.current[sectorIndex]
+              0.3 * down_standard2.current[sectorIndex] +
+                0.6 * up_standard2.current[sectorIndex]
             )
               dir = "up";
-
-            if (calibration_timer.current === 9) {
-              down_standard.current[sectorIndex] = 0.3;
-            }
-            if (calibration_timer.current === 12) {
-              up_standard.current[sectorIndex] = -0.4;
-            }
-            if (calibration_timer.current === 15) {
-              center_standard.current[sectorIndex] = 0;
+            console.log(down_standard2.current);
+            if (
+              calibration_timer.current > 9 &&
+              calibration_timer.current < 15
+            ) {
+              if (pitch < up_standard2.current[sectorIndex])
+                setUp_standard(sectorIndex, pitch);
+              if (pitch > down_standard2.current[sectorIndex])
+                setDown_standard(sectorIndex, pitch);
             }
 
             // 計算したエリア（インデックス）の方向を上書き
