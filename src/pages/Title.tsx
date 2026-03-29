@@ -157,7 +157,7 @@ const Title: React.FC = () => {
 
   return (
     <div className="game-container">
-      <div className="back" onClick={clickBack}></div>
+      <div className="back-beach" onClick={clickBack}></div>
       <img src={AchieveButton} className="menu-button" onClick={clickMenu} />
       <audio ref={audioRef} src={Bgm} autoPlay loop />
       <img src={logo} className="title-logo" />

@@ -32,6 +32,17 @@ body,
   background-repeat: no-repeat;
 }
 
+.back-beach {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../assets/beach.png");
+  image-rendering: pixelated;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .back-sea {
   top: 0px;
   position: absolute;
