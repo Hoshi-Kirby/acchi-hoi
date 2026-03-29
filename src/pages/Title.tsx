@@ -111,8 +111,7 @@ const Title: React.FC = () => {
       setIsOpen(6, true);
     }
     if (isClear[6]) {
-      setIsOpen(1, true);
-      setIsOpen(7, true);
+      setIsOpen(4, true);
     }
     if (isClear[7]) {
       setIsOpen(1, true);
@@ -193,7 +192,7 @@ const Title: React.FC = () => {
             style={{ top: "calc(50% - 100px)", left: "calc(50% - 100px)" }}
           />
           <div
-            className={`line line-horizontal ${isClear[5] ? "active" : ""}`}
+            className={`line line-horizontal ${isClear[5] || isClear[6] ? "active" : ""}`}
             style={{ top: "calc(50% - 100px)", left: "calc(50% + 100px)" }}
           />
           <div
@@ -205,11 +204,11 @@ const Title: React.FC = () => {
             style={{ top: "calc(50% - 100px)", left: "calc(50% - 100px)" }}
           />
           <div
-            className={`line line-vertical ${isClear[6] || isClear[7] ? "active" : ""}`}
+            className={`line line-vertical ${isClear[7] ? "active" : ""}`}
             style={{ top: "calc(50% - 100px)", left: "calc(50% + 100px)" }}
           />
           <div
-            className={`line line-vertical ${isClear[1] || isClear[6] || isClear[7] ? "active" : ""}`}
+            className={`line line-vertical ${isClear[1] || isClear[7] ? "active" : ""}`}
             style={{ top: "calc(50% + 100px)", left: "calc(50% + 100px)" }}
           />
 
@@ -305,33 +304,13 @@ const Title: React.FC = () => {
 
           <div
             className="cell"
-            style={{ top: "calc(50% - 100px)", left: "calc(50% - 100px)" }}
-          >
-            <img
-              className={`arrow ${
-                isClear[5] ? "clear" : isOpen[5] ? "normal" : "disabled"
-              }`}
-              src={arrowImages["right"]}
-            />
-            {(isOpen[5] || isClear[5]) && (
-              <div className="label">
-                {isClear[5] && <div className="title">脊髄反射</div>}
-                <div className="desc">
-                  タイムアタックを２５秒以内にクリアした。
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div
-            className="cell"
             style={{ top: "calc(50% - 100px)", left: "calc(50% + 100px)" }}
           >
             <img
               className={`arrow ${
                 isClear[6] ? "clear" : isOpen[6] ? "normal" : "disabled"
               }`}
-              src={arrowImages["down"]}
+              src={arrowImages["right"]}
             />
             {(isOpen[6] || isClear[6]) && (
               <div className="label">
@@ -383,6 +362,26 @@ const Title: React.FC = () => {
               )}
             </div>
           )}
+
+          <div
+            className="cell"
+            style={{ top: "calc(50% - 100px)", left: "calc(50% - 100px)" }}
+          >
+            <img
+              className={`arrow ${
+                isClear[5] ? "clear" : isOpen[5] ? "normal" : "disabled"
+              }`}
+              src={arrowImages["right"]}
+            />
+            {(isOpen[5] || isClear[5]) && (
+              <div className="label">
+                {isClear[5] && <div className="title">脊髄反射</div>}
+                <div className="desc">
+                  タイムアタックを２５秒以内にクリアした。
+                </div>
+              </div>
+            )}
+          </div>
 
           <button className="back-button" onClick={BB}>
             戻る
