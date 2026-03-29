@@ -35,6 +35,7 @@ const Result: React.FC = () => {
   const hasAchieved = useGameStore((state) => state.hasAchieved);
   const setHasAchieved = useGameStore((state) => state.setHasAchieved);
   const [Clear, setClear] = useState([...isClear]);
+  const [isMenu, setIsMenu] = useState<boolean>(false);
 
   indexedScores.sort((a, b) => b.score - a.score);
   const sortedValues = indexedScores.map((item) => item.score);
@@ -83,7 +84,13 @@ const Result: React.FC = () => {
     navigate("/");
   };
   const rank = () => {
-    playSoundB();
+    playSoundA();
+    setIsMenu(true);
+  };
+
+  const BB = () => {
+    playSoundA();
+    setIsMenu(false);
   };
   const audioRefA = useRef<HTMLAudioElement | null>(null);
   const playSoundA = () => {
@@ -185,6 +192,12 @@ const Result: React.FC = () => {
       <button className="rank-button" onClick={rank}>
         ランキング
       </button>
+
+      <div className={`overlay ${isMenu ? "open" : ""}`}>
+        <button className="back-button" onClick={BB}>
+          戻る
+        </button>
+      </div>
 
       <div className="achievement-layer">
         <AchievementPopup Clear={Clear[5]} title="脊髄反射" />
