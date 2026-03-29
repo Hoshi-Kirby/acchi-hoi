@@ -141,21 +141,23 @@ const Result: React.FC = () => {
         <audio ref={audioRef} src={BGM2} autoPlay loop />
       )}
       <div className="resultWrapper">
-        <img src={resultFrame} alt="result" className="resultImage" />
         <div className="result-text">結果発表</div>
-        {!isTimeAtack ? (
-          <div className="result-table">
-            {Array.from({ length: playerCount }).map((_, i) => (
-              <div className="result-packet" key={i}>
-                {i + 1}位 {sortedIndices[i] + 1}p {sortedValues[i]}pt
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="result-table">
-            <div className="result-packet">　　{timeScoreS}s</div>
-          </div>
-        )}
+        <div className="result-wrapper">
+          <img src={resultFrame} alt="result" className="resultImage" />
+          {!isTimeAtack ? (
+            <div className="result-table">
+              {Array.from({ length: playerCount }).map((_, i) => (
+                <div className="result-packet" key={i}>
+                  {i + 1}位 {sortedIndices[i] + 1}p {sortedValues[i]}pt
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="result-table">
+              <div className="result-packet">　　{timeScoreS}s</div>
+            </div>
+          )}
+        </div>
 
         <div className="HighScore">
           {!isTimeAtack ? (

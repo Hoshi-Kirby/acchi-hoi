@@ -973,12 +973,10 @@ body,
   /* 縦中央 */
   height: 100vh;
 }
-
-.resultImage {
+.result-wrapper {
   width: 70vw;
   display: flex;
   width: 30%;
-  /* 画面幅の90% */
   max-width: none;
   /* max-width制限を解除 */
   height: 50vw;
@@ -988,9 +986,17 @@ body,
   z-index: -10;
 }
 
+.resultImage {
+  width: 100%;
+  height: 100%;
+
+  z-index: -10;
+}
+
 .result-table {
   position: absolute;
-  top: 35%;
+  width: 100%;
+  top: 0px;
   left: 50%;
   transform: translate(-50%, 0%);
   font-size: 48px;

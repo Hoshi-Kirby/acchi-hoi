@@ -15,6 +15,7 @@ import BGm from "../assets/settingBGM.mp3";
 const Setup: React.FC = () => {
   // グローバル変数
   const playerCount = useGameStore((state) => state.playerCount);
+  const setPlayerCount = useGameStore((state) => state.setPlayerCount);
   const increasePlayerCount = useGameStore(
     (state) => state.increasePlayerCount,
   );
@@ -35,9 +36,9 @@ const Setup: React.FC = () => {
 
   const [addC, setAddC] = useState<string[]>(["", "", ""]);
 
-  const setCalibration_timer = useGameStore(
-    (state) => state.setCalibration_timer,
-  );
+  // const setCalibration_timer = useGameStore(
+  //   (state) => state.setCalibration_timer,
+  // );
 
   const isClear = useGameStore((state) => state.isClear);
   const setIsClear = useGameStore((state) => state.setIsClear);
@@ -85,7 +86,7 @@ const Setup: React.FC = () => {
   };
   const increaseNumber = () => {
     playSoundA();
-    if (playerCount < 4) {
+    if (playerCount < 4 && !isTimeAtack) {
       increasePlayerCount();
     }
   };
@@ -113,6 +114,7 @@ const Setup: React.FC = () => {
     } else {
       setIsPointSystem(true);
       setIsTimeAtack(true);
+      setPlayerCount(1);
     }
   };
 
