@@ -62,8 +62,8 @@ const Result: React.FC = () => {
       setScore(i, 0);
       setLifes(i, 3);
     }
-    setRound(1);
     navigate("/Play");
+    setRound(1);
   };
   const GotoSetting = () => {
     playSoundA();
