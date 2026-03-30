@@ -98,6 +98,15 @@ const Result: React.FC = () => {
     setIsMenu(false);
   };
   const GN = () => {};
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+
+    const filtered = input
+      .replace(/[^a-zA-ZＡ-Ｚａ-ｚ0-9０-９ぁ-んァ-ン一-龠_-ー]/g, "")
+      .slice(0, 10); // 10文字で切り詰め
+
+    setText(filtered);
+  };
   const audioRefA = useRef<HTMLAudioElement | null>(null);
   const playSoundA = () => {
     if (!audioRefA.current) {
@@ -211,7 +220,12 @@ const Result: React.FC = () => {
         </button>
         <div className="rank-wrapper">
           <img src={rankFrame} alt="menu" className="rankImage" />
-          <div className="rank-text">a</div>
+          <div className="rank-text-left">残機制</div>
+          <div className="rank-text-right">タイムアタック</div>
+          <div className="my-text-left">あなたの最高記録</div>
+          <div className="my-text-right">あなたの最高記録</div>
+          <div className="my-left">{highScore}pt</div>
+          <div className="my-right">{highScoreS}s</div>
         </div>
         <div className="gt-wrapper">
           <div>
@@ -219,14 +233,13 @@ const Result: React.FC = () => {
               maxLength={10}
               type="text"
               value={text}
-              onChange={(e) => setText(e.target.value)}
+              onChange={handleChange}
               placeholder="ニックネーム(10文字まで)"
               className="input-box"
             />
-            <p>入力内容: {text}</p>
           </div>
           <button className="gt-button" onClick={GN}>
-            投稿する
+            自分のランキングを取得して記録を投稿する
           </button>
         </div>
       </div>
