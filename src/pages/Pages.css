@@ -1065,12 +1065,38 @@ body,
   /* 文字の色 */
 }
 
+.rank-wrapper {
+  position: fixed;
+}
+.rankImage {
+  image-rendering: pixelated;
+
+  width: 70vw;
+  /* 画面幅の90% */
+  max-width: none;
+  /* max-width制限を解除 */
+  height: auto;
+  z-index: 102;
+}
+.rank-text {
+  position: absolute; /* ← これが重要 */
+  top: 20%;
+  left: 20%;
+  color: red;
+  z-index: 103; /* 画像より大きくする */
+}
+
 .result-button:hover {
   background-image: url("../assets/button_Blue_2.png");
 }
 
 .result-button:active {
   background-image: url("../assets/button_Blue_3.png");
+}
+
+.gt-wrapper {
+  bottom: 40px;
+  width: 100%;
 }
 
 .input-box {
@@ -1112,4 +1138,25 @@ body,
 /* プレースホルダー */
 .input-box::placeholder {
   color: #a89b7a;
+}
+
+.gt-button {
+  image-rendering: pixelated;
+  position: absolute;
+  bottom: 40px;
+  right: 50px;
+  background-image: url("../assets/button_Gold_1.png");
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  /* ボタンの色 */
+  border: none;
+  font-size: 25px;
+  width: 180px;
+  height: 60px;
+  padding-bottom: 5px;
+  color: rgb(0, 0, 0);
+}
+.gt-button:hover {
+  background-image: url("../assets/button_Gold_2.png");
 }

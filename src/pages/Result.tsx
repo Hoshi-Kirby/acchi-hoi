@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../zustand";
 import { AchievementPopup } from "../features/game/components/AchievementPopup.tsx";
 import resultFrame from "../assets/resultFrame.png";
+import rankFrame from "../assets/rank.png";
 import Abutton from "../assets/buttonA.mp3";
 import Bbutton from "../assets/buttonD.mp3";
 import BGM1 from "../assets/resultBGMsummer.mp3";
@@ -96,6 +97,7 @@ const Result: React.FC = () => {
     playSoundA();
     setIsMenu(false);
   };
+  const GN = () => {};
   const audioRefA = useRef<HTMLAudioElement | null>(null);
   const playSoundA = () => {
     if (!audioRefA.current) {
@@ -207,16 +209,25 @@ const Result: React.FC = () => {
         <button className="back-button" onClick={BB}>
           戻る
         </button>
-        <div>
-          <input
-            maxLength={10}
-            type="text"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="ニックネーム(10文字まで)"
-            className="input-box"
-          />
-          <p>入力内容: {text}</p>
+        <div className="rank-wrapper">
+          <img src={rankFrame} alt="menu" className="rankImage" />
+          <div className="rank-text">a</div>
+        </div>
+        <div className="gt-wrapper">
+          <div>
+            <input
+              maxLength={10}
+              type="text"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              placeholder="ニックネーム(10文字まで)"
+              className="input-box"
+            />
+            <p>入力内容: {text}</p>
+          </div>
+          <button className="gt-button" onClick={GN}>
+            投稿する
+          </button>
         </div>
       </div>
 
