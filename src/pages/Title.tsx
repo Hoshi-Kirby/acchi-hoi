@@ -150,16 +150,22 @@ const Title: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = 0.2; // 音量を20%に設定
-    }
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.volume = 0.2;
+    audio.play();
+
+    return () => {
+      audio.pause();
+    };
   }, []);
 
   return (
     <div className="game-container">
       <div className="back-beach" onClick={clickBack}></div>
       <img src={AchieveButton} className="menu-button" onClick={clickMenu} />
-      <audio ref={audioRef} src={Bgm} autoPlay loop />
+      <audio ref={audioRef} src={Bgm} loop />
       <img src={logo} className="title-logo" />
       <button className="title-start-button" onClick={clickStart}>
         Start
@@ -377,7 +383,7 @@ const Title: React.FC = () => {
               <div className="label">
                 {isClear[5] && <div className="title">脊髄反射</div>}
                 <div className="desc">
-                  タイムアタックを２５秒以内にクリアした。
+                  タイムアタックを２０秒以内にクリアした。
                 </div>
               </div>
             )}
