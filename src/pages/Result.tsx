@@ -38,6 +38,8 @@ const Result: React.FC = () => {
   const [isMenu, setIsMenu] = useState<boolean>(false);
   const setResultEffect = useGameStore((state) => state.setResultEffect);
 
+  const [text, setText] = useState("");
+
   indexedScores.sort((a, b) => b.score - a.score);
   const sortedValues = indexedScores.map((item) => item.score);
   const sortedIndices = indexedScores.map((item) => item.index);
@@ -140,9 +142,15 @@ const Result: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = 0.2; // 音量を20%に設定
-    }
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.volume = 0.2;
+    audio.play();
+
+    return () => {
+      audio.pause();
+    };
   }, []);
   return (
     <div className="game-container">
@@ -199,6 +207,17 @@ const Result: React.FC = () => {
         <button className="back-button" onClick={BB}>
           戻る
         </button>
+        <div>
+          <input
+            maxLength={10}
+            type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="ニックネーム(10文字まで)"
+            className="input-box"
+          />
+          <p>入力内容: {text}</p>
+        </div>
       </div>
 
       <div className="achievement-layer">
