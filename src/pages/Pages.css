@@ -1094,6 +1094,22 @@ body,
   color: rgb(0, 42, 74);
   z-index: 103; /* 画像より大きくする */
 }
+.rank-left {
+  position: absolute; /* ← これが重要 */
+  top: 20%;
+  left: 15%;
+  font-size: 24px;
+  color: rgb(0, 0, 0);
+  z-index: 103; /* 画像より大きくする */
+}
+.rank-right {
+  position: absolute; /* ← これが重要 */
+  top: 20%;
+  left: 60%;
+  font-size: 24px;
+  color: rgb(0, 0, 0);
+  z-index: 103; /* 画像より大きくする */
+}
 
 .my-text-left {
   position: absolute; /* ← これが重要 */

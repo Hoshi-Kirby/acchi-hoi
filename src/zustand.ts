@@ -218,6 +218,10 @@ export const useGameStore = create<gameState>((set) => ({
         i === index ? pitch : l,
       ),
     })),
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4246790598fe9329cb77b3ac36431d73b7862877
   uid: "",
   setUid: (uid: string) => set({ uid: uid }),
 }));
