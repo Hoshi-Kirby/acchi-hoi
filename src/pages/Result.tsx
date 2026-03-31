@@ -169,6 +169,7 @@ const Result: React.FC = () => {
     Store_bestScore(text, highScore, uid);
     Fetch_myTimeRank(uid);
     Fetch_myScoreRank(uid);
+    rank();
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
