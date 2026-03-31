@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../zustand";
 import { AchievementPopup } from "../features/game/components/AchievementPopup.tsx";
 import {
-  Login_db,
+  useLogin_db,
   Fetch_timeRank,
   Fetch_scoreRank,
   Store_bestTime,
@@ -63,6 +63,9 @@ const Result: React.FC = () => {
   const sortedValues = indexedScores.map((item) => item.score);
   const sortedIndices = indexedScores.map((item) => item.index);
 
+  const uid: string = useGameStore((state) => state.uid);
+  const login = useLogin_db();
+
   const achieve = (index: number) => {
     if (hasAchieved) return;
     // すでに達成している場合は何もしない
@@ -110,6 +113,7 @@ const Result: React.FC = () => {
   // データを非同期で取得したときにセット
   const rank = async () => {
     playSoundA();
+    setIsMenu(true);
     const fetchRanks = async () => {
       try {
         // Firestore から両方の QuerySnapshot を同時に取得
@@ -122,7 +126,7 @@ const Result: React.FC = () => {
         const scores: scoreRank[] = scoreSnapshot.docs.map((doc) => {
           const data = doc.data();
           return {
-            name: data.name,
+            name: data.playerName,
             score: data.score,
             time: data.time,
             uid: doc.id,
@@ -131,8 +135,9 @@ const Result: React.FC = () => {
 
         const times: timeRank[] = timeSnapshot.docs.map((doc) => {
           const data = doc.data();
+          console.log(data.playerName);
           return {
-            name: data.name,
+            name: data.playerName,
             score: data.score,
             time: data.time,
             uid: doc.id,
@@ -157,12 +162,13 @@ const Result: React.FC = () => {
     setIsMenu(false);
   };
   const GN = () => {
-    Login_db;
+    login();
+    console.log(uid);
 
-    Store_bestTime(text, highScoreS);
-    Store_bestScore(text, highScore);
-    Fetch_myTimeRank();
-    Fetch_myScoreRank();
+    Store_bestTime(text, highScoreS, uid);
+    Store_bestScore(text, highScore, uid);
+    Fetch_myTimeRank(uid);
+    Fetch_myScoreRank(uid);
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
@@ -288,20 +294,20 @@ const Result: React.FC = () => {
           <img src={rankFrame} alt="menu" className="rankImage" />
           <div className="rank-text-left">残機制</div>
           <div className="rank-text-right">タイムアタック</div>
-          <ul className="rank-left">
+          <ol className="rank-left">
             {scoreRankList?.map((item) => (
               <li key={item.uid}>
-                {item.name}: {item.score}点 ({item.time}s)
+                {item.name} {item.score}点
               </li>
             ))}
-          </ul>
-          <ul className="rank-right">
+          </ol>
+          <ol className="rank-right">
             {timeRankList?.map((item) => (
               <li key={item.uid}>
-                {item.name}: {item.time}s ({item.score}点)
+                {item.name} {item.time}s
               </li>
             ))}
-          </ul>
+          </ol>
           <div className="my-text-left">あなたの最高記録</div>
           <div className="my-text-right">あなたの最高記録</div>
           <div className="my-left">{highScore}pt</div>
@@ -319,7 +325,7 @@ const Result: React.FC = () => {
             />
           </div>
           <button className="gt-button" onClick={GN}>
-            自分のランキングを取得して記録を投稿する
+            記録をアップロード
           </button>
         </div>
       </div>

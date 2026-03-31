@@ -14,11 +14,22 @@ import {
   where,
 } from "firebase/firestore";
 
-export const Login_db = (): void => {
+export const useLogin_db = () => {
+  // フックの呼び出しはここ（トップレベル）で行う
   const setUid = useGameStore((state) => state.setUid);
-  signInWithPopup(auth, provider).then((result) => {
-    setUid(result.user.uid);
-  });
+
+  // 実際のログイン処理を行う関数を定義
+  const login = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      setUid(result.user.uid);
+    } catch (error) {
+      console.error("Login failed", error);
+    }
+  };
+
+  // 関数を返す
+  return login;
 };
 
 export const Fetch_timeRank = async () => {
