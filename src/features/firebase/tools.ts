@@ -34,12 +34,16 @@ export const useLogin_db = () => {
 
 export const Fetch_timeRank = async () => {
   // 1. スコアが高い順にトップ5を取得するクエリを作成
-  const q = query(collection(db, "ranking"), orderBy("score", "asc"), limit(5));
+  const q = query(
+    collection(db, "ranking"),
+    orderBy("score", "desc"),
+    limit(5),
+  );
   return await getDocs(q);
 };
 
 export const Fetch_scoreRank = async () => {
-  const q = query(collection(db, "ranking"), orderBy("time", "desc"), limit(5));
+  const q = query(collection(db, "ranking"), orderBy("time", "asc"), limit(5));
   return await getDocs(q);
 };
 //const test = Fetch_scoreRank()
