@@ -29,6 +29,7 @@ type gameState = {
   hasAchieved: boolean;
   up_standard: number[];
   down_standard: number[];
+  uid: string;
   increasePlayerCount: () => void;
   decreasePlayerCount: () => void;
   setPlayerCount: (c: number) => void;
@@ -64,6 +65,7 @@ type gameState = {
   setHasAchieved: (c: boolean) => void;
   setUp_standard: (index: number, pitch: number) => void;
   setDown_standard: (index: number, pitch: number) => void;
+  setUid: (uid: string) => void;
 };
 
 export const useGameStore = create<gameState>((set) => ({
@@ -216,6 +218,8 @@ export const useGameStore = create<gameState>((set) => ({
         i === index ? pitch : l,
       ),
     })),
+  uid: "",
+  setUid: (uid: string) => set({ uid: uid }),
 }));
 
 // まだやって無ければターミナルでnpm install zustandを実行する。

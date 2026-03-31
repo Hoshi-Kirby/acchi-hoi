@@ -3,6 +3,16 @@ import "./Pages.css";
 import { useNavigate } from "react-router-dom";
 import { useGameStore } from "../zustand";
 import { AchievementPopup } from "../features/game/components/AchievementPopup.tsx";
+import {
+  Login_db,
+  Fetch_timeRank,
+  Fetch_scoreRank,
+  Store_bestTime,
+  Store_bestScore,
+  Fetch_myTimeRank,
+  Fetch_myScoreRank,
+} from "../features/firebase/tools.ts";
+import type { QuerySnapshot, DocumentData } from "firebase/firestore";
 import resultFrame from "../assets/resultFrame.png";
 import rankFrame from "../assets/rank.png";
 import Abutton from "../assets/buttonA.mp3";
@@ -10,6 +20,8 @@ import Bbutton from "../assets/buttonD.mp3";
 import BGM1 from "../assets/resultBGMsummer.mp3";
 import BGM2 from "../assets/resultBGMwinter.mp3";
 import Cookies from "js-cookie";
+type scoreRank = { name: string; score: number; time: number; uid: string };
+type timeRank = { name: string; score: number; time: number; uid: string };
 
 const Result: React.FC = () => {
   const playerCount = useGameStore((state) => state.playerCount);
@@ -38,6 +50,12 @@ const Result: React.FC = () => {
   const [Clear, setClear] = useState([...isClear]);
   const [isMenu, setIsMenu] = useState<boolean>(false);
   const setResultEffect = useGameStore((state) => state.setResultEffect);
+  const [scoreRankList, setScoreRankList] = useState<scoreRank[] | undefined>(
+    undefined,
+  );
+  const [timeRankList, setTimeRankList] = useState<scoreRank[] | undefined>(
+    undefined,
+  );
 
   const [text, setText] = useState("");
 
@@ -88,16 +106,64 @@ const Result: React.FC = () => {
     setRound(1);
     navigate("/");
   };
-  const rank = () => {
+
+  // データを非同期で取得したときにセット
+  const rank = async () => {
     playSoundA();
-    setIsMenu(true);
+    const fetchRanks = async () => {
+      try {
+        // Firestore から両方の QuerySnapshot を同時に取得
+        const [scoreSnapshot, timeSnapshot]: [
+          QuerySnapshot<DocumentData>,
+          QuerySnapshot<DocumentData>,
+        ] = await Promise.all([Fetch_scoreRank(), Fetch_timeRank()]);
+
+        // QuerySnapshot を配列に変換
+        const scores: scoreRank[] = scoreSnapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            name: data.name,
+            score: data.score,
+            time: data.time,
+            uid: doc.id,
+          };
+        });
+
+        const times: timeRank[] = timeSnapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            name: data.name,
+            score: data.score,
+            time: data.time,
+            uid: doc.id,
+          };
+        });
+
+        // state にセット
+        setScoreRankList(scores);
+        setTimeRankList(times);
+      } catch (error) {
+        console.error("ランキング取得に失敗しました:", error);
+      }
+    };
+
+    fetchRanks();
   };
+
+  //test[i].playerName test[i].score test[i].time
 
   const BB = () => {
     playSoundA();
     setIsMenu(false);
   };
-  const GN = () => {};
+  const GN = () => {
+    Login_db;
+
+    Store_bestTime(text, highScoreS);
+    Store_bestScore(text, highScore);
+    Fetch_myTimeRank();
+    Fetch_myScoreRank();
+  };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
 
@@ -222,6 +288,20 @@ const Result: React.FC = () => {
           <img src={rankFrame} alt="menu" className="rankImage" />
           <div className="rank-text-left">残機制</div>
           <div className="rank-text-right">タイムアタック</div>
+          <ul className="rank-left">
+            {scoreRankList?.map((item) => (
+              <li key={item.uid}>
+                {item.name}: {item.score}点 ({item.time}s)
+              </li>
+            ))}
+          </ul>
+          <ul className="rank-right">
+            {timeRankList?.map((item) => (
+              <li key={item.uid}>
+                {item.name}: {item.time}s ({item.score}点)
+              </li>
+            ))}
+          </ul>
           <div className="my-text-left">あなたの最高記録</div>
           <div className="my-text-right">あなたの最高記録</div>
           <div className="my-left">{highScore}pt</div>
