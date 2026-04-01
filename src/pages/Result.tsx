@@ -59,6 +59,9 @@ const Result: React.FC = () => {
 
   const [text, setText] = useState("");
 
+  const [timeRank, setTimeRank] = useState<number | null>(null);
+  const [scoreRank, setScoreRank] = useState<number | null>(null);
+
   indexedScores.sort((a, b) => b.score - a.score);
   const sortedValues = indexedScores.map((item) => item.score);
   const sortedIndices = indexedScores.map((item) => item.index);
@@ -161,14 +164,19 @@ const Result: React.FC = () => {
     playSoundA();
     setIsMenu(false);
   };
-  const GN = () => {
+  const GN = async () => {
     login();
     console.log(uid);
 
-    Store_bestTime(text, highScoreS, uid);
-    Store_bestScore(text, highScore, uid);
-    Fetch_myTimeRank(uid);
-    Fetch_myScoreRank(uid);
+    await Store_bestTime(text, highScoreS, uid);
+    await Store_bestScore(text, highScore, uid);
+
+    const time = await Fetch_myTimeRank(uid);
+    const score = await Fetch_myScoreRank(uid);
+
+    setTimeRank(time ?? null);
+    setScoreRank(score ?? null);
+
     rank();
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -311,8 +319,17 @@ const Result: React.FC = () => {
           </ol>
           <div className="my-text-left">あなたの最高記録</div>
           <div className="my-text-right">あなたの最高記録</div>
-          <div className="my-left">{highScore}pt</div>
-          <div className="my-right">{highScoreS}s</div>
+          <div className="my-left">
+            {scoreRank !== null
+              ? `${scoreRank}位 ${highScore}pt`
+              : `${highScore}pt`}
+          </div>
+
+          <div className="my-right">
+            {timeRank !== null
+              ? `${timeRank}位 ${highScoreS}s`
+              : `${highScoreS}s`}
+          </div>
         </div>
         <div className="gt-wrapper">
           <div>
