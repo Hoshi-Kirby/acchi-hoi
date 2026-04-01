@@ -119,39 +119,41 @@ const Result: React.FC = () => {
     setIsMenu(true);
     const fetchRanks = async () => {
       try {
-        // Firestore から両方の QuerySnapshot を同時に取得
-        const [scoreSnapshot, timeSnapshot]: [
-          QuerySnapshot<DocumentData>,
-          QuerySnapshot<DocumentData>,
-        ] = await Promise.all([Fetch_scoreRank(), Fetch_timeRank()]);
+        const [scoreSnapshot, timeSnapshot] = await Promise.all([
+          Fetch_scoreRank(),
+          Fetch_timeRank(),
+        ]);
 
-        // QuerySnapshot を配列に変換
-        const scores: scoreRank[] = scoreSnapshot.docs.map((doc) => {
-          const data = doc.data();
-          return {
-            name: data.playerName,
-            score: data.score,
-            time: data.time,
+        // スコアランキングの整形とソート
+        const scores: scoreRank[] = scoreSnapshot.docs
+          .map((doc) => ({
+            name: doc.data().playerName,
+            score: doc.data().score,
+            time: doc.data().time,
             uid: doc.id,
-          };
-        });
+          }))
+          // 安全のためフロント側で降順（大きい順）にソート
+          .sort((a, b) => b.score - a.score)
+          // Top 10に絞り込み
+          .slice(0, 10);
 
-        const times: timeRank[] = timeSnapshot.docs.map((doc) => {
-          const data = doc.data();
-          console.log(data.playerName);
-          return {
-            name: data.playerName,
-            score: data.score,
-            time: data.time,
+        // 同様にタイムランキングも処理
+        const times = timeSnapshot.docs
+          .map((doc) => ({
+            name: doc.data().playerName,
+            score: doc.data().score,
+            time: doc.data().time,
             uid: doc.id,
-          };
-        });
+          }))
+          // タイムは昇順（短い順）にソート
+          .sort((a, b) => a.time - b.time)
+          .slice(0, 10);
 
-        // state にセット
+        // 状態を更新
         setScoreRankList(scores);
         setTimeRankList(times);
       } catch (error) {
-        console.error("ランキング取得に失敗しました:", error);
+        console.error("ランキングの取得に失敗しました:", error);
       }
     };
 
