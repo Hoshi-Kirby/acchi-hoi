@@ -49,9 +49,13 @@ const Title: React.FC = () => {
   const setIsOpen = useGameStore((state) => state.setIsOpen);
   const navigate = useNavigate();
   const [isMenu, setIsMenu] = useState<boolean>(false);
+  const [isHelp, setIsHelp] = useState<boolean>(false);
   const clickStart = () => {
     playSoundB();
     navigate("/Setup");
+  };
+  const clickHelp = () => {
+    setIsHelp(true);
   };
   const clickBack = () => {
     setIsSuka(false);
@@ -169,6 +173,9 @@ const Title: React.FC = () => {
       <img src={logo} className="title-logo" />
       <button className="title-start-button" onClick={clickStart}>
         Start
+      </button>
+      <button className="title-help-button" onClick={clickHelp}>
+        Help
       </button>
       <div className="delete-button-wrapper">
         <button
@@ -392,6 +399,30 @@ const Title: React.FC = () => {
           <button className="back-button" onClick={BB}>
             戻る
           </button>
+        </div>
+      </div>
+
+      <div className={`overlay ${isHelp ? "open" : ""}`}>
+        <div className="grid">
+          <div className="helpp">へるぷ</div>
+          <div className="helppp">
+            このゲームは2026年3月に実施されたSysHack2026で作られたプロジェクトで、開発期間が二週間だったため、クオリティが低い可能性がございます。なお、このヘルプページのみ開発期間外に作られたものです。
+          </div>
+          <div className="helppp">
+            このゲームのUIは、僕(Hoshi✩)のパソコンを基準に作られ、ほかのサイズ比のデバイスを考慮してないため、ほかのデバイスで開くとキャラクターが海に足を突っ込んでいたり、Pauseの文字がボタンと重なって押せなくなったり、予期せぬ改行が起きて見にくい場合がございます。スマホでのプレイは強く非推奨です。このヘルプも見切れてるかもしれません。その場合は文字を縮小してください。
+          </div>
+          <div className="helppp">
+            このゲームは、wiiのマリオパーティ9にある「あっちむくなホイ！」のパクリゲーです。ただし作品愛はあります。画面に矢印が複数表示されるので、指されていない方向を瞬時に向いてください。時間内に正しい方向を振り向ければ成功です。操作方法ですが、パソコンのカメラに向かった状態で顔を動かせば、認識されます。(キーボードの十字キーでも操作できます。)ゲーム開始時に、カメラを使ってキャリブレーションを行います。下を向いてくださいなどの指示が出ますが、音がないので下を向いてるときに次の指示が見えなくなると思います。気を付けてください。
+          </div>
+          <div className="helppp">
+            設定画面で、ゲームモードをポイント制、残機制、タイムアタックの中から選ぶことができます。ポイント制は10回以内にどれだけポイントが取れるかを競い、残機制は3回ミスするまでにどれだけポイントが取れるかを競い、タイムアタックはどれだけ早く10ポイントをとれるかを競います。タイムアタックは振り向いた瞬間判定されるので誤作動を起こしやすいです。そのほかのルールでも、一度振り向くと方向が固定されますが、一瞬であれば固定されないので、誤作動は起きにくいです。
+          </div>
+          <div className="helppp">
+            タイトルの左上にあるのは実績です。ゲームを一通り遊んだら、この実績をすべて解除してみてください。解除した実績の先にある実績は内容を見ることができます。
+          </div>
+          <div className="helppp">
+            このヘルプページにはめんどくさくて戻るボタンを作っていません。なので、読み終わったら再読み込みを押してタイトルに戻ってください。最高記録、実績はCookieに自動保存しているため、消えません。ただ、タイトルでロードしているため、タイトル以外でページの再読み込みをすると消えてしまいます。
+          </div>
         </div>
       </div>
     </div>
