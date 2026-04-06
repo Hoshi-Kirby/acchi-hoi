@@ -12,7 +12,6 @@ import {
   Fetch_myTimeRank,
   Fetch_myScoreRank,
 } from "../features/firebase/tools.ts";
-import type { QuerySnapshot, DocumentData } from "firebase/firestore";
 import resultFrame from "../assets/resultFrame.png";
 import rankFrame from "../assets/rank.png";
 import Abutton from "../assets/buttonA.mp3";
