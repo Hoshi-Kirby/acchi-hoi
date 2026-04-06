@@ -53,7 +53,7 @@ const Result: React.FC = () => {
   const [scoreRankList, setScoreRankList] = useState<scoreRank[] | undefined>(
     undefined,
   );
-  const [timeRankList, setTimeRankList] = useState<scoreRank[] | undefined>(
+  const [timeRankList, setTimeRankList] = useState<timeRank[] | undefined>(
     undefined,
   );
 
