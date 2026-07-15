@@ -1,92 +1,150 @@
-# React + TypeScript + Vite
+# あっちむくなホイ！
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Wii版マリオパーティ9の「あっちむくなホイ！」をベースにした、Webカメラで遊べるブラウザゲームです。
 
-Currently, two official plugins are available:
+> SysHack2026（2026年3月）で開発されたプロジェクトです。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌐 公開URL
 
-## React Compiler
+**https://Hoshi-Kirby.github.io/acchi-hoi**
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+---
 
-Note: This will impact Vite dev & build performances.
+## 🎮 ゲーム概要
 
-## Expanding the ESLint configuration
+### 基本プレイ
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+通常の「あっち向いてホイ」は1つの方向を指されて、それと異なる方向に顔を向けるゲームですが、  
+このゲームでは **複数の矢印が同時に表示** されます。それら **すべてと異なる方向** を瞬時に向いてください。
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- 最大4人同時プレイ対応
+- Webカメラによる顔認識 or キーボード（十字キー）で操作
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-# acchi-hoiのゲーム概要
-
-## 基本プレイ
-
-"あっち向いてホイ"、を拡張したゲームです。
-通常のあっち向いてホイは一つの方向を指定して、それ以外の方向に顔を向けるというものですが、このゲームでは複数の方向を同時に指定されます、それらの全てと異なる方向を向いてください。
-複数人で同時にプレイすることもできます。
-
-## 操作方法
+### 操作方法
 
 パソコンのwebカメラの前で実際にキャラクターの顔を向けたい方向に自分の顔を向けてください。
 骨格検知によって、現実の顔の動きがゲーム内のキャラクターに反映されます。
 また、精密な操作を可能にするためにゲーム前にキャリブレーションを行います。
 
-## ゲームモード
+> **キーボード操作**: 十字キー（↑↓←→）でも操作できます。
 
-タイムアタック、残機制、ポイント制の３つのゲームモードをプレイすることができます。
+---
+
+## 🕹️ 遊び方（画面ごとの操作手順）
+
+ゲームの画面遷移は以下の流れです：
+
+```
+タイトル画面 → 設定画面 → キャラ選択画面 → プレイ画面 → 結果画面
+```
+
+### 1. タイトル画面
+
+| 操作               | 説明                                                                    |
+| ------------------ | ----------------------------------------------------------------------- |
+| **Start** ボタン   | 設定画面へ進む                                                          |
+| **Help** ボタン    | ヘルプを表示する（戻るにはページを再読み込み）                          |
+| 左上のアイコン     | 実績一覧を表示する                                                      |
+| **記録を削除する** | 1回クリックで確認表示 → **ダブルクリック** でハイスコア・実績をリセット |
+
+### 2. 設定画面
+
+矢印（◁ ▷）をクリックして各項目を切り替えます。
+
+| 設定項目     | 選択肢                                           | 備考                                           |
+| ------------ | ------------------------------------------------ | ---------------------------------------------- |
+| 参加人数     | 1〜4人                                           | タイムアタック時は1人固定                      |
+| 表示モード   | **キャラ** / **映像**                            | キャラ＝アバター表示、映像＝カメラ映像直接表示 |
+| ゲームモード | **ポイント制** / **残機制** / **タイムアタック** | 詳しくは下記「ゲームモード詳細」               |
+
+- **Next** → キャラ選択画面へ（表示モードが「キャラ」の場合）
+- **GameStart!** → プレイ画面へ（表示モードが「映像」の場合）
+- **戻る** → タイトル画面へ
+
+### 3. キャラ選択画面（キャラモード時のみ）
+
+各プレイヤーのキャラクターを左右の矢印で切り替えます（男性 / 女性）。
+
+- **GameStart!** → プレイ画面へ
+- **戻る** → 設定画面へ
+
+### 4. プレイ画面
+
+#### キャリブレーション（ゲーム開始前に自動実行）
+
+カメラに向かい、指示に従って上下左右を向いて基準値を設定します。
+
+> ⚠️ **注意**: 下を向いた際に次の指示が見えなくなることがあります。音声ガイドはないため、気をつけてください。
+
+#### ゲーム本編
+
+1. カウントダウン（3→2→1）のあと、画面に **矢印が表示** される
+2. 矢印が指している方向 **以外** の方向に素早く顔を向ける
+3. 制限時間内に正しい方向を向ければ **成功（○）**、向けなければ **失敗（✕）**
+
+| ラウンド | 変化                                  |
+| -------- | ------------------------------------- |
+| 1〜12    | 矢印は4方向（上下左右）から表示       |
+| 13〜     | 矢印が最大8方向に増加（斜めにも表示） |
+| 17〜     | 矢印がランドルト環（Cの字）に変化     |
+| 21〜     | ランドルト環がさらに小さくなる        |
+| 26〜     | サイズがランダムに変わる              |
+
+#### メニューボタン（右上）
+
+プレイ中にメニューボタンを押すとポーズ画面が開きます。
+
+| 操作       | 説明               |
+| ---------- | ------------------ |
+| つづける   | ゲームに戻る       |
+| もういちど | 最初からやり直す   |
+| 設定へ     | 設定画面に戻る     |
+| タイトルへ | タイトル画面に戻る |
+
+### 5. 結果画面
+
+- スコアやタイムが表示されます
+- ハイスコア更新時は「ハイスコア更新！」と表示されます
+- **もういちど / 設定へ / タイトルへ** で画面を移動できます
+
+#### ランキング機能
+
+1. **ランキング** ボタンを押す
+2. 残機制・タイムアタックのTop10ランキングが表示される
+3. **ニックネーム**（10文字まで）を入力して「記録をアップロード」で自分の記録を登録
+
+---
+
+## 📋 ゲームモード詳細
+
+| モード             | ルール                         | 終了条件        | 人数    |
+| ------------------ | ------------------------------ | --------------- | ------- |
+| **ポイント制**     | 10ラウンドで何ポイント取れるか | 10ラウンド終了  | 1〜4人  |
+| **残機制**         | ライフ3、ミスするとライフ-1    | 全員のライフが0 | 1〜4人  |
+| **タイムアタック** | 10ポイント取るまでの時間を競う | 10ポイント獲得  | 1人専用 |
+
+> **タイムアタックの注意**: 振り向いた瞬間に判定されるため、誤作動を起こしやすいです。  
+> 他のモードでは、一瞬だけ向いた場合は方向が固定されないので誤作動は起きにくくなっています。
+
+---
+
+## 🧩 技術スタック
+
+| 技術                        | 用途                            |
+| --------------------------- | ------------------------------- |
+| React 19 + TypeScript       | UI構築                          |
+| Vite 8                      | ビルドツール                    |
+| MediaPipe (tasks-vision)    | Webカメラによる顔の骨格検知     |
+| Zustand                     | グローバル状態管理              |
+| Firebase (Auth + Firestore) | 匿名認証 + オンラインランキング |
+| js-cookie                   | ハイスコア・実績のローカル保存  |
+| GitHub Pages (gh-pages)     | ホスティング                    |
+
+---
+
+## ⚠️ 注意事項
+
+- **PC推奨**：スマートフォンでのプレイは強く非推奨です
+- **画面サイズ**：開発者のPC基準でUIが調整されているため、他のデバイスではレイアウト崩れが発生する可能性があります
+- **データ保存**：最高記録・実績はCookieに自動保存されますが、**タイトル画面以外でページを再読み込みすると消えてしまう**場合があります
+- **カメラ許可**：ブラウザのカメラ使用許可が必要です
